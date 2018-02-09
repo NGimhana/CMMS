@@ -22,4 +22,5 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
 
-Route::get('/jobs' , 'PageController@jobs');
+
+Route::resource('job', 'JobController');

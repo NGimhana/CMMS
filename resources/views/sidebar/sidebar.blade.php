@@ -34,7 +34,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a href="/dashboard"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
                     <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
                 </ul>
             </li>
@@ -95,15 +95,15 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-edit"></i> <span>Forms</span>
+                    <i class="fa fa-edit"></i> <span>Jobs</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                    <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                    <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                    <li><a href="/job"><i class="fa fa-circle-o"></i> Create Job</a></li>
+                    <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i>Edit Job </a></li>
+                    <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i>Remove Job</a></li>
                 </ul>
             </li>
             <li class="treeview">

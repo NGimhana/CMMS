@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class PageController extends Controller
 {
     public function index(){
@@ -11,6 +9,7 @@ class PageController extends Controller
     }
 
     public function jobs(){
-        return view('Pages.jobs');
+        $title = "Jobs";
+        return view('Pages.jobs')->with('title', $title);
     }
 }
