@@ -10,7 +10,6 @@
         <div class="box-body">
 
             {!! Form::open(['url' => 'foo/bar', 'method' => 'POST']) !!}
-
             {!! Form::close() !!}
 
         </div>
