@@ -12,24 +12,26 @@
 
             {!! Form::open(['action' => 'JobController@store', 'method' => 'POST' , 'class' => 'ui form']) !!}
             <div class="field">
-
                 {{ Form::label('type', 'Type')}}
                 {{ Form::select('type', ['E' => 'Electrical', 'P' => 'Plumbing'], 'E')}}
             </div>
 
-            <div class="field">
-                {{ Form::label('place', 'Place')}}
-                {{ Form::select('place', ['S' => 'Sumanadasa Building', 'G' => 'Goda Canteen'], 'S')}}
+            <div class=" two fields">
+                <div class="field">
+                    {{ Form::label('place', 'Place')}}
+                    {{ Form::select('place', ['S' => 'Sumanadasa Building', 'G' => 'Goda Canteen'], 'S')}}
+                </div>
+
+                <div class="field">
+                    {{ Form::label('sector', 'Sector')}}
+                    {{ Form::select('sector', ['L1' => 'Level 1 Lab', 'L2' => 'Level 2 Lab'], 'L1')}}
+                </div>
             </div>
 
-            <div class="field">
-                {{ Form::label('sector', 'Sector')}}
-                {{ Form::select('sector', ['L1' => 'Level 1 Lab', 'L2' => 'Level 2 Lab'], 'L1')}}
-            </div>
 
             <div class="field">
                 {{ Form::label('des', 'Description')}}
-                {{ Form::text('des', '',['class'=>'form-control' , 'placeholder' => 'Describe more the Job ']) }}
+                {{ Form::textarea('des', '',['class'=>'form-control' , 'placeholder' => 'Describe more the Job ']) }}
             </div>
 
             <div class="field">
