@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Job;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -11,10 +12,14 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $title = "Jobs";
-        return view('Pages.job')->with('title', $title);
+        $jobs = Job::all();
+        $data = ['title' => $title, 'jobs' => $jobs];
+        return view('job.jobs')->with('data', $data);
     }
 
     /**
@@ -25,7 +30,10 @@ class JobController extends Controller
     public function create()
     {
         $title = "Jobs";
-        return view('Pages.job')->with('title', $title);
+        $jobs = Job::all();
+        $data = ['title' => $title, 'jobs' => $jobs];
+        $title = "Jobs";
+        return view('job.create')->with('data', $data);
     }
 
     /**
@@ -36,13 +44,21 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'des' => 'required',
-
+        $validatedData = $request->validate([
+            'des' => 'bail|required|max:255',
         ]);
 
-        return 123;
+        $job = new Job;
 
+        $job->type = $request->type;
+        $job->place = $request->place;
+        $job->sector = $request->sector;
+        $job->description = $request->des;
+        $job->priority = $request->priority;
+
+        $job->save();
+
+        return redirect('/job/')->with('success', 'Job Created');
     }
 
     /**
@@ -89,4 +105,5 @@ class JobController extends Controller
     {
         //
     }
+
 }

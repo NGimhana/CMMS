@@ -10,6 +10,8 @@
         </div>
         <div class="box-body">
 
+            @include('inc.messages')
+
             {!! Form::open(['action' => 'JobController@store', 'method' => 'POST' , 'class' => 'ui form']) !!}
             <div class="field">
                 {{ Form::label('type', 'Type')}}
@@ -19,12 +21,12 @@
             <div class=" two fields">
                 <div class="field">
                     {{ Form::label('place', 'Place')}}
-                    {{ Form::select('place', ['S' => 'Sumanadasa Building', 'G' => 'Goda Canteen'], 'S')}}
+                    {{ Form::select('place', ['Sumandasa Building' => 'Sumanadasa Building', 'GodaCanteen' => 'Goda Canteen'], 'Sumandasa Building')}}
                 </div>
 
                 <div class="field">
                     {{ Form::label('sector', 'Sector')}}
-                    {{ Form::select('sector', ['L1' => 'Level 1 Lab', 'L2' => 'Level 2 Lab'], 'L1')}}
+                    {{ Form::select('sector', ['Level 1 Lab' => 'Level 1 Lab', 'Level 2 Lab' => 'Level 2 Lab'], 'Level 1 Lab')}}
                 </div>
             </div>
 
@@ -36,7 +38,7 @@
 
             <div class="field">
                 {{ Form::label('priority', 'Priority')}}
-                {{ Form::select('priority', ['Pre' => 'Schedule', 'Cor' => 'Immediate' , 'Predic'=>'Keep Eye'], 'Cor')}}
+                {{ Form::select('priority', ['Schedule' => 'Schedule', 'Immediate' => 'Immediate' , 'Keep Eye'=>'Keep Eye'], 'Immediate')}}
             </div>
 
             {{ Form::submit('Submit' , ['class'=>'ui button'])}}

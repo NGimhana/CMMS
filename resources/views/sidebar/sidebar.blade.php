@@ -101,9 +101,10 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/job"><i class="fa fa-circle-o"></i> Create Job</a></li>
+                    <li><a href="/job/create"><i class="fa fa-circle-o"></i> Create Job</a></li>
                     <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i>Edit Job </a></li>
                     <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i>Remove Job</a></li>
+                    <li><a href="/job/"><i class="fa fa-circle-o"></i>View My Requests</a></li>
                 </ul>
             </li>
             <li class="treeview">

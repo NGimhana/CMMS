@@ -22,6 +22,7 @@ class DashboardController extends Controller
     public function index()
     {
         $title = "Dashboard";
-        return view('dashboard')->with('title', $title);
+        $data = ['title' => $title];
+        return view('dashboard')->with('data', $data);
     }
 }
