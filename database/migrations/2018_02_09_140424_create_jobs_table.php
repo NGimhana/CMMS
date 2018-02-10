@@ -15,6 +15,12 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('type');//Electrical,
+            $table->string('place');//Sumanadasa Building
+            $table->string('sector');//CSE LAB 2
+            $table->string('description');//Power Socket Break Down
+            $table->string('priority');
+            //Maintenance, repair and operations (MRO) -> Preventive(Schedule,Planned Main.),Corrective(After Broken) , Predictive
             $table->timestamps();
         });
     }

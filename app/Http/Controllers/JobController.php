@@ -24,7 +24,8 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        $title = "Jobs";
+        return view('Pages.job')->with('title', $title);
     }
 
     /**
@@ -35,7 +36,13 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'des' => 'required',
+
+        ]);
+
+        return 123;
+
     }
 
     /**
