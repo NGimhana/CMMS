@@ -24,3 +24,5 @@ Route::get('/dashboard', 'DashboardController@index');
 
 
 Route::resource('job', 'JobController');
+Route::resource('building', 'BuildingController');
+Route::resource('sector', 'SectorController');
