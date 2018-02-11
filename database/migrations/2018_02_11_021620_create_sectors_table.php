@@ -15,6 +15,7 @@ class CreateSectorsTable extends Migration
     {
         Schema::create('sectors', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('building_id');
             $table->timestamps();
         });
     }
