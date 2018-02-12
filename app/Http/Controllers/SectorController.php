@@ -49,7 +49,7 @@ class SectorController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

@@ -1,5 +1,6 @@
 @extends('dashboard')
 
+
 @section('mainContent')
 
 
@@ -21,12 +22,14 @@
             <div class=" two fields">
                 <div class="field">
                     {{ Form::label('place', 'Place')}}
-                    {{ Form::select('place', ['Sumandasa Building' => 'Sumanadasa Building', 'GodaCanteen' => 'Goda Canteen'], 'Sumandasa Building')}}
+                    {{ Form::select('place', app(App\Http\Controllers\BuildingController::class)->getAllBuildings(), null,
+                    ['name'=>'building' , 'id'=>'building'])}}
+
                 </div>
 
                 <div class="field">
                     {{ Form::label('sector', 'Sector')}}
-                    {{ Form::select('sector', ['Level 1 Lab' => 'Level 1 Lab', 'Level 2 Lab' => 'Level 2 Lab'], 'Level 1 Lab')}}
+                    {{ Form::select('sector',  app(App\Http\Controllers\BuildingController::class)->getSectorsByDepartment(1) ,null)}}
                 </div>
             </div>
 
@@ -49,6 +52,17 @@
 
     </div>
 
+    <script>
+        $('#building').on('change', function (e) {
+            console.log(e);
+            var sector_id = e.target.value;
+
+            //ajax
+            $.get
+        });
+
+
+    </script>
 
 
 @endsection

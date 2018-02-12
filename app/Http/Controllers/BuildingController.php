@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Sector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BuildingController extends Controller
 {
@@ -45,7 +47,14 @@ class BuildingController extends Controller
      */
     public function show($id)
     {
-        //
+//        $sectors_name = DB::table('sectors')
+//            ->select('sector_name')
+//            ->where('building_id', '=', $id)
+//            ->get();
+//
+//        return $sectors_name;
+
+
     }
 
     /**
@@ -80,5 +89,18 @@ class BuildingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function getSectorsByDepartment($id)
+    {
+        $sectors = Sector::where('building_id', $id)->pluck('sector_name', 'id');
+        return $sectors;
+    }
+
+    public function getAllBuildings()
+    {
+        $buildings = DB::table('buildings')->pluck('building_name', 'id');
+        return ($buildings);
     }
 }
