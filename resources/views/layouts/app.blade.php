@@ -16,6 +16,20 @@
 
     {{--JQuery--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // page is now ready, initialize the calendar...
+
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+            })
+
+        });
+    </script>
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div id="app">

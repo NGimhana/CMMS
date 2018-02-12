@@ -22,7 +22,27 @@ class DashboardController extends Controller
     public function index()
     {
         $title = "Dashboard";
-        $data = ['title' => $title];
+
+
+        //First Event
+        $events[] = \Calendar::event(
+            "Event 1 ",//Title
+            true,      //FullDAy
+            '2018-2-12',//Start Time
+            '2018-2-13',//End Time
+            0//event ID
+        );
+
+        $caledar = \Calendar::addEvents($events)// Add and Array With Add Events
+        ->setOprions([
+            'firstDay' => 1
+        ])->setCallbacks([
+
+        ]);
+
+        $data = ['title' => $title, 'calendar' => $caledar];
+
+
         return view('dashboard')->with('data', $data);
     }
 }

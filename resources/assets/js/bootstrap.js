@@ -12,6 +12,7 @@ try {
 
     require('bootstrap-sass');
     require('admin-lte');
+    require('fullcalendar');
 } catch (e) {}
 
 /**
