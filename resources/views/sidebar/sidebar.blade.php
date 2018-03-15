@@ -53,14 +53,14 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>Remove Building</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="../widgets.html">
-                    <i class="fa fa-th"></i> <span>Widgets</span>
-                    <span class="pull-right-container">
-              <small class="label pull-right bg-green">Hot</small>
-            </span>
-                </a>
-            </li>
+            {{--<li>--}}
+                {{--<a href="../widgets.html">--}}
+                    {{--<i class="fa fa-th"></i> <span>Widgets</span>--}}
+                    {{--<span class="pull-right-container">--}}
+              {{--<small class="label pull-right bg-green">Hot</small>--}}
+            {{--</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
@@ -76,23 +76,23 @@
                     <li><a href="/sector"><i class="fa fa-circle-o"></i>View All Sectors</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-laptop"></i>
-                    <span>UI Elements</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                    <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                    <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                    <li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                    <li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                    <li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-                </ul>
-            </li>
+            {{--<li class="treeview">--}}
+                {{--<a href="#">--}}
+                    {{--<i class="fa fa-laptop"></i>--}}
+                    {{--<span>UI Elements</span>--}}
+                    {{--<span class="pull-right-container">--}}
+              {{--<i class="fa fa-angle-left pull-right"></i>--}}
+            {{--</span>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>--}}
+                    {{--<li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>--}}
+                    {{--<li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>--}}
+                    {{--<li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>--}}
+                    {{--<li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>--}}
+                    {{--<li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-edit"></i> <span>Jobs</span>
@@ -107,20 +107,20 @@
                     <li><a href="/job/"><i class="fa fa-circle-o"></i>View My Requests</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-table"></i> <span>Tables</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                    <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-                </ul>
-            </li>
+            {{--<li class="treeview">--}}
+                {{--<a href="#">--}}
+                    {{--<i class="fa fa-table"></i> <span>Tables</span>--}}
+                    {{--<span class="pull-right-container">--}}
+              {{--<i class="fa fa-angle-left pull-right"></i>--}}
+            {{--</span>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>--}}
+                    {{--<li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
             <li>
-                <a href="../calendar.html">
+                <a href="/calendar">
                     <i class="fa fa-calendar"></i> <span>Calendar</span>
                     <span class="pull-right-container">
               <small class="label pull-right bg-red">3</small>
@@ -128,74 +128,74 @@
             </span>
                 </a>
             </li>
-            <li>
-                <a href="../mailbox/mailbox.html">
-                    <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                    <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
-            </span>
-                </a>
-            </li>
-            <li class="treeview active">
-                <a href="#">
-                    <i class="fa fa-folder"></i> <span>Examples</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                    <li><a href="profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                    <li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                    <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                    <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                    <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                    <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                    <li><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                    <li class="active"><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-share"></i> <span>Multilevel</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                    <li class="treeview">
-                        <a href="#"><i class="fa fa-circle-o"></i> Level One
-                            <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                            <li class="treeview">
-                                <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                </ul>
-            </li>
-            <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-            <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-        </ul>
+            {{--<li>--}}
+                {{--<a href="../mailbox/mailbox.html">--}}
+                    {{--<i class="fa fa-envelope"></i> <span>Mailbox</span>--}}
+                    {{--<span class="pull-right-container">--}}
+              {{--<small class="label pull-right bg-yellow">12</small>--}}
+              {{--<small class="label pull-right bg-green">16</small>--}}
+              {{--<small class="label pull-right bg-red">5</small>--}}
+            {{--</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
+            {{--<li class="treeview active">--}}
+                {{--<a href="#">--}}
+                    {{--<i class="fa fa-folder"></i> <span>Examples</span>--}}
+                    {{--<span class="pull-right-container">--}}
+              {{--<i class="fa fa-angle-left pull-right"></i>--}}
+            {{--</span>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li><a href="invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>--}}
+                    {{--<li><a href="profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>--}}
+                    {{--<li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>--}}
+                    {{--<li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>--}}
+                    {{--<li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>--}}
+                    {{--<li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>--}}
+                    {{--<li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>--}}
+                    {{--<li><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>--}}
+                    {{--<li class="active"><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
+            {{--<li class="treeview">--}}
+                {{--<a href="#">--}}
+                    {{--<i class="fa fa-share"></i> <span>Multilevel</span>--}}
+                    {{--<span class="pull-right-container">--}}
+              {{--<i class="fa fa-angle-left pull-right"></i>--}}
+            {{--</span>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                    {{--<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>--}}
+                    {{--<li class="treeview">--}}
+                        {{--<a href="#"><i class="fa fa-circle-o"></i> Level One--}}
+                            {{--<span class="pull-right-container">--}}
+                  {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                {{--</span>--}}
+                        {{--</a>--}}
+                        {{--<ul class="treeview-menu">--}}
+                            {{--<li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>--}}
+                            {{--<li class="treeview">--}}
+                                {{--<a href="#"><i class="fa fa-circle-o"></i> Level Two--}}
+                                    {{--<span class="pull-right-container">--}}
+                      {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                    {{--</span>--}}
+                                {{--</a>--}}
+                                {{--<ul class="treeview-menu">--}}
+                                    {{--<li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>--}}
+                                    {{--<li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    {{--<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
+            {{--<li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>--}}
+            {{--<li class="header">LABELS</li>--}}
+            {{--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>--}}
+            {{--<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>--}}
+            {{--<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>--}}
+        {{--</ul>--}}
     </section>
     <!-- /.sidebar -->
 </aside>
