@@ -6,13 +6,17 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//@import '~bootstrap/scss/bootstrap';
 
-//import admin-lte CSS
-@import "~admin-lte/dist/css/AdminLTE.css";
-@import "~admin-lte/dist/css/skins/_all-skins.css";
+//Import Semantic
+@import url("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.css");
 
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css");
 //import FullCalendar CSS
 @import "~fullcalendar/dist/fullcalendar.css";
+
+
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}

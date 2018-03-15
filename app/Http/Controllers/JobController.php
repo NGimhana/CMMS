@@ -1,9 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
-use App\Job;
 use Illuminate\Http\Request;
+use App\Job;
+use App\Http\Resources\JobResource;
+
+
 
 class JobController extends Controller
 {
@@ -12,14 +16,19 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
     public function index()
     {
-        $title = "Jobs";
-        $jobs = Job::all();
-        $data = ['title' => $title, 'jobs' => $jobs];
-        return view('job.jobs')->with('data', $data);
+        //Header is the title of the Page
+        $header="JobTasks";
+
+        //SubHeader is the Subtitle of the Page
+        $subheader='@MaintenaceJobBoard';
+                
+        //Creating a Array of Data to send
+        $data = (['header'=> $header , 'subheader'=> $subheader]);        
+        
+        //Return a Page with With values
+        return view('Pages.job')->with('data',$data);                                
     }
 
     /**
@@ -29,42 +38,35 @@ class JobController extends Controller
      */
     public function create()
     {
-        $title = "Jobs";
-        $jobs = Job::all();
-        $data = ['title' => $title, 'jobs' => $jobs];
-        $title = "Jobs";
-        return view('job.create')->with('data', $data);
+        
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'des' => 'bail|required|max:255',
-        ]);
-
         $job = new Job;
 
+        $job->id = $request->id;
         $job->type = $request->type;
         $job->place = $request->place;
         $job->sector = $request->sector;
-        $job->description = $request->des;
+        $job->description = $request->description;
         $job->priority = $request->priority;
 
-        $job->save();
-
-        return redirect('/job/')->with('success', 'Job Created');
+        if($job->save()){
+            return new JobResource($job);
+        }        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -75,7 +77,7 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -86,8 +88,8 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -98,12 +100,11 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
-
 }

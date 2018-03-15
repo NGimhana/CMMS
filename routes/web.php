@@ -11,24 +11,23 @@
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-
+//Routing To index
 Route::get('/','PageController@index');
-Auth::routes();
-
-Route::get('/dashboard', 'DashboardController@index');
-
-Auth::routes();
-
-Route::get('/dashboard', 'DashboardController@index');
 
 
+//Routing to Jobs Page
 Route::resource('job', 'JobController');
-Route::resource('building', 'BuildingController');
-Route::resource('sector', 'SectorController');
 
-Route::get('/calendar', function () {
-    $title = "Calendar";
-    $data = ['title' => $title];
-    return view('calendar')->with('data', $data);
-});
+//Authentication Routes
+Auth::routes();
+
+//Routing to Calendar Pages
+Route::resource('calendar','CalendarController');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+

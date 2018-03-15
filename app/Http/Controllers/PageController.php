@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class PageController extends Controller
 {
     public function index(){
-        return view('auth.login');
+        $header="Dashboard";
+        $subheader="@SystemDashboard";
+        $data=['header'=>$header,'subheader'=>$subheader];
+        return view('Pages.index')->with('data',$data);
     }
 
-    public function jobs(){
-        $title = "Jobs";
-        return view('Pages.jobs')->with('title', $title);
+    public function start(){        
+        return view('Pages.HomePage');
     }
+    // public function job(){
+    //     $header="JobTasks";
+    //     $subheader="Maintenace Job Board";
+    //     $data = ['header'=> $header , 'subheader'=>$subheader];
+    //     return view('Pages.job')->with('data',$data);
+    // }
 }

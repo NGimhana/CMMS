@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'CMMS'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -110,23 +110,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => env('APP_LOG', 'single'),
-
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -162,9 +145,10 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,   
+        Collective\Html\HtmlServiceProvider::class,    
+        MaddHatter\LaravelFullCalendar\ServiceProvider::class, 
+
         /*
          * Package Service Providers...
          */
@@ -225,10 +209,10 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class,
+        'View' => Illuminate\Support\Facades\View::class,  
         'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+        'Html' => Collective\Html\HtmlFacade::class,    
+        'calendar' => MaddHatter\LaravelFullCalendar\Facades\Calendar::class,
 
     ],
 
