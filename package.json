@@ -21,9 +21,10 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "fullcalendar": "^3.8.2",
     "vue-axios": "^2.0.2",
     "vue-resource": "^1.4.0",
     "vue-router": "^3.0.1",
-    "fullcalendar": "^3.8.2"
+    "vuetify": "^1.0.8"
   }
 }

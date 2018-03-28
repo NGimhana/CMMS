@@ -18,13 +18,29 @@
   
 
         //Full Calendar
-        $(document).ready(function() {
+        $(document).ready(function() {            
+
             $('#calendar').fullCalendar({
-                defaultDate: '2014-09-12',
-                editable: true,
-                eventLimit: true, // allow "more" link when too many events
-            });
+            events: [
+              {
+                title  : 'event1',
+                start  : '2018-03-17'
+              },
+              {
+                title  : 'event2',
+                start  : '2018-03-17',
+                end    : '2018-03-20'
+              },
+              {
+                title  : 'event3',
+                start  : '2010-01-09T12:30:00',
+                allDay : false // will make the time show
+              }
+            ]
+          });
         });
+
+        
 
     </script>
 

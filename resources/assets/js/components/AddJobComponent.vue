@@ -34,7 +34,28 @@
     <label>Job Sheduled Date</label>
     <input name="scheduledate" v-model="scheduledate" placeholder="now()" type="date">
   </div>
+
+  <div class="field">
+    <label>Job End Date</label>
+    <input name="enddate" v-model="enddate" placeholder="now()" type="date">
+  </div>
   
+  
+  
+  <div class="field">
+
+    <label>Select Frequency</label>
+    <select name="frequency" v-model="frequency">  
+
+        <option value="3 months">3 months</option>
+        <option value="6 months">6 months</option>
+        <option value="1 year">12 months</option>
+        <option value="2 year">24 months</option>
+
+    </select>
+
+  </div>
+
 </form>
 
 
@@ -43,6 +64,7 @@
     <button class="ui button" v-on:click="AddJob" type="submit">Submit</button>    
     <div class="ui cancel button">Cancel</div>
   </div>
+
 </div>
 
 
@@ -72,6 +94,9 @@ export default {
       description:"",
       priority:"",
       scheduledate:"",
+      enddate:'',
+      frequency:'',
+      
     };
   },
 
@@ -102,14 +127,33 @@ export default {
       console.log("clicked");
     },
     AddJob:function() {
-      this.$http.post('http://cmms.com/api/job', 
+      
+      // //Add Job Task
+      // this.$http.post('http://cmms.com/api/job', 
+      // {                  
+      //     type:this.type,
+      //     place:this.place,
+      //     sector:this.sector,
+      //     description:this.description,
+      //     priority:this.priority,
+      //     scheduledate:this.scheduledate,
+      //     frequency:this.frequency
+
+      // }
+      
+      // ).then(response => {        
+      //   console.log(response.body)
+      //   this.$router.go("http://cmms.com/job");
+      //   }, response => {
+      //    console.log(response)
+      // });
+      
+      //Add Calendar Event
+       this.$http.post('http://cmms.com/api/calendar', 
       {                  
-          type:this.type,
-          place:this.place,
-          sector:this.sector,
-          description:this.description,
-          priority:this.priority,
-          scheduledate:this.scheduledate
+          starteddate:this.scheduledate,
+          enddate:this.enddate,
+          frequency:this.frequency
 
       }
       
@@ -119,7 +163,6 @@ export default {
         }, response => {
          console.log(response)
       });
-      
     },
     
   }

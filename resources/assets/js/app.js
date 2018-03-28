@@ -8,6 +8,11 @@
 import VueResource from 'vue-resource'; 
 import VueRouter from 'vue-router';
 import AllJobsComponent from './components/AllJobsComponent';
+
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+ 
+
 //import Routes from './routes';
 
 
@@ -40,6 +45,7 @@ Vue.component('calendar-component', require('./components/CalendarComponent.vue'
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
+Vue.use(Vuetify);
 
 const router = new VueRouter({
     mode:'history',    

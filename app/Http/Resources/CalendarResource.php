@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class JobResource extends JsonResource
+class CalendarResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +16,9 @@ class JobResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'type'=>$this->type,
-            'place'=>$this->place,
-            'sector'=>$this->sector,
-            'description'=>$this->description,
-            'priority'=>$this->priority,
-            'scheduledate'=>$this->scheduledate, 
-            'frequency'=>$this->frequency
+            'starteddate'=>$this->starteddate,
+            'enddate'=>$this->enddate,
+            'frequency'=>$this->frequency,            
         ];
     }
 }

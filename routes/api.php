@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use App\Job;
+use App\Calendar;
 use App\Http\Resources\JobResource;
+use App\Http\Resources\CalendarResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/job', function () {
     return JobResource::collection(Job::all());
 });
+
+//List All Events
+Route::get('/calendar', function () {
+    return CalendarResource::collection(Calendar::all());
+});
+
+//Add Calendar Event
+Route::post('/calendar','CalendarController@store');
 
 Route::post('/job','JobController@store');
 

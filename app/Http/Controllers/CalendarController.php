@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Calendar;
+use App\Http\Resources\CalendarResource;
 
 class CalendarController extends Controller
 {
@@ -44,7 +46,16 @@ class CalendarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $calendar = new Calendar;
+
+        $calendar->id = $request->id;
+        $calendar->starteddate = $request->starteddate;
+        $calendar->enddate = $request->enddate;
+        $calendar->frequency = $request->frequency;        
+
+        if($calendar->save()){
+            return new CalendarResource($calendar);
+        }        
     }
 
     /**

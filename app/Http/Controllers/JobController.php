@@ -57,6 +57,8 @@ class JobController extends Controller
         $job->sector = $request->sector;
         $job->description = $request->description;
         $job->priority = $request->priority;
+        $job->JobScheduledendDate  = $request->scheduledate;
+        $job->frequency = $request->frequency;
 
         if($job->save()){
             return new JobResource($job);

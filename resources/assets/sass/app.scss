@@ -14,6 +14,9 @@
 //import FullCalendar CSS
 @import "~fullcalendar/dist/fullcalendar.css";
 
+//import vuerify
+@import '~vuetify/dist/vuetify.min.css' ;// Ensure you are using css-loader
+
 
 
 .navbar-laravel {
