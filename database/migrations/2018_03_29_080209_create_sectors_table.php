@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateSectorsTable extends Migration
 {
@@ -14,8 +14,10 @@ class CreateSectorsTable extends Migration
     public function up()
     {
         Schema::create('sectors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('building_id');
+            $table->increments('id')->unsigned();
+            $table->integer('building_id')->unsigned();
+            $table->foreign('building_id')->references('id')->on('buildings');
+            $table->string('description');
             $table->timestamps();
         });
     }

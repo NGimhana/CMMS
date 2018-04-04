@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $username=Auth::user()->name;
+        $header="Dashboard";
+        $subheader="@SystemDashboard";
+        $data=['username'=>$username,'header'=>$header,'subheader'=>$subheader];
+        return view('Pages.index')->with('data',$data);
     }
 }

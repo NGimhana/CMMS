@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Immediate_Job;
 use Illuminate\Support\Facades\DB;
 
-use Illuminate\Http\Request;
-use App\Job;
+use Illuminate\Http\Request;;
 use App\Http\Resources\JobResource;
 
 
@@ -49,16 +49,20 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        $job = new Job;
+        $job = new Immediate_Job();
 
         $job->id = $request->id;
         $job->type = $request->type;
-        $job->place = $request->place;
-        $job->sector = $request->sector;
-        $job->description = $request->description;
+        $job->asset_id = $request->asset_id;
         $job->priority = $request->priority;
-        $job->JobScheduledendDate  = $request->scheduledate;
-        $job->frequency = $request->frequency;
+        $job->description = $request->description;
+
+        $job->Started_Date = $request->Started_Date;
+        $job->Scheduled_End_Date = $request->Scheduled_End_Date;
+        $job->Ended_Date = $request->Ended_Date;
+        $job->created_user_id = $request->created_user_id;
+        $job->Assigned_Person_id = $request->Assigned_Person_id;
+
 
         if($job->save()){
             return new JobResource($job);

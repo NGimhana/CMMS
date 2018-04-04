@@ -1,7 +1,7 @@
 <?php
 
+use App\Immediate_Job;
 use Illuminate\Http\Request;
-use App\Job;
 use App\Calendar;
 use App\Http\Resources\JobResource;
 use App\Http\Resources\CalendarResource;
@@ -25,13 +25,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //List All Jobs
 Route::get('/job', function () {
-    return JobResource::collection(Job::all());
+    return JobResource::collection(Immediate_Job::all());
 });
 
 //List All Events
 Route::get('/calendar', function () {
     return CalendarResource::collection(Calendar::all());
 });
+
+
 
 //Add Calendar Event
 Route::post('/calendar','CalendarController@store');

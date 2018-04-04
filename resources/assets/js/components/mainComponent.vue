@@ -10,12 +10,16 @@
 
         <div class="right menu">
             <div class="ui dropdown">
-                <a class="ui right item" v-on:click="userMenu">            
-                    <i class="user icon"></i>User              
+                <a class="ui right item" v-on:click="userMenu">
+                    <form method="post">
+                        <i class="user icon"></i>{{ username }}
+                    </form>
+
                 </a>  
                 
-                <div class="menu">                                        
-                    <a class="item">Sign Out</a>                                             
+                <div class="menu">
+                    <!--<form method="POST" action="{{route}}"></form>-->
+                    <a class="item" href="/logout">Sign Out</a>
                     <a class="item">Edit Profile</a>                                             
                 </div>       
                 
@@ -87,11 +91,13 @@
 <script>
 export default {
 
-  props:['header','subheader'],                                
+  props:['username','header','subheader'],
     
   data() {
     return {      
-        
+        username:'',
+        header:'',
+        subheader:'',
     };
   },
 
@@ -117,25 +123,14 @@ export default {
     userMenu: function() {
       $(".ui.dropdown").dropdown();
     },
-    fetchData:function(){
-        // fetch('http://jsonplaceholder.typicode.com/posts/').
-        //     then(res=>res.json()).then(res=>{
-        //         console.log(res.data);
-        //     })                
-    },
-    getHeader:function(){
-        console.log(this.header);
-        return this.header;
-    },
-    getSubHeader:function(){
-        console.log(this.subheader);
-        return this.subheader;
-    },
-    getJobs:function(){
-        this.jobDetails=JSON.parse(this.jobDetails);
-        console.log(this.jobDetails);
-        return this.jobDetails;
-    },
+
+    // logout(){
+    //     this.$http.get('/logout').then(response => {
+    //         return this.$http.get('login');
+    //     }, response => {
+    //         console.log(response.error);
+    //     });
+    // }
   }
 };
 </script>

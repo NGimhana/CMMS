@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateBuildingsTable extends Migration
 {
@@ -14,7 +14,8 @@ class CreateBuildingsTable extends Migration
     public function up()
     {
         Schema::create('buildings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
+            $table->string('description');
             $table->timestamps();
         });
     }

@@ -11,9 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 //Routing To index
 Route::get('/','PageController@index');
@@ -28,6 +25,8 @@ Auth::routes();
 //Routing to Calendar Pages
 Route::resource('calendar','CalendarController');
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

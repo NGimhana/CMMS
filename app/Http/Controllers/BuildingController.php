@@ -16,6 +16,7 @@ class BuildingController extends Controller
     {
         $buildings = DB::table('buildings')->pluck('building_name', 'id');
         return ($buildings);
+
     }
 
     /**

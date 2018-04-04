@@ -16,7 +16,7 @@ import Vuetify from 'vuetify';
 //import Routes from './routes';
 
 
-require('./bootstrap');
+//require('./bootstrap');
 require('./semantic-ui');
 
 
@@ -37,7 +37,7 @@ Vue.component('main-component', require('./components/mainComponent.vue'));
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('ongoingjobs-component', require('./components/onGoingJobs.vue'));
 Vue.component('completedjobs-component', require('./components/completedJobs.vue'));
-Vue.component('incompletejobs-component', require('./components/incompletejobs.vue'));
+Vue.component('incompletejobs-component', require('./components/IncompleteJobs.vue'));
 Vue.component('recentjobs-component', require('./components/RecentJobs.vue'));
 Vue.component('alljobs-component', require('./components/AllJobsComponent.vue'));
 Vue.component('addjob-component', require('./components/AddJobComponent.vue'));

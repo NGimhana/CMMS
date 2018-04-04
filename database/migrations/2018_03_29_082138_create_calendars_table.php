@@ -14,10 +14,11 @@ class CreateCalendarsTable extends Migration
     public function up()
     {
         Schema::create('calendars', function (Blueprint $table) {
-            $table->increments('id');
-            $table->date('StartedDate');
-            $table->date('EndDate');
-            $table->string('frequency');
+            $table->increments('id')->unsigned();
+            $table->integer('job_id')->unsigned();
+           // $table->foreign('job_id')->references('id')->on('immediate_jobs');
+            $table->integer('scheduled_job_id')->unsigned();
+            //$table->foreign('scheduled_job_id')->references('id')->on('scheduled_jobs');
             $table->timestamps();
         });
     }
