@@ -4,7 +4,7 @@
 
 
     <div id="app">       
-        <main-component username="{{ $data['username'] }}" header={{ $data['header'] }} subheader={{ $data['subheader']}}></main-component>
+        <main-component username="{{ $data['user']['username'] }}" header={{ $data['header'] }} subheader={{ $data['subheader']}}></main-component>
         <div style="padding:20px;">
             <div class="ui four doubling special cards">
                 <ongoingjobs-component></ongoingjobs-component>

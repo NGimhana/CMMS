@@ -12,7 +12,7 @@
             <div class="ui dropdown">
                 <a class="ui right item" v-on:click="userMenu">
                     <form method="post">
-                        <i class="user icon"></i>{{ username }}
+                        <i class="user icon"></i>{{username}}
                     </form>
 
                 </a>  
@@ -91,13 +91,23 @@
 <script>
 export default {
 
-  props:['username','header','subheader'],
+  props: {
+      username:{
+          default:'',
+          type:String,
+      },
+      header:{
+          default:'',
+          type:String,
+      },
+      subheader :{
+          default:'',
+          type:String,
+      }
+  },
     
   data() {
-    return {      
-        username:'',
-        header:'',
-        subheader:'',
+    return {
     };
   },
 

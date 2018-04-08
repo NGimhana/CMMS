@@ -22,7 +22,7 @@ class CreateImmediateJobsTable extends Migration
             $table->string('priority')->default('Immediate');
             $table->date('Started_Date');
             $table->date('Scheduled_End_Date');
-            $table->date('Ended_Date');
+            $table->date('Ended_Date')->nullable();
             $table->integer('created_user_id')->unsigned();
             $table->foreign('created_user_id')->references('id')->on('users');
             $table->integer('Assigned_Person_id')->unsigned();

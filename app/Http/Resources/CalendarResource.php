@@ -16,9 +16,8 @@ class CalendarResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'starteddate'=>$this->starteddate,
-            'enddate'=>$this->enddate,
-            'frequency'=>$this->frequency,            
+            'job_id'=>$this->job_id,
+            'scheduled_job_id'=>$this->scheduled_job_id,
         ];
     }
 }

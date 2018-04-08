@@ -25,10 +25,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $username=Auth::user()->name;
         $header="Dashboard";
         $subheader="@SystemDashboard";
-        $data=['username'=>$username,'header'=>$header,'subheader'=>$subheader];
+
+        //loggedUser
+        $this->loggedUser = [
+            //User Name
+            'username' => \auth()->user()->name,
+            'userid' => \auth()->user()->id,
+            'useremail' => \auth()->user()->email,
+        ];
+
+        //Creating a Array of Data to send
+        $data = ['user'=>$this->loggedUser,'header'=> $header , 'subheader'=> $subheader];
         return view('Pages.index')->with('data',$data);
     }
 }

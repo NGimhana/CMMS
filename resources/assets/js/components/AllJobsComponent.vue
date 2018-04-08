@@ -23,13 +23,13 @@
         <th class="single line">Priority</th>
         <th>Job ID</th>
         <th>Job Type</th>
-        <th>Place</th>        
+        <th>Asset ID/th>
         <th>Description</th>
-        <th>Sector</th>
-        <th>Asset</th>
-        <th>Duration</th>
+        <th>Started Date</th>
+        <th>Scheduled End Date</th>
+        <th>Ended Date</th>
+        <th>Created By</th>
         <th>Assigned Person</th>
-        <th>Progress</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -48,11 +48,12 @@
           <button class="ui button " v-on:click="createmap( job.id,job.place)">{{job.place}}</button>
         </td>
         <td>{{job.description}}</td>
-        <td>{{job.sector}}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{job.Started_Date}}</td>
+        <td>{{job.Scheduled_End_Date}}</td>
+        <td>{{job.Ended_Date}}</td>
+        <td>{{job.created_user_id}}</td>
+        <td>{{job.Assigned_Person_id}}</td>
+
         <td>          
           <div class="ui large buttons">
               <button class="ui blue button"><i class="edit icon"></i></button>
@@ -110,7 +111,7 @@ export default {
       $(".ui.dropdown").dropdown();
     },
     fetchData:function(){
-        this.$http.get('http://cmms.com/api/job').then(response => {
+        this.$http.get('http://localhost:8000/api/job').then(response => {
           this.jobs=response.body;
           console.log(this.jobs);                    
         }, response => {

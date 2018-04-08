@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 use App\Immediate_Job;
-use Illuminate\Support\Facades\DB;
-
-use Illuminate\Http\Request;;
-use App\Http\Resources\JobResource;
-
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Resources\JobResource as JobResource;
+use Illuminate\Support\Facades\Auth;
 
 
 class JobController extends Controller
 {
+    protected $loggedUser;
+
     /**
      * Display a listing of the resource.
      *
@@ -23,10 +24,18 @@ class JobController extends Controller
 
         //SubHeader is the Subtitle of the Page
         $subheader='@MaintenaceJobBoard';
-                
+
+        //loggedUser
+        $this->loggedUser = [
+            //User Name
+            'username' => \auth()->user()->name,
+            'userid' => \auth()->user()->id,
+            'useremail' => \auth()->user()->email,
+        ];
+
         //Creating a Array of Data to send
-        $data = (['header'=> $header , 'subheader'=> $subheader]);        
-        
+        $data = ['user'=>$this->loggedUser,'header'=> $header , 'subheader'=> $subheader];
+
         //Return a Page with With values
         return view('Pages.job')->with('data',$data);                                
     }
@@ -51,22 +60,22 @@ class JobController extends Controller
     {
         $job = new Immediate_Job();
 
-        $job->id = $request->id;
-        $job->type = $request->type;
-        $job->asset_id = $request->asset_id;
-        $job->priority = $request->priority;
-        $job->description = $request->description;
+        $job->id = $request->input('id');
+        $job->type = $request->input('type');
+        $job->asset_id = $request->input('asset_id');
+        $job->priority = $request->input('priority');
+        $job->description = $request->input('description');
 
-        $job->Started_Date = $request->Started_Date;
-        $job->Scheduled_End_Date = $request->Scheduled_End_Date;
-        $job->Ended_Date = $request->Ended_Date;
-        $job->created_user_id = $request->created_user_id;
-        $job->Assigned_Person_id = $request->Assigned_Person_id;
-
+        $job->Started_Date = $request->input('starteddate');
+        $job->Scheduled_End_Date = $request->input('scheduled_end_date');
+        //$job->Ended_Date = $request->input('Ended_Date');
+        $job->created_user_id = $request->input('created_user_id');
+        $job->Assigned_Person_id = $request->input('assigned_person');
 
         if($job->save()){
             return new JobResource($job);
-        }        
+        }
+
     }
 
     /**

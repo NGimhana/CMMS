@@ -5,7 +5,7 @@
 
     <div id="app">
         {{--  Main Componet contains the sidebar and Navigation Bar  --}}
-        <main-component header={{$data['header']}} subheader={{$data['subheader']}}></main-component>
+        <main-component username={{$data['user']['username']}} header={{$data['header']}} subheader={{$data['subheader']}}></main-component>
                 
 
         <!--Map Model to view the place of the Job-->
@@ -26,7 +26,7 @@
         <div style="padding:20px;">
 
            {{--Add Job Component--}}
-            <addjob-component></addjob-component>
+            <addjob-component user = "{{$data['user']['userid']}}"></addjob-component>
             
             <br>
            {{--  Adding allJob components into view  --}}

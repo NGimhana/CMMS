@@ -11068,7 +11068,7 @@ module.exports = Vue$3;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(5);
-module.exports = __webpack_require__(37);
+module.exports = __webpack_require__(40);
 
 
 /***/ }),
@@ -11122,11 +11122,11 @@ __WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('main-component', __webpac
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('example-component', __webpack_require__(19));
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('ongoingjobs-component', __webpack_require__(22));
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('completedjobs-component', __webpack_require__(25));
-__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('incompletejobs-component', __webpack_require__(44));
-__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('recentjobs-component', __webpack_require__(28));
+__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('incompletejobs-component', __webpack_require__(28));
+__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('recentjobs-component', __webpack_require__(31));
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('alljobs-component', __webpack_require__(2));
-__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('addjob-component', __webpack_require__(31));
-__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('calendar-component', __webpack_require__(34));
+__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('addjob-component', __webpack_require__(34));
+__WEBPACK_IMPORTED_MODULE_3_vue___default.a.component('calendar-component', __webpack_require__(37));
 
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vue_resource__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_3_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
@@ -15418,6 +15418,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -15456,7 +15457,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchData: function fetchData() {
       var _this = this;
 
-      this.$http.get('http://cmms.com/api/job').then(function (response) {
+      this.$http.get('http://localhost:8000/api/job').then(function (response) {
         _this.jobs = response.body;
         console.log(_this.jobs);
       }, function (response) {
@@ -15531,15 +15532,15 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(job.description))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(job.sector))]),
+            _c("td", [_vm._v(_vm._s(job.Started_Date))]),
             _vm._v(" "),
-            _c("td"),
+            _c("td", [_vm._v(_vm._s(job.Scheduled_End_Date))]),
             _vm._v(" "),
-            _c("td"),
+            _c("td", [_vm._v(_vm._s(job.Ended_Date))]),
             _vm._v(" "),
-            _c("td"),
+            _c("td", [_vm._v(_vm._s(job.created_user_id))]),
             _vm._v(" "),
-            _c("td"),
+            _c("td", [_vm._v(_vm._s(job.Assigned_Person_id))]),
             _vm._v(" "),
             _vm._m(2, true)
           ])
@@ -15594,19 +15595,18 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Job Type")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Place")]),
-        _vm._v(" "),
+        _c("th", [_vm._v("Asset ID/th>\r\n        ")]),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Sector")]),
+        _c("th", [_vm._v("Started Date")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Asset")]),
+        _c("th", [_vm._v("Scheduled End Date")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Duration")]),
+        _c("th", [_vm._v("Ended Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created By")]),
         _vm._v(" "),
         _c("th", [_vm._v("Assigned Person")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Progress")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
@@ -34592,14 +34592,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  props: ['username', 'header', 'subheader'],
+  props: {
+    username: {
+      default: '',
+      type: String
+    },
+    header: {
+      default: '',
+      type: String
+    },
+    subheader: {
+      default: '',
+      type: String
+    }
+  },
 
   data: function data() {
-    return {
-      username: '',
-      header: '',
-      subheader: ''
-    };
+    return {};
   },
 
 
@@ -35198,7 +35207,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/RecentJobs.vue"
+Component.options.__file = "resources/assets/js/components/IncompleteJobs.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -35207,9 +35216,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0cc32e48", Component.options)
+    hotAPI.createRecord("data-v-63ccf6cb", Component.options)
   } else {
-    hotAPI.reload("data-v-0cc32e48", Component.options)
+    hotAPI.reload("data-v-63ccf6cb", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -35289,7 +35298,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "content" }, [
         _c("a", { staticClass: "ui large header", attrs: { htrf: "#" } }, [
           _c("span", [
-            _vm._v("Recent Jobs\n        "),
+            _vm._v("Incomplete Jobs\n        "),
             _c("div", { staticClass: "ui large header" }, [_vm._v("12")])
           ])
         ]),
@@ -35313,7 +35322,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-0cc32e48", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-63ccf6cb", module.exports)
   }
 }
 
@@ -35343,7 +35352,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/AddJobComponent.vue"
+Component.options.__file = "resources/assets/js/components/RecentJobs.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -35352,9 +35361,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-31b90b9a", Component.options)
+    hotAPI.createRecord("data-v-0cc32e48", Component.options)
   } else {
-    hotAPI.reload("data-v-31b90b9a", Component.options)
+    hotAPI.reload("data-v-0cc32e48", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -35366,597 +35375,6 @@ module.exports = Component.exports
 
 /***/ }),
 /* 32 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-  props: {
-    header: {
-      type: String
-    }
-
-  },
-  data: function data() {
-    return {
-      subheader: 'System',
-      type: "",
-      place: "",
-      sector: "",
-      description: "",
-      priority: "",
-      scheduledate: "",
-      enddate: '',
-      frequency: ''
-
-    };
-  },
-
-
-  components: {},
-
-  computed: {
-    divHeaderStyle: function divHeaderStyle() {
-      return {
-        padding: "20px"
-      };
-    }
-  },
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
-  created: function created() {},
-
-  methods: {
-    toggleSidebar: function toggleSidebar() {
-      $(".ui.sidebar").sidebar("toggle");
-    },
-    userMenu: function userMenu() {
-      $(".ui.dropdown").dropdown();
-    },
-    createJobModel: function createJobModel() {
-      $('.ui.large.modal').modal('show');
-      console.log("clicked");
-    },
-    AddJob: function AddJob() {
-      var _this = this;
-
-      // //Add Job Task
-      // this.$http.post('http://cmms.com/api/job', 
-      // {                  
-      //     type:this.type,
-      //     place:this.place,
-      //     sector:this.sector,
-      //     description:this.description,
-      //     priority:this.priority,
-      //     scheduledate:this.scheduledate,
-      //     frequency:this.frequency
-
-      // }
-
-      // ).then(response => {        
-      //   console.log(response.body)
-      //   this.$router.go("http://cmms.com/job");
-      //   }, response => {
-      //    console.log(response)
-      // });
-
-      //Add Calendar Event
-      this.$http.post('http://cmms.com/api/calendar', {
-        starteddate: this.scheduledate,
-        enddate: this.enddate,
-        frequency: this.frequency
-
-      }).then(function (response) {
-        console.log(response.body);
-        _this.$router.go("http://cmms.com/job");
-      }, function (response) {
-        console.log(response);
-      });
-    }
-
-  }
-});
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "button",
-      { staticClass: "ui positive button", on: { click: _vm.createJobModel } },
-      [_c("i", { staticClass: "plus icon" }), _vm._v(" Create Job")]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "ui large modal" }, [
-      _c("div", { staticClass: "header" }, [_vm._v("Create Job Task")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "content" }, [
-        _c("form", { staticClass: "ui form" }, [
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Type")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.type,
-                  expression: "type"
-                }
-              ],
-              attrs: { name: "first-name", placeholder: "Type", type: "text" },
-              domProps: { value: _vm.type },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.type = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Place")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.place,
-                  expression: "place"
-                }
-              ],
-              attrs: { name: "last-name", placeholder: "Place", type: "text" },
-              domProps: { value: _vm.place },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.place = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Sector")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.sector,
-                  expression: "sector"
-                }
-              ],
-              attrs: { name: "last-name", placeholder: "Sector", type: "text" },
-              domProps: { value: _vm.sector },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.sector = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Description")]),
-            _vm._v(" "),
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.description,
-                  expression: "description"
-                }
-              ],
-              attrs: { value: "Describe The Issue" },
-              domProps: { value: _vm.description },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.description = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Priority")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.priority,
-                  expression: "priority"
-                }
-              ],
-              attrs: {
-                name: "last-name",
-                placeholder: "Priority",
-                type: "text"
-              },
-              domProps: { value: _vm.priority },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.priority = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Job Sheduled Date")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.scheduledate,
-                  expression: "scheduledate"
-                }
-              ],
-              attrs: {
-                name: "scheduledate",
-                placeholder: "now()",
-                type: "date"
-              },
-              domProps: { value: _vm.scheduledate },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.scheduledate = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Job End Date")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.enddate,
-                  expression: "enddate"
-                }
-              ],
-              attrs: { name: "enddate", placeholder: "now()", type: "date" },
-              domProps: { value: _vm.enddate },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.enddate = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Select Frequency")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.frequency,
-                    expression: "frequency"
-                  }
-                ],
-                attrs: { name: "frequency" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.frequency = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "3 months" } }, [
-                  _vm._v("3 months")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "6 months" } }, [
-                  _vm._v("6 months")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1 year" } }, [
-                  _vm._v("12 months")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2 year" } }, [
-                  _vm._v("24 months")
-                ])
-              ]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "actions" }, [
-        _c(
-          "button",
-          {
-            staticClass: "ui button",
-            attrs: { type: "submit" },
-            on: { click: _vm.AddJob }
-          },
-          [_vm._v("Submit")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "ui cancel button" }, [_vm._v("Cancel")])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-31b90b9a", module.exports)
-  }
-}
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(35)
-/* template */
-var __vue_template__ = __webpack_require__(36)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/CalendarComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f39ba290", Component.options)
-  } else {
-    hotAPI.reload("data-v-f39ba290", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-//
-//
-//
-//
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "calendar" } })
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f39ba290", module.exports)
-  }
-}
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(45)
-/* template */
-var __vue_template__ = __webpack_require__(46)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/IncompleteJobs.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-63ccf6cb", Component.options)
-  } else {
-    hotAPI.reload("data-v-63ccf6cb", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36007,7 +35425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 46 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -36025,7 +35443,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "content" }, [
         _c("a", { staticClass: "ui large header", attrs: { htrf: "#" } }, [
           _c("span", [
-            _vm._v("Incomplete Jobs\n        "),
+            _vm._v("Recent Jobs\n        "),
             _c("div", { staticClass: "ui large header" }, [_vm._v("12")])
           ])
         ]),
@@ -36049,9 +35467,497 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-63ccf6cb", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-0cc32e48", module.exports)
   }
 }
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(35)
+/* template */
+var __vue_template__ = __webpack_require__(36)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/AddJobComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-31b90b9a", Component.options)
+  } else {
+    hotAPI.reload("data-v-31b90b9a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        user: {
+            default: '',
+            type: String
+        }
+    },
+
+    data: function data() {
+        return {
+            //userId: '',
+            subheader: 'System',
+            type: "",
+            asset_id: "",
+            description: "",
+            priority: "Immediate",
+            starteddate: "",
+            scheduled_end_date: "",
+            assigned_person: ""
+        };
+    },
+
+
+    computed: {
+        divHeaderStyle: function divHeaderStyle() {
+            return {
+                padding: "20px"
+            };
+        }
+    },
+    mounted: function mounted() {
+        console.log("Component mounted.");
+        console.log(this.userId);
+    },
+    created: function created() {},
+
+    methods: {
+        toggleSidebar: function toggleSidebar() {
+            $(".ui.sidebar").sidebar("toggle");
+        },
+        userMenu: function userMenu() {
+            $(".ui.dropdown").dropdown();
+        },
+        createJobModel: function createJobModel() {
+            $('.ui.large.modal').modal('show');
+            console.log("clicked");
+        },
+        AddJob: function AddJob() {
+            var _this = this;
+
+            //Add Job Task
+            this.$http.post('http://localhost:8000/api/job', {
+                type: this.type,
+                asset_id: this.asset_id,
+                description: this.description,
+                priority: this.priority,
+                scheduled_end_date: this.scheduled_end_date,
+                assigned_person: this.assigned_person,
+                starteddate: this.starteddate,
+                created_user_id: this.user
+            }).then(function (response) {
+                console.log(response.body);
+                _this.$router.go("http://localhost:8000/job");
+            }, function (response) {
+                console.log(_this.user);
+                console.log(response);
+            });
+
+            // //Add Calendar Event
+            // this.$http.post('http://cmms.com/api/calendar',
+            //     {
+            //         starteddate: this.scheduledate,
+            //         enddate: this.enddate,
+            //         frequency: this.frequency
+            //
+            //     }
+            // ).then(response => {
+            //     console.log(response.body)
+            //     this.$router.go("http://cmms.com/job");
+            // }, response => {
+            //     console.log(response)
+            // });
+        }
+
+    }
+});
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      { staticClass: "ui positive button", on: { click: _vm.createJobModel } },
+      [
+        _c("i", { staticClass: "plus icon" }),
+        _vm._v(" Create Immediate Job\n    ")
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "ui large modal" }, [
+      _c("div", { staticClass: "header" }, [
+        _vm._v("Create Immediate Job Task")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "content" }, [
+        _c("form", { staticClass: "ui form" }, [
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Type")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.type,
+                  expression: "type"
+                }
+              ],
+              attrs: { name: "type", placeholder: "Type", type: "text" },
+              domProps: { value: _vm.type },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.type = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Asset ID")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.asset_id,
+                  expression: "asset_id"
+                }
+              ],
+              attrs: {
+                name: "asset_ID",
+                placeholder: "Asset_ID",
+                type: "text"
+              },
+              domProps: { value: _vm.asset_id },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.asset_id = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Description")]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
+              attrs: { value: "Describe The Issue" },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Job Started Date")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.starteddate,
+                  expression: "starteddate"
+                }
+              ],
+              attrs: { name: "starteddate", type: "date" },
+              domProps: { value: _vm.starteddate },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.starteddate = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Job Scheduled End Date")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.scheduled_end_date,
+                  expression: "scheduled_end_date"
+                }
+              ],
+              attrs: { name: "scheduled_end_date", type: "date" },
+              domProps: { value: _vm.scheduled_end_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.scheduled_end_date = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Assigned Person")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.assigned_person,
+                  expression: "assigned_person"
+                }
+              ],
+              attrs: { name: "assigned_person", type: "text" },
+              domProps: { value: _vm.assigned_person },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.assigned_person = $event.target.value
+                }
+              }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "actions" }, [
+        _c(
+          "button",
+          {
+            staticClass: "ui button",
+            attrs: { type: "submit" },
+            on: { click: _vm.AddJob }
+          },
+          [_vm._v("Submit")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "ui cancel button" }, [_vm._v("Cancel")])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-31b90b9a", module.exports)
+  }
+}
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(38)
+/* template */
+var __vue_template__ = __webpack_require__(39)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/CalendarComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f39ba290", Component.options)
+  } else {
+    hotAPI.reload("data-v-f39ba290", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "calendar" } })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f39ba290", module.exports)
+  }
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
