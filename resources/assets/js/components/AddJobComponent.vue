@@ -15,9 +15,13 @@
                         <label>Type</label>
                         <input name="type" v-model="type" placeholder="Type" type="text">
                     </div>
+
                     <div class="field">
-                        <label>Asset ID</label>
-                        <input name="asset_ID" v-model="asset_id" placeholder="Asset_ID" type="text">
+                        <label>Asset</label>
+                        <select v-model="selectedAsset">
+                            <option v-for="asset in assets" v-bind:value="asset.id">{{asset.description}}</option>
+                        </select>
+                        
                     </div>
                     <div class="field">
                         <label>Description</label>
@@ -76,6 +80,9 @@
                 starteddate: "",
                 scheduled_end_date: "",
                 assigned_person: "",
+
+                assets:'',
+                selectedAsset:'',
             };
         },
 
@@ -92,7 +99,7 @@
             console.log(this.userId);
         },
         created() {
-
+            this.getAssets();
         },
         methods: {
             toggleSidebar: function () {
@@ -111,7 +118,7 @@
                 this.$http.post('http://localhost:8000/api/job',
                 {
                     type:this.type,
-                    asset_id:this.asset_id,
+                    asset_id:this.selectedAsset,
                     description:this.description,
                     priority:this.priority,
                     scheduled_end_date:this.scheduled_end_date,
@@ -142,6 +149,13 @@
                 // }, response => {
                 //     console.log(response)
                 // });
+            },
+            getAssets(){
+                this.$http.get('http://localhost:8000/api/assets').then(response => {
+                    this.assets = response.body;
+                }, response => {
+
+                });
             },
 
         }

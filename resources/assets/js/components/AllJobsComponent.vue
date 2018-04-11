@@ -78,13 +78,12 @@
 
                 <div class="ui styled accordion">
                     <div v-on:click="drop"  class="active title">
-
                         <i class="dropdown icon"></i>
-                        What is a dog?
+                        Summary On Job ID: {{this.selectedJob.id}}
                     </div>
                     <div class="active content">
-
-                        <p>{{this.selectedJob.priority}}</p>
+                        <p>Asset</p>
+                        <p>{{this.selectedJob.asset_id}}</p>
                     </div>
 
                 </div>
@@ -111,7 +110,7 @@
             return {
                 jobs: [],
                 selectedJob:'',
-                isSelectedJob:false,
+
             }
         },
 
@@ -144,7 +143,7 @@
             },
             getSeleselectedJob:function (job) {
               this.selectedJob = job;
-              this.isSelectedJob = true;
+
             },
             fetchData: function () {
                 this.$http.get('http://localhost:8000/api/job').then(response => {

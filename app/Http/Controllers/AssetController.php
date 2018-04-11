@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Asset;
+use App\Http\Resources\AssetResource;
+use App\Immediate_Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SectorController extends Controller
+class AssetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +17,8 @@ class SectorController extends Controller
      */
     public function index()
     {
-        $title = "Sectors";
-        $data = ['title' => $title];
-        return view('sector.index')->with('data', $data);
+        $assets = Asset::all();
+        return AssetResource::collection($assets);
     }
 
     /**
@@ -26,37 +28,48 @@ class SectorController extends Controller
      */
     public function create()
     {
-        $title = "Sectors";
-        $data = ['title' => $title];
-        return view('sector.create')->with('data', $data);
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
 
+        $asset = $request->isMethod('put') ? Asset::findOrFail($request->id) : new Asset();
+
+        $asset->id = $request->input('id');
+        $asset->description = $request->input('description');
+        $asset->sector_id = $request->input('sector_id');
+
+        if($asset->save()){
+            return new AssetResource($asset);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
+        //Get Asset
+        $asset = Asset::findOrFail($id);
 
+        //return single asset as a resource
+        return new AssetResource($asset);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -67,8 +80,8 @@ class SectorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -79,22 +92,16 @@ class SectorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        //Get Asset
+        $asset = Asset::findOrFail($id);
+
+        if($asset->delete()){
+            return new AssetResource($asset);
+        }
     }
-
-    //Buildings Corresponding Sectors->$sector_id
-    public function getBuildings($sector_id){
-        $buildings = DB::table('buildings')->join('sectors','sectors.building_id', '=' , 'buildings.id')
-            ->where('sectors.id',$sector_id)->select('buildings.*')->get();
-        return $buildings;
-    }
-
-
-
-
 }

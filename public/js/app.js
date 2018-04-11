@@ -15443,7 +15443,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -15574,11 +15573,17 @@ var render = function() {
         _c("div", { staticClass: "ui styled accordion" }, [
           _c("div", { staticClass: "active title", on: { click: _vm.drop } }, [
             _c("i", { staticClass: "dropdown icon" }),
-            _vm._v("\n                    What is a dog?\n                ")
+            _vm._v(
+              "\n                    Summary On Job ID: " +
+                _vm._s(this.selectedJob.id) +
+                "\n                "
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "active content" }, [
-            _c("p", [_vm._v(_vm._s(this.selectedJob.priority))])
+            _c("p", [_vm._v("Asset")]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(this.selectedJob.asset_id))])
           ])
         ])
       ])
@@ -35575,6 +35580,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -35595,7 +35604,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             priority: "Immediate",
             starteddate: "",
             scheduled_end_date: "",
-            assigned_person: ""
+            assigned_person: "",
+
+            assets: '',
+            selectedAsset: ''
         };
     },
 
@@ -35611,7 +35623,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log("Component mounted.");
         console.log(this.userId);
     },
-    created: function created() {},
+    created: function created() {
+        this.getAssets();
+    },
 
     methods: {
         toggleSidebar: function toggleSidebar() {
@@ -35630,7 +35644,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             //Add Job Task
             this.$http.post('http://localhost:8000/api/job', {
                 type: this.type,
-                asset_id: this.asset_id,
+                asset_id: this.selectedAsset,
                 description: this.description,
                 priority: this.priority,
                 scheduled_end_date: this.scheduled_end_date,
@@ -35659,8 +35673,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // }, response => {
             //     console.log(response)
             // });
-        }
+        },
+        getAssets: function getAssets() {
+            var _this2 = this;
 
+            this.$http.get('http://localhost:8000/api/assets').then(function (response) {
+                _this2.assets = response.body;
+            }, function (response) {});
+        }
     }
 });
 
@@ -35715,32 +35735,41 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Asset ID")]),
+            _c("label", [_vm._v("Asset")]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.asset_id,
-                  expression: "asset_id"
-                }
-              ],
-              attrs: {
-                name: "asset_ID",
-                placeholder: "Asset_ID",
-                type: "text"
-              },
-              domProps: { value: _vm.asset_id },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedAsset,
+                    expression: "selectedAsset"
                   }
-                  _vm.asset_id = $event.target.value
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedAsset = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
                 }
-              }
-            })
+              },
+              _vm._l(_vm.assets, function(asset) {
+                return _c("option", { domProps: { value: asset.id } }, [
+                  _vm._v(_vm._s(asset.description))
+                ])
+              })
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
