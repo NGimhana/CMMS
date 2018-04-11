@@ -22,6 +22,10 @@
         })
     </script>
 
+    <!--Semantic UI-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.js"></script>
+
     <style>
         nav {
             position: fixed;
@@ -204,10 +208,10 @@
             @if (Route::has('login'))
             <div class="top-right links">
                 @auth
-                <a href="{{ url('/home') }}">Home</a>
+                <a class="ui yellow button" href="{{ url('/home') }}">Home</a>
                 @else
-                <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
+                <a class="ui green button" href="{{ route('login') }}">Login</a>
+                <a class="ui orange button" href="{{ route('register') }}">Register</a>
                 @endauth
             </div>
             @endif
@@ -232,6 +236,19 @@
 
 <div class="pimg2">
     <div class="ptext">
+
+        <nav>
+            @if (Route::has('login'))
+            <div class="top-right links">
+                @auth
+                <a class="ui yellow button" href="{{ url('/home') }}">Home</a>
+                @else
+                <a class="ui green button" href="{{ route('login') }}">Login</a>
+                <a class="ui orange button" href="{{ route('register') }}">Register</a>
+                @endauth
+            </div>
+            @endif
+        </nav>
                     <span class="border">
                         Image Two Text
                     </span>
@@ -247,6 +264,20 @@
 
 <div class="pimg3">
     <div class="ptext">
+
+        <nav>
+            @if (Route::has('login'))
+            <div class="top-right links">
+                @auth
+                <a class="ui yellow button" href="{{ url('/home') }}">Home</a>
+                @else
+                <a class="ui green button" href="{{ route('login') }}">Login</a>
+                <a class="ui orange button" href="{{ route('register') }}">Register</a>
+                @endauth
+            </div>
+            @endif
+        </nav>
+
                     <span class="border">
                         Image Three Text
                     </span>
