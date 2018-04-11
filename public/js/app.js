@@ -15419,61 +15419,95 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  props: ['header', 'subheader'],
+    props: ['header', 'subheader'],
 
-  data: function data() {
-    return {
-      jobs: []
-    };
-  },
+    data: function data() {
+        return {
+            jobs: [],
+            selectedJob: '',
+            isSelectedJob: false
+        };
+    },
 
 
-  components: {},
+    components: {},
 
-  computed: {
-    divHeaderStyle: function divHeaderStyle() {
-      return {
-        padding: "20px"
-      };
+    computed: {
+        divHeaderStyle: function divHeaderStyle() {
+            return {
+                padding: "20px"
+            };
+        }
+    },
+    mounted: function mounted() {
+        console.log("Component mounted.");
+    },
+    created: function created() {
+        this.fetchData();
+    },
+
+    methods: {
+        toggleSidebar: function toggleSidebar() {
+            $(".ui.sidebar").sidebar("toggle");
+        },
+        userMenu: function userMenu() {
+            $(".ui.dropdown").dropdown();
+        },
+        drop: function drop() {
+            $('.ui.accordion').accordion();
+        },
+        getSeleselectedJob: function getSeleselectedJob(job) {
+            this.selectedJob = job;
+            this.isSelectedJob = true;
+        },
+        fetchData: function fetchData() {
+            var _this = this;
+
+            this.$http.get('http://localhost:8000/api/job').then(function (response) {
+                _this.jobs = response.body;
+                console.log(_this.jobs);
+            }, function (response) {
+                // error callback
+            });
+        },
+
+        //Map of the Selected Place of Job Task
+        createmap: function createmap(jobId, jobPlace) {
+            //Model Shows
+            $('.fullscreen.modal').modal('show');
+            document.getElementById('mapHeader').innerHTML = "Job Task : " + jobId;
+            var source = "https://www.google.com/maps/embed/v1/search?q=" + jobPlace + "&key= AIzaSyB4VsPNtqpyTH4kowZeWFM5zONUkili1So";
+            document.getElementById('mapFrame').setAttribute("src", source);
+        }
     }
-  },
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
-  created: function created() {
-    this.fetchData();
-  },
-
-  methods: {
-    toggleSidebar: function toggleSidebar() {
-      $(".ui.sidebar").sidebar("toggle");
-    },
-    userMenu: function userMenu() {
-      $(".ui.dropdown").dropdown();
-    },
-    fetchData: function fetchData() {
-      var _this = this;
-
-      this.$http.get('http://localhost:8000/api/job').then(function (response) {
-        _this.jobs = response.body;
-        console.log(_this.jobs);
-      }, function (response) {
-        // error callback
-      });
-    },
-
-    //Map of the Selected Place of Job Task
-    createmap: function createmap(jobId, jobPlace) {
-      //Model Shows
-      $('.fullscreen.modal').modal('show');
-      document.getElementById('mapHeader').innerHTML = "Job Task : " + jobId;
-      var source = "https://www.google.com/maps/embed/v1/search?q=" + jobPlace + "&key= AIzaSyB4VsPNtqpyTH4kowZeWFM5zONUkili1So";
-      document.getElementById('mapFrame').setAttribute("src", source);
-    }
-  }
 });
 
 /***/ }),
@@ -15485,67 +15519,69 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("table", { staticClass: "ui celled padded table" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.jobs, function(job) {
-          return _c("tr", { key: job.id }, [
-            _c("td", [
-              _c("h2", { staticClass: "ui center aligned header" }, [
-                _vm._v(_vm._s(job.priority))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("td", { staticClass: "single line" }, [
-              _vm._v("\r\n          " + _vm._s(job.id) + "\r\n        ")
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "div",
+    _c("div", { staticClass: "ui grid" }, [
+      _c("div", { staticClass: "ten wide column" }, [
+        _c("table", { staticClass: "ui celled selectable padded table" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.jobs, function(job) {
+              return _c(
+                "tr",
                 {
-                  staticClass: "ui star rating",
-                  attrs: { "data-rating": "3", "data-max-rating": "3" }
-                },
-                [_vm._v(" " + _vm._s(job.type))]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "ui button ",
+                  key: job.id,
+                  class: { selected: _vm.isSelectedJob },
                   on: {
                     click: function($event) {
-                      _vm.createmap(job.id, job.place)
+                      _vm.getSeleselectedJob(job)
                     }
                   }
                 },
-                [_vm._v(_vm._s(job.place))]
+                [
+                  _c("td", [
+                    _c("h2", { staticClass: "ui center aligned header" }, [
+                      _vm._v(_vm._s(job.priority))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "ui star rating",
+                        attrs: { "data-rating": "3", "data-max-rating": "3" }
+                      },
+                      [_vm._v(" " + _vm._s(job.type))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(job.description))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(job.Started_Date))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(job.Scheduled_End_Date))]),
+                  _vm._v(" "),
+                  _vm._m(1, true)
+                ]
               )
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(job.description))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(job.Started_Date))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(job.Scheduled_End_Date))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(job.Ended_Date))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(job.created_user_id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(job.Assigned_Person_id))]),
-            _vm._v(" "),
-            _vm._m(2, true)
+            })
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "six wide column" }, [
+        _c("div", { staticClass: "ui styled accordion" }, [
+          _c("div", { staticClass: "active title", on: { click: _vm.drop } }, [
+            _c("i", { staticClass: "dropdown icon" }),
+            _vm._v("\n                    What is a dog?\n                ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "active content" }, [
+            _c("p", [_vm._v(_vm._s(this.selectedJob.priority))])
           ])
-        })
-      )
+        ])
+      ])
     ])
   ])
 }
@@ -15554,59 +15590,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "ui fullscreen modal", attrs: { id: "map" } },
-      [
-        _c("i", { staticClass: "close icon" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "header", attrs: { id: "mapHeader" } }),
-        _vm._v(" "),
-        _c("div", { staticClass: "content" }, [
-          _c("iframe", {
-            staticStyle: { border: "0" },
-            attrs: {
-              id: "mapFrame",
-              width: "100%",
-              height: "450",
-              frameborder: "0",
-              src: ""
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "actions" }, [
-          _c("div", { staticClass: "ui button" }, [_vm._v("Cancel")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "ui button" }, [_vm._v("OK")])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { staticClass: "single line" }, [_vm._v("Priority")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Job ID")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Job Type")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Asset ID/th>\r\n        ")]),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
         _c("th", [_vm._v("Started Date")]),
         _vm._v(" "),
         _c("th", [_vm._v("Scheduled End Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Ended Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Created By")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Assigned Person")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
@@ -15618,13 +15612,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("td", [
       _c("div", { staticClass: "ui large buttons" }, [
-        _c("button", { staticClass: "ui blue button" }, [
+        _c("a", { staticClass: "ui blue button" }, [
           _c("i", { staticClass: "edit icon" })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "or" }),
         _vm._v(" "),
-        _c("button", { staticClass: "ui negative button" }, [
+        _c("a", { staticClass: "ui red button" }, [
           _c("i", { staticClass: "recycle icon" })
         ])
       ])

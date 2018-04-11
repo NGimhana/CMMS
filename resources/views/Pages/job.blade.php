@@ -30,7 +30,7 @@
             
             <br>
            {{--  Adding allJob components into view  --}}
-            <alljobs-component></alljobs-component>  
+            <alljobs-component></alljobs-component>
 
            
 
