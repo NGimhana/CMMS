@@ -22,7 +22,7 @@
             <div class="ten wide column">
 
 
-                <table class="ui celled selectable padded table">
+                <table id ="table" class="ui celled selectable padded table">
                     <thead>
                     <tr>
                         <th class="single line">Priority</th>
@@ -71,6 +71,25 @@
 
 
                     </tbody>
+
+                    <tfoot>
+                    <tr><th colspan="6">
+                        <div class="ui right floated pagination menu">
+                            <a class="icon item">
+                                <i class="left chevron icon"></i>
+                            </a>
+                            <a class="item">1</a>
+                            <a class="item">2</a>
+                            <a class="item">3</a>
+                            <a class="item">4</a>
+                            <a class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+                        </div>
+                    </th>
+                    </tr>
+                    </tfoot>
+
                 </table>
 
             </div>
@@ -83,10 +102,12 @@
                         <i class="dropdown icon"></i>
 
                         Summary On Job ID: {{this.selectedJob.id}}
-                        <a class= "ui green image label">
+                        <br><br>
+                        <a class="ui green image label">
                             Status
-                            <div class="detail">{{this.status}}</div>
-                            <div class="red detail ">fuck</div>
+                            <div v-bind:class="[this.isCompleted ? 'green detail' : 'red detail']">{{this.status}}</div>
+                            <div v-bind:class="[this.isOverdue ? 'yellow detail' : '']">{{this.overDueStatus}}
+                            </div>
                         </a>
 
                     </div>
@@ -127,8 +148,6 @@
                         </form>
 
 
-
-
                     </div>
 
                 </div>
@@ -155,14 +174,24 @@
             return {
                 jobs: [],
                 selectedJob: '',
-                selectedAsset:'',
-                selectedBuilding:'',
-                selectedSector:'',
+                selectedAsset: '',
+                selectedBuilding: '',
+                selectedSector: '',
 
-                status:'',
-                today:'',
-                isCompleted:'',
-                isOverdue:'',
+                status: '',
+                overDueStatus: '',
+
+                today: '',
+                dd: '',
+                mm: '',
+                yyyy: '',
+
+
+
+                isCompleted: '',
+                isOverdue: '',
+
+
 
             }
         },
@@ -176,6 +205,7 @@
                 };
             }
         },
+
         mounted() {
             console.log("Component mounted.");
         },
@@ -194,27 +224,53 @@
                     .accordion()
                 ;
             },
-            checkStatus:function() {
-                if(this.selectedJob.Ended_Date !== null){
-                    this.today = new Date(Date.now()).toLocaleString();
-                    if(this.selectedJob.Scheduled_End_Date <= this.selectedJob.Ended_Date){
+            getToday: function () {
+                this.today = new Date();
+                this.dd = this.today.getDate();
+                this.mm = this.today.getMonth() + 1;
+                this.yyyy = this.today.getFullYear();
+
+                if (this.dd < 10) {
+                    this.dd = '0' + this.dd;
+                }
+
+                if (this.mm < 10) {
+                    this.mm = '0' + this.mm;
+                }
+
+                this.today = this.yyyy + "-" + this.mm + '-' + this.dd;
+            },
+            checkStatus: function () {
+                if (this.selectedJob.Ended_Date !== null) {
+
+                    if (this.selectedJob.Scheduled_End_Date >= this.selectedJob.Ended_Date) {
+
                         this.status = "COMPLETED";
+                        this.overDueStatus = "";
                         this.isCompleted = true;
                         this.isOverdue = false;
-                    }else{
-                        this.status = "COMPLETED - OVERDUE";
-                        this.isCompleted = true;
-                        this.isOverdue =true;
 
+                    } else {
+                        this.status = "COMPLETED";
+                        this.overDueStatus = "OVERDUE";
+                        this.isCompleted = true;
+                        this.isOverdue = false;
                     }
-                }else{
-                    this.today = new Date(Date.now()).toLocaleString();
-                    if(this.selectedJob.Scheduled_End_Date >= this.today){
+                } else {
+
+                    this.getToday();
+
+                    if (this.selectedJob.Scheduled_End_Date > this.today) {
+
                         this.status = "ON GOING";
+                        this.overDueStatus = "";
                         this.isCompleted = false;
                         this.isOverdue = false;
-                    }else{
-                        this.status = "ONGOING - OVERDUE";
+
+                    } else {
+
+                        this.status = "ON GOING";
+                        this.overDueStatus = "OVERDUE";
                         this.isCompleted = false;
                         this.isOverdue = true;
                     }
@@ -225,17 +281,19 @@
                 this.selectedJob = job;
                 this.checkStatus();
 
-                this.$http.get('http://localhost:8000/api/asset/'+ this.selectedJob.asset_id).then(response => {
+
+
+                this.$http.get('http://localhost:8000/api/asset/' + this.selectedJob.asset_id).then(response => {
                     this.selectedAsset = response.body;
 
-                    this.$http.get('http://localhost:8000/api/sector/building/'+this.selectedAsset.sector_id).then(response => {
+                    this.$http.get('http://localhost:8000/api/sector/building/' + this.selectedAsset.sector_id).then(response => {
                         this.selectedBuilding = response.body;
 
-                        this.$http.get('http://localhost:8000/api/sector/'+this.selectedAsset.sector_id).then(response =>{
-                           this.selectedSector = response.body;
+                        this.$http.get('http://localhost:8000/api/sector/' + this.selectedAsset.sector_id).then(response => {
+                            this.selectedSector = response.body;
 
 
-                        },response =>{
+                        }, response => {
 
                         });
                     }, response => {

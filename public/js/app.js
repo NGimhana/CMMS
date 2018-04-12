@@ -15488,6 +15488,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -15502,7 +15521,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             selectedSector: '',
 
             status: '',
+            overDueStatus: '',
+
             today: '',
+            dd: '',
+            mm: '',
+            yyyy: '',
+
             isCompleted: '',
             isOverdue: ''
 
@@ -15519,6 +15544,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
         }
     },
+
     mounted: function mounted() {
         console.log("Component mounted.");
     },
@@ -15536,26 +15562,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         drop: function drop() {
             $('.ui.accordion').accordion();
         },
+        getToday: function getToday() {
+            this.today = new Date();
+            this.dd = this.today.getDate();
+            this.mm = this.today.getMonth() + 1;
+            this.yyyy = this.today.getFullYear();
+
+            if (this.dd < 10) {
+                this.dd = '0' + this.dd;
+            }
+
+            if (this.mm < 10) {
+                this.mm = '0' + this.mm;
+            }
+
+            this.today = this.yyyy + "-" + this.mm + '-' + this.dd;
+        },
         checkStatus: function checkStatus() {
             if (this.selectedJob.Ended_Date !== null) {
-                this.today = new Date(Date.now()).toLocaleString();
-                if (this.selectedJob.Scheduled_End_Date <= this.selectedJob.Ended_Date) {
+
+                if (this.selectedJob.Scheduled_End_Date >= this.selectedJob.Ended_Date) {
+
                     this.status = "COMPLETED";
+                    this.overDueStatus = "";
                     this.isCompleted = true;
                     this.isOverdue = false;
                 } else {
-                    this.status = "COMPLETED - OVERDUE";
+                    this.status = "COMPLETED";
+                    this.overDueStatus = "OVERDUE";
                     this.isCompleted = true;
-                    this.isOverdue = true;
+                    this.isOverdue = false;
                 }
             } else {
-                this.today = new Date(Date.now()).toLocaleString();
-                if (this.selectedJob.Scheduled_End_Date >= this.today) {
+
+                this.getToday();
+
+                if (this.selectedJob.Scheduled_End_Date > this.today) {
+
                     this.status = "ON GOING";
+                    this.overDueStatus = "";
                     this.isCompleted = false;
                     this.isOverdue = false;
                 } else {
-                    this.status = "ONGOING - OVERDUE";
+
+                    this.status = "ON GOING";
+                    this.overDueStatus = "OVERDUE";
                     this.isCompleted = false;
                     this.isOverdue = true;
                 }
@@ -15616,52 +15667,61 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "ui grid" }, [
       _c("div", { staticClass: "ten wide column" }, [
-        _c("table", { staticClass: "ui celled selectable padded table" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.jobs, function(job) {
-              return _c(
-                "tr",
-                {
-                  key: job.id,
-                  on: {
-                    click: function($event) {
-                      _vm.getSeleselectedJob(job)
+        _c(
+          "table",
+          {
+            staticClass: "ui celled selectable padded table",
+            attrs: { id: "table" }
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.jobs, function(job) {
+                return _c(
+                  "tr",
+                  {
+                    key: job.id,
+                    on: {
+                      click: function($event) {
+                        _vm.getSeleselectedJob(job)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("td", [
-                    _c("h2", { staticClass: "ui center aligned header" }, [
-                      _vm._v(_vm._s(job.priority))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "ui star rating",
-                        attrs: { "data-rating": "3", "data-max-rating": "3" }
-                      },
-                      [_vm._v(" " + _vm._s(job.type))]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(job.description))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(job.Started_Date))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(job.Scheduled_End_Date))]),
-                  _vm._v(" "),
-                  _vm._m(1, true)
-                ]
-              )
-            })
-          )
-        ])
+                  },
+                  [
+                    _c("td", [
+                      _c("h2", { staticClass: "ui center aligned header" }, [
+                        _vm._v(_vm._s(job.priority))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "ui star rating",
+                          attrs: { "data-rating": "3", "data-max-rating": "3" }
+                        },
+                        [_vm._v(" " + _vm._s(job.type))]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(job.description))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(job.Started_Date))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(job.Scheduled_End_Date))]),
+                    _vm._v(" "),
+                    _vm._m(1, true)
+                  ]
+                )
+              })
+            ),
+            _vm._v(" "),
+            _vm._m(2)
+          ]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "six wide column" }, [
@@ -15673,22 +15733,31 @@ var render = function() {
                 _vm._s(this.selectedJob.id) +
                 "\n                    "
             ),
+            _c("br"),
+            _c("br"),
+            _vm._v(" "),
             _c("a", { staticClass: "ui green image label" }, [
               _vm._v(
                 "\n                        Status\n                        "
               ),
-              _c("div", { staticClass: "detail" }, [
-                _vm._v(_vm._s(this.status))
-              ]),
+              _c(
+                "div",
+                { class: [this.isCompleted ? "green detail" : "red detail"] },
+                [_vm._v(_vm._s(this.status))]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "red detail " }, [_vm._v("fuck")])
+              _c("div", { class: [this.isOverdue ? "yellow detail" : ""] }, [
+                _vm._v(
+                  _vm._s(this.overDueStatus) + "\n                        "
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "active content" }, [
             _c("form", { staticClass: "ui form" }, [
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedAsset.description))])
@@ -15696,7 +15765,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(3),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedBuilding.description))])
@@ -15704,7 +15773,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(4),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedSector.description))])
@@ -15752,6 +15821,34 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("a", { staticClass: "ui red button" }, [
           _c("i", { staticClass: "recycle icon" })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tfoot", [
+      _c("tr", [
+        _c("th", { attrs: { colspan: "6" } }, [
+          _c("div", { staticClass: "ui right floated pagination menu" }, [
+            _c("a", { staticClass: "icon item" }, [
+              _c("i", { staticClass: "left chevron icon" })
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "item" }, [_vm._v("1")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "item" }, [_vm._v("2")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "item" }, [_vm._v("3")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "item" }, [_vm._v("4")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "icon item" }, [
+              _c("i", { staticClass: "right chevron icon" })
+            ])
+          ])
         ])
       ])
     ])
