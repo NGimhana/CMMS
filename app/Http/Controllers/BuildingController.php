@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\building;
+use App\Http\Resources\BuildingResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,7 +50,11 @@ class BuildingController extends Controller
      */
     public function show($id)
     {
-        //
+        //Get Asset
+        $building = building::findOrFail($id);
+
+        //return single asset as a resource
+        return new BuildingResource($building);
     }
 
     /**

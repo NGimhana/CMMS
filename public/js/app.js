@@ -15443,6 +15443,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -15452,7 +15497,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             jobs: [],
             selectedJob: '',
-            isSelectedJob: false
+            selectedAsset: '',
+            selectedBuilding: '',
+            selectedSector: '',
+
+            status: '',
+            today: '',
+            isCompleted: '',
+            isOverdue: ''
+
         };
     },
 
@@ -15483,16 +15536,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         drop: function drop() {
             $('.ui.accordion').accordion();
         },
-        getSeleselectedJob: function getSeleselectedJob(job) {
-            this.selectedJob = job;
-            this.isSelectedJob = true;
+        checkStatus: function checkStatus() {
+            if (this.selectedJob.Ended_Date !== null) {
+                this.today = new Date(Date.now()).toLocaleString();
+                if (this.selectedJob.Scheduled_End_Date <= this.selectedJob.Ended_Date) {
+                    this.status = "COMPLETED";
+                    this.isCompleted = true;
+                    this.isOverdue = false;
+                } else {
+                    this.status = "COMPLETED - OVERDUE";
+                    this.isCompleted = true;
+                    this.isOverdue = true;
+                }
+            } else {
+                this.today = new Date(Date.now()).toLocaleString();
+                if (this.selectedJob.Scheduled_End_Date >= this.today) {
+                    this.status = "ON GOING";
+                    this.isCompleted = false;
+                    this.isOverdue = false;
+                } else {
+                    this.status = "ONGOING - OVERDUE";
+                    this.isCompleted = false;
+                    this.isOverdue = true;
+                }
+            }
         },
-        fetchData: function fetchData() {
+
+        getSeleselectedJob: function getSeleselectedJob(job) {
             var _this = this;
 
+            this.selectedJob = job;
+            this.checkStatus();
+
+            this.$http.get('http://localhost:8000/api/asset/' + this.selectedJob.asset_id).then(function (response) {
+                _this.selectedAsset = response.body;
+
+                _this.$http.get('http://localhost:8000/api/sector/building/' + _this.selectedAsset.sector_id).then(function (response) {
+                    _this.selectedBuilding = response.body;
+
+                    _this.$http.get('http://localhost:8000/api/sector/' + _this.selectedAsset.sector_id).then(function (response) {
+                        _this.selectedSector = response.body;
+                    }, function (response) {});
+                }, function (response) {
+                    //console.log(response.body);
+                });
+            }, function (response) {});
+        },
+
+        fetchData: function fetchData() {
+            var _this2 = this;
+
             this.$http.get('http://localhost:8000/api/job').then(function (response) {
-                _this.jobs = response.body;
-                console.log(_this.jobs);
+                _this2.jobs = response.body;
+                console.log(_this2.jobs);
             }, function (response) {
                 // error callback
             });
@@ -15530,7 +15626,6 @@ var render = function() {
                 "tr",
                 {
                   key: job.id,
-                  class: { selected: _vm.isSelectedJob },
                   on: {
                     click: function($event) {
                       _vm.getSeleselectedJob(job)
@@ -15574,16 +15669,48 @@ var render = function() {
           _c("div", { staticClass: "active title", on: { click: _vm.drop } }, [
             _c("i", { staticClass: "dropdown icon" }),
             _vm._v(
-              "\n                    Summary On Job ID: " +
+              "\n\n                    Summary On Job ID: " +
                 _vm._s(this.selectedJob.id) +
-                "\n                "
-            )
+                "\n                    "
+            ),
+            _c("a", { staticClass: "ui green image label" }, [
+              _vm._v(
+                "\n                        Status\n                        "
+              ),
+              _c("div", { staticClass: "detail" }, [
+                _vm._v(_vm._s(this.status))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "red detail " }, [_vm._v("fuck")])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "active content" }, [
-            _c("p", [_vm._v("Asset")]),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(this.selectedJob.asset_id))])
+            _c("form", { staticClass: "ui form" }, [
+              _c("div", { staticClass: "inline fields" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("p", [_vm._v(_vm._s(this.selectedAsset.description))])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "inline fields" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("p", [_vm._v(_vm._s(this.selectedBuilding.description))])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "inline fields" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("p", [_vm._v(_vm._s(this.selectedSector.description))])
+                ])
+              ])
+            ])
           ])
         ])
       ])
@@ -15628,6 +15755,24 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "field" }, [_c("p", [_vm._v("Asset")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "field" }, [_c("p", [_vm._v("Building")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "field" }, [_c("p", [_vm._v("Sector")])])
   }
 ]
 render._withStripped = true

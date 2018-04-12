@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\building;
+use App\Http\Resources\BuildingResource;
+use App\Http\Resources\SectorResource;
+use App\sector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,7 +54,11 @@ class SectorController extends Controller
      */
     public function show($id)
     {
+        //Get Sector
+        $sector = sector::findOrFail($id);
 
+        //return single Sector as a resource
+        return new SectorResource($sector);
     }
 
     /**
@@ -88,10 +96,12 @@ class SectorController extends Controller
     }
 
     //Buildings Corresponding Sectors->$sector_id
-    public function getBuildings($sector_id){
+    public  function getBuildings($sector_id){
         $buildings = DB::table('buildings')->join('sectors','sectors.building_id', '=' , 'buildings.id')
             ->where('sectors.id',$sector_id)->select('buildings.*')->get();
-        return $buildings;
+
+        return new BuildingResource($buildings[0]);
+
     }
 
 

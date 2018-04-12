@@ -69,5 +69,20 @@ Route::put('building/{id}','BuildingController@store');
 //Delete Building
 Route::delete('building/{id}','BuildingController@destroy');
 
+//Get  Sectors
+Route::get('sectors','SectorController@index');
+
+//Get Single Sector
+Route::get('sector/{id}','SectorController@show');
+
+//Create New  Sector
+Route::post('sector','SectorController@store');
+
+//Update  Sector
+Route::put('sector/{id}','SectorController@store');
+
+//Delete Sector
+Route::delete('sector/{id}','SectorController@destroy');
+
 //Buildings Corresponding Sectors
-Route::get('sector/{id}','SectorController@getBuildings');
+Route::get('sector/building/{id}','SectorController@getBuildings');

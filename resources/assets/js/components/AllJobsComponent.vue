@@ -39,18 +39,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="job in jobs" :key="job.id" v-bind:class="{selected: isSelectedJob}" v-on:click="getSeleselectedJob(job) ">
+                    <tr v-for="job in jobs" :key="job.id"
+                        v-on:click="getSeleselectedJob(job) ">
                         <td>
                             <h2 class="ui center aligned header">{{job.priority}}</h2>
                         </td>
                         <!--<td class="single line">-->
-                            <!--{{job.id}}-->
+                        <!--{{job.id}}-->
                         <!--</td>-->
                         <td>
                             <div class="ui star rating" data-rating="3" data-max-rating="3"> {{job.type}}</div>
                         </td>
                         <!--<td>-->
-                            <!--<button class="ui button " v-on:click="createmap( job.id,job.place)">{{job.place}}</button>-->
+                        <!--<button class="ui button " v-on:click="createmap( job.id,job.place)">{{job.place}}</button>-->
                         <!--</td>-->
                         <td>{{job.description}}</td>
                         <td>{{job.Started_Date}}</td>
@@ -77,13 +78,57 @@
             <div class="six wide column">
 
                 <div class="ui styled accordion">
-                    <div v-on:click="drop"  class="active title">
+
+                    <div v-on:click="drop" class="active title">
                         <i class="dropdown icon"></i>
+
                         Summary On Job ID: {{this.selectedJob.id}}
+                        <a class= "ui green image label">
+                            Status
+                            <div class="detail">{{this.status}}</div>
+                            <div class="red detail ">fuck</div>
+                        </a>
+
                     </div>
                     <div class="active content">
-                        <p>Asset</p>
-                        <p>{{this.selectedJob.asset_id}}</p>
+                        <form class="ui form">
+
+                            <!--Asset Info-->
+                            <div class="inline fields">
+                                <div class="field">
+                                    <p>Asset</p>
+                                </div>
+                                <div class="field">
+                                    <p>{{this.selectedAsset.description}}</p>
+                                </div>
+                            </div>
+
+                            <!--Building Info-->
+                            <div class="inline fields">
+                                <div class="field">
+                                    <p>Building</p>
+                                </div>
+                                <div class="field">
+                                    <p>{{this.selectedBuilding.description}}</p>
+                                </div>
+                            </div>
+
+                            <!--Sector Info-->
+                            <div class="inline fields">
+                                <div class="field">
+                                    <p>Sector</p>
+                                </div>
+                                <div class="field">
+                                    <p>{{this.selectedSector.description}}</p>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+
+
+
                     </div>
 
                 </div>
@@ -109,7 +154,15 @@
         data() {
             return {
                 jobs: [],
-                selectedJob:'',
+                selectedJob: '',
+                selectedAsset:'',
+                selectedBuilding:'',
+                selectedSector:'',
+
+                status:'',
+                today:'',
+                isCompleted:'',
+                isOverdue:'',
 
             }
         },
@@ -136,15 +189,63 @@
             userMenu: function () {
                 $(".ui.dropdown").dropdown();
             },
-            drop:function () {
+            drop: function () {
                 $('.ui.accordion')
                     .accordion()
                 ;
             },
-            getSeleselectedJob:function (job) {
-              this.selectedJob = job;
+            checkStatus:function() {
+                if(this.selectedJob.Ended_Date !== null){
+                    this.today = new Date(Date.now()).toLocaleString();
+                    if(this.selectedJob.Scheduled_End_Date <= this.selectedJob.Ended_Date){
+                        this.status = "COMPLETED";
+                        this.isCompleted = true;
+                        this.isOverdue = false;
+                    }else{
+                        this.status = "COMPLETED - OVERDUE";
+                        this.isCompleted = true;
+                        this.isOverdue =true;
 
+                    }
+                }else{
+                    this.today = new Date(Date.now()).toLocaleString();
+                    if(this.selectedJob.Scheduled_End_Date >= this.today){
+                        this.status = "ON GOING";
+                        this.isCompleted = false;
+                        this.isOverdue = false;
+                    }else{
+                        this.status = "ONGOING - OVERDUE";
+                        this.isCompleted = false;
+                        this.isOverdue = true;
+                    }
+                }
             },
+
+            getSeleselectedJob: function (job) {
+                this.selectedJob = job;
+                this.checkStatus();
+
+                this.$http.get('http://localhost:8000/api/asset/'+ this.selectedJob.asset_id).then(response => {
+                    this.selectedAsset = response.body;
+
+                    this.$http.get('http://localhost:8000/api/sector/building/'+this.selectedAsset.sector_id).then(response => {
+                        this.selectedBuilding = response.body;
+
+                        this.$http.get('http://localhost:8000/api/sector/'+this.selectedAsset.sector_id).then(response =>{
+                           this.selectedSector = response.body;
+
+
+                        },response =>{
+
+                        });
+                    }, response => {
+                        //console.log(response.body);
+                    });
+                }, response => {
+
+                });
+            },
+
             fetchData: function () {
                 this.$http.get('http://localhost:8000/api/job').then(response => {
                     this.jobs = response.body;
