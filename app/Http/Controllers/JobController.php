@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Resources\JobResource;
 use App\Immediate_Job;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Resources\JobResource as JobResource;
+use Illuminate\Queue\Jobs\Job;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class JobController extends Controller
@@ -121,5 +123,27 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /*Completed Jobs*/
+    public function completedJobs(){
+        return  json_decode(json_encode(DB::select("SELECT * FROM immediate__jobs WHERE Ended_Date IS NOT NULL")));
+    }
+
+    /*On Going Jobs*/
+    public function onGoingJobs(){
+        return  json_decode(json_encode(DB::select("SELECT * FROM immediate__jobs WHERE Ended_Date IS NULL")));
+    }
+
+    /*Recently Added Jobs*/
+    public function recentlyAddedJobs(){
+        return  json_decode(json_encode(DB::select("SELECT * FROM immediate__jobs
+         WHERE (Started_Date BETWEEN Date(CURDATE()-7) AND CURDATE()) AND Ended_Date IS NULL")));
+    }
+
+    /*Over Due Jobs*/
+    public function overDueJobs(){
+        return  json_decode(json_encode(DB::select("SELECT * FROM immediate__jobs
+         WHERE DATE(Scheduled_End_Date) < CURDATE() ")));
     }
 }

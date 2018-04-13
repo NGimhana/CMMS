@@ -6,8 +6,8 @@
        
 <div class="content">                                         
 
-    <a class="ui large header" htrf="#"><span>Incomplete Jobs
-        <div class="ui large header">12</div>  
+    <a class="ui large header" htrf="#"><span>Over-Due Jobs
+        <div class="ui large header">{{this.jobCount}}</div>
     </span>        
     </a>                
 
@@ -33,7 +33,8 @@
 export default {
   data() {
     return {
-       
+       overdueJobs:'',
+       jobCount:0,
     }
   },
   computed:{
@@ -41,9 +42,18 @@ export default {
   },  
   mounted() {
     console.log("Component mounted.");
+    this.fetchData();
   },
   methods: {
-   
+      fetchData:function(){
+          this.$http.get('http://localhost:8000/api/job/overduejobs').then(response =>{
+              this.overdueJobs = response.body;
+              this.jobCount = this.overdueJobs.length;
+              console.log(this.jobCount);
+          },response => {
+              console.log(response.body);
+          });
+      },
   }
 };
 

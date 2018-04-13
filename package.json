@@ -12,16 +12,17 @@
   "devDependencies": {
     "axios": "^0.17",
     "bootstrap": "^4.0.0",
-    "popper.js": "^1.12",
-    "cross-env": "^5.1",
+    "cross-env": "^5.1.4",
     "jquery": "^3.2",
     "laravel-mix": "^2.0",
     "lodash": "^4.17.4",
-    "vue": "^2.5.7"
+    "popper.js": "^1.12",
+    "vue": "^2.5.16"
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "fullcalendar": "^3.8.2",
+    "chart.js": "^2.7.2",
+    "fullcalendar": "^3.9.0",
     "vue-axios": "^2.0.2",
     "vue-resource": "^1.4.0",
     "vue-router": "^3.0.1",

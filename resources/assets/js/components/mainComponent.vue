@@ -36,7 +36,7 @@
     
         <!--Side Bar-->
         <div class="ui inverted labeled icon left inline vertical sidebar menu uncover">
-            <a href="/" class="item">
+            <a href="/home" class="item">
                 <i class="home icon"></i>Home</a>
             <a href="/job" class="item">                                
                 <i class="wrench icon"></i>Jobs                

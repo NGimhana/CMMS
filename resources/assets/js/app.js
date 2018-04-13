@@ -8,6 +8,8 @@
 import VueResource from 'vue-resource'; 
 import VueRouter from 'vue-router';
 import AllJobsComponent from './components/AllJobsComponent';
+import Chart from 'chart.js';
+
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
@@ -42,9 +44,11 @@ Vue.component('recentjobs-component', require('./components/RecentJobs.vue'));
 Vue.component('alljobs-component', require('./components/AllJobsComponent.vue'));
 Vue.component('addjob-component', require('./components/AddJobComponent.vue'));
 Vue.component('calendar-component', require('./components/CalendarComponent.vue'));
+Vue.component('assetcharts-component', require('./components/AssetChartsComponent.vue'));
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
+
 Vue.use(Vuetify);
 
 const router = new VueRouter({

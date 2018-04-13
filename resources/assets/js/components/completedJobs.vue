@@ -7,7 +7,7 @@
 <div class="content">                                         
 
     <a class="ui large header" htrf="#"><span>Completed Jobs
-        <div class="ui large header">12</div>  
+        <div class="ui large header">{{this.jobCount}}</div>
     </span>        
     </a>                
 
@@ -33,17 +33,29 @@
 export default {
   data() {
     return {
-       
+       completedJobs:'',
+       jobCount: 0,
     }
   },
   computed:{
-      
+
   },  
   mounted() {
-    console.log("Component mounted.");
+    this.fetchData();
   },
+
+
+
   methods: {
-   
+      fetchData:function(){
+          this.$http.get('http://localhost:8000/api/job/completedjobs').then(response =>{
+              this.completedJobs = response.body;
+              this.jobCount = this.completedJobs.length;
+              console.log(this.jobCount);
+          },response => {
+              console.log(response.body);
+          });
+      },
   }
 };
 

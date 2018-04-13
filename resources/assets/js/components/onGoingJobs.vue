@@ -7,7 +7,7 @@
 <div class="content">                                         
 
     <a class="ui large header" htrf="#"><span>On Going Jobs
-        <div class="ui large header">12</div>  
+        <div class="ui large header">{{this.jobCount}}</div>
     </span>        
     </a>                
 
@@ -33,17 +33,28 @@
 export default {
   data() {
     return {
-       
+       jobCount:0,
+       onGoingJobs:'',
     }
   },
-  computed:{
-      
+  computed :{
   },  
   mounted() {
     console.log("Component mounted.");
+    this.fetchData();
   },
+
   methods: {
-   
+      fetchData:function(){
+          this.$http.get('http://localhost:8000/api/job/ongoingjobs').then(response =>{
+              this.onGoingJobs = response.body;
+              this.jobCount = this.onGoingJobs.length;
+              console.log(this.jobCount);
+          },response => {
+              console.log(response.body);
+          });
+      }
+
   }
 };
 

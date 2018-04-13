@@ -22,13 +22,29 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-
 //List All Jobs
 Route::get('job', function () {
    // $jobs = Immediate_Job::paginate(15);
     return JobResource::collection(Immediate_Job::all());
     //return JobResource::collection($jobs[0]);
 });
+
+//List Completed  Immediate Jobs
+Route::get('job/completedjobs','JobController@completedJobs');
+
+//List On Going Immediate Jobs
+Route::get('job/ongoingjobs','JobController@onGoingJobs');
+
+//Recently Added Jobs
+Route::get('job/recentjobs','JobController@recentlyAddedJobs');
+
+//OverDue Jobs
+Route::get('job/overduejobs','JobController@overDueJobs');
+
+//Route::get('job/overduejobs/view',function () {
+//    $overdueJobs = app('\App\Http\Controllers\JobController')->overDueJobs();
+//    return view('Pages.job')->with('jobs',$overdueJobs);
+//});
 
 //List All Events
 Route::get('calendar', function () {

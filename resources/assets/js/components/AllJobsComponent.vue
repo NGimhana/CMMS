@@ -1,20 +1,7 @@
 <template>
 
     <div>
-        <!--&lt;!&ndash;Map Model to view the place of the Job&ndash;&gt;-->
-        <!--<div id="map" class="ui fullscreen modal">-->
-        <!--<i class="close icon"></i>-->
-        <!--<div id="mapHeader" class="header"></div>-->
-        <!--<div class="content">-->
-        <!--<iframe id="mapFrame" width="100%" height="450" frameborder="0" style="border:0"-->
-        <!--src=""></iframe>-->
-        <!--</div>-->
 
-        <!--<div class="actions">-->
-        <!--<div class="ui button">Cancel</div>-->
-        <!--<div class="ui button">OK</div>-->
-        <!--</div>-->
-        <!--</div>-->
 
 
         <div class="ui grid">
@@ -101,7 +88,7 @@
                     <div v-on:click="drop" class="active title">
                         <i class="dropdown icon"></i>
 
-                        Summary On Job ID: {{this.selectedJob.id}}
+                        Summary On Job ID : {{this.selectedJob.id}}
                         <br><br>
                         <a class="ui green image label">
                             Status
@@ -143,12 +130,19 @@
                                     <p>{{this.selectedSector.description}}</p>
                                 </div>
                             </div>
-
-
                         </form>
-
-
                     </div>
+
+
+                    <div v-on:click="drop" class="title">
+                        <i class="dropdown icon"></i>
+                        Building : {{this.selectedBuilding.description}}
+                    </div>
+                    <div class="content">
+                        <iframe id="mapFrame" width="100%" height="450" frameborder="0" style="border:0"
+                                v-bind:src=" this.source "></iframe>
+                    </div>
+
 
                 </div>
 
@@ -158,6 +152,7 @@
 
 
     </div>
+
 </template>
 
 <script>
@@ -186,7 +181,8 @@
                 mm: '',
                 yyyy: '',
 
-
+                //Map Source
+                source:'',
 
                 isCompleted: '',
                 isOverdue: '',
@@ -281,13 +277,14 @@
                 this.selectedJob = job;
                 this.checkStatus();
 
-
-
                 this.$http.get('http://localhost:8000/api/asset/' + this.selectedJob.asset_id).then(response => {
                     this.selectedAsset = response.body;
 
                     this.$http.get('http://localhost:8000/api/sector/building/' + this.selectedAsset.sector_id).then(response => {
                         this.selectedBuilding = response.body;
+
+                        //Create Map
+                        this.createmap(this.selectedBuilding.description);
 
                         this.$http.get('http://localhost:8000/api/sector/' + this.selectedAsset.sector_id).then(response => {
                             this.selectedSector = response.body;
@@ -312,16 +309,11 @@
                     // error callback
                 });
             },
-
             //Map of the Selected Place of Job Task
-            createmap(jobId, jobPlace) {
-                //Model Shows
-                $('.fullscreen.modal').modal('show');
-                document.getElementById('mapHeader').innerHTML = "Job Task : " + jobId;
-                var source = "https://www.google.com/maps/embed/v1/search?q=" + jobPlace + "&key= AIzaSyB4VsPNtqpyTH4kowZeWFM5zONUkili1So";
-                document.getElementById('mapFrame').setAttribute("src", source);
-            }
-
+            createmap(jobPlace) {
+                this.source = "https://www.google.com/maps/embed/v1/search?q="+jobPlace+"&key=AIzaSyBOGCtQ84xGgjZaBiZ48ruA9B3g7AiT0Xg";
+                document.getElementById('mapFrame').setAttribute("src", this.source);
+            },
 
         }
     };

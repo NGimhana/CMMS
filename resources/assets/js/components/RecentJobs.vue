@@ -6,8 +6,8 @@
        
 <div class="content">                                         
 
-    <a class="ui large header" htrf="#"><span>Recent Jobs
-        <div class="ui large header">12</div>  
+    <a class="ui large header" htrf="#"><span> Recent Jobs
+        <div class="ui large header">{{this.jobCount}}</div>
     </span>        
     </a>                
 
@@ -33,7 +33,8 @@
 export default {
   data() {
     return {
-       
+        jobCount:0,
+        recentJobs:'',
     }
   },
   computed:{
@@ -41,10 +42,19 @@ export default {
   },  
   mounted() {
     console.log("Component mounted.");
+    this.fetchData();
   },
   methods: {
-   
-  }
+      fetchData:function(){
+          this.$http.get('http://localhost:8000/api/job/recentjobs').then(response =>{
+              this.recentJobs = response.body;
+              this.jobCount = this.recentJobs.length;
+              console.log(this.jobCount);
+          },response => {
+              console.log(response.body);
+          });
+      },
+  },
 };
 
 

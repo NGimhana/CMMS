@@ -12,6 +12,7 @@
                 <incompletejobs-component></incompletejobs-component>
                 <recentjobs-component></recentjobs-component>
             </div>
+            <assetcharts-component></assetcharts-component>
         </div>
     </div>  
 
