@@ -29735,7 +29735,7 @@ module.exports = Vue;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(136);
-module.exports = __webpack_require__(221);
+module.exports = __webpack_require__(222);
 
 
 /***/ }),
@@ -67678,9 +67678,9 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(228)
+var __vue_script__ = __webpack_require__(220)
 /* template */
-var __vue_template__ = __webpack_require__(220)
+var __vue_template__ = __webpack_require__(221)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67720,54 +67720,6 @@ module.exports = Component.exports
 
 /***/ }),
 /* 220 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "ui grid" }, [
-      _c("div", { staticClass: "six wide column" }, [
-        _c("h3", [_vm._v("Assets Maintained Mostly")]),
-        _vm._v(" "),
-        _c("canvas", {
-          staticStyle: { display: "block", width: "770px", height: "385px" },
-          attrs: { id: "myPieChart", width: "770", height: "385" }
-        })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4e9cedcf", module.exports)
-  }
-}
-
-/***/ }),
-/* 221 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67781,33 +67733,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+        return {
+            chartData: new Array(),
+            jobCountArray: []
+        };
     },
 
     computed: {},
     mounted: function mounted() {
         console.log("Component mounted.");
+        console.log(this.jobCountArray);
         this.createChart();
     },
 
     methods: {
         createChart: function createChart() {
+            console.log(this.chartData);
+
+            this.chartData = this.fetchChartData();
+
+            console.log(this.chartData);
+
             var ctx = document.getElementById("myPieChart");
             var myPieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
                     datasets: [{
-                        data: [10, 20, 30],
-                        backgroundColor: ['rgba(255, 0, 0, 10)', 'rgba(0, 255, 0, 10)', 'rgba(0, 0, 255, 10)'],
-                        borderColor: ['rgba(255,255,255,1)', 'rgba(255, 255, 255, 1)', 'rgba(255, 255, 255, 1)'],
+
+                        data: this.chartData,
+                        backgroundColor: ['rgba(255, 0, 0, 10)'],
+                        borderColor: ['rgba(255,255,255,1)'],
                         borderWidth: 5
                     }],
 
@@ -67817,10 +67776,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 options: {}
             });
+        },
+
+        fetchChartData: function fetchChartData() {
+            var _this = this;
+
+            this.$http.get('http://localhost:8000/api/assets/maintainedmost').then(function (response) {
+                _this.chartData = response.body;
+
+                //Converts JS Object into JSON String => and then converts it(JSON String) into JS Object
+                _this.chartData = JSON.parse(JSON.stringify(_this.chartData));
+
+                // obj.forEach(function(value){
+                //     this.jobCountArray.push(value.Job_Count);
+                // });
+
+                _this.jobCountArray[0] = 1;
+                //console.log(this.jobCountArray) ;
+                //console.log(this.chartData)
+            }, function (response) {
+                console.log(response.body);
+            });
         }
+
     }
 
 });
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("canvas", {
+        staticStyle: { display: "block", width: "770px", height: "385px" },
+        attrs: { id: "myPieChart" }
+      })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4e9cedcf", module.exports)
+  }
+}
+
+/***/ }),
+/* 222 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

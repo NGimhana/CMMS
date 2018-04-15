@@ -3,18 +3,49 @@
 @section('content')
 
 
-    <div id="app">       
-        <main-component username="{{ $data['user']['username'] }}" header={{ $data['header'] }} subheader={{ $data['subheader']}}></main-component>
-        <div style="padding:20px;">
-            <div class="ui four doubling special cards">
-                <ongoingjobs-component></ongoingjobs-component>
-                <completedjobs-component></completedjobs-component>
-                <incompletejobs-component></incompletejobs-component>
-                <recentjobs-component></recentjobs-component>
+<div id="app">
+    <main-component username="{{ $data['user']['username'] }}" header={{ $data[
+    'header'] }} subheader={{ $data['subheader']}}></main-component>
+    <div style="padding:20px;">
+
+        <div class="ui grid">
+            <div class="eight wide column">
+
+                <div class="ui two doubling special cards">
+                    <ongoingjobs-component></ongoingjobs-component>
+                    <completedjobs-component></completedjobs-component>
+                </div>
+
+                <div class="ui two doubling special cards">
+                    <incompletejobs-component></incompletejobs-component>
+                    <recentjobs-component></recentjobs-component>
+                </div>
+
             </div>
-            <assetcharts-component></assetcharts-component>
+
+            <div class="eight wide column">
+
+
+                <div class="ui one column grid">
+                    <div class="column">
+                        <div class="ui raised segment">
+                            <a class="ui red ribbon label">Overview</a>
+                            <span>Assets Maintained Mostly</span>
+                            <p></p>
+                            <assetcharts-component></assetcharts-component>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>  
 
 
+    </div>
+
+
+
+
+</div>
 @endsection

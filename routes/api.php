@@ -54,8 +54,11 @@ Route::get('calendar', function () {
 //Add Calendar Event
 Route::post('calendar','CalendarController@store');
 
+//Create immediate Job task
 Route::post('job','JobController@store');
 
+//Filter Assests Mostly Maintained
+Route::get('assets/maintainedmost','JobController@assetsMaintainedMost');
 
 //Get  Assets
 Route::get('assets','AssetController@index');

@@ -146,4 +146,18 @@ class JobController extends Controller
         return  json_decode(json_encode(DB::select("SELECT * FROM immediate__jobs
          WHERE DATE(Scheduled_End_Date) < CURDATE() ")));
     }
+
+    /*Assets Maintained Most*/
+    public function assetsMaintainedMost(){
+        return json_decode(json_encode(DB::select
+        ("SELECT * FROM assets 
+        JOIN (SELECT count(id) as Job_Count, asset_id as id FROM immediate__jobs 
+        WHERE asset_id 
+        IN (SELECT id from assets)
+        GROUP BY asset_id) AS T 
+        USING(id) ORDER BY Job_Count desc")));
+    }
+
+
+
 }
