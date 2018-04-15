@@ -21,7 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 //List All Jobs
 Route::get('job', function () {
    // $jobs = Immediate_Job::paginate(15);
@@ -40,11 +39,6 @@ Route::get('job/recentjobs','JobController@recentlyAddedJobs');
 
 //OverDue Jobs
 Route::get('job/overduejobs','JobController@overDueJobs');
-
-//Route::get('job/overduejobs/view',function () {
-//    $overdueJobs = app('\App\Http\Controllers\JobController')->overDueJobs();
-//    return view('Pages.job')->with('jobs',$overdueJobs);
-//});
 
 //List All Events
 Route::get('calendar', function () {
