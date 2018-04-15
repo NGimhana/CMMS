@@ -1,59 +1,59 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# COTENCE
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## About Laravel
+### What is COTENCE
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+__COTENCE__ is a web application which provides functionalities to manage any kind of maintenance 
+job task of an organisation.  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![Image](https://raw.githubusercontent.com/NGimhana/CMMS/master/front%20Page.jpg)
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+### Configuration
 
-## Learning Laravel
+COTENCE is totally built on the PHP(7.1)  [Laravel Framework](https://laravel.com/) (5.6). Front-End framework used
+is [Vue.js](https://vuejs.org/)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+#### System Configuration
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+Follow below steps to configure the project in your PCs.
 
-## Laravel Sponsors
+ 
+- Clone the Git Repository [CMMS](https://github.com/NGimhana/CMMS) into your PC
+    - __*git clone https://github.com/NGimhana/CMMS*__ 
+- Update the Composer
+    - __*composer update*__
+    
+_Note_ : Use [Composer Fresh Install](https://getcomposer.org/) if composer package manager is not installed.    
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+- Integrate Node_Modules
+    - __*npm install*__
+    
+#### Database Configuration
+- Create a new File with __.env__ extension.(No File Name).As Similar as __.env.example__ file.
+- Copy and Paste everything presented in the __.env.example__ to the newly created __.env__ file.
+- Edit the __.env__ file like below . use  __DB_DATABASE__ to give the MYSQL Database Name , Use __DB_USERNAME__ and __DB_PASSWORD__ to give authentication creditionals to the Laravel application.
+ 
+    ![Env](https://raw.githubusercontent.com/NGimhana/CMMS/master/dbenv.jpg)      
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+- Then go to cloned project folder and open terminal there and execute __*php artisan migrate*__ to migrate DB relations in the created database.
+ 
+ Now the System is Well Configured in the Computer. Have Problems ? Free to Contact Developers.
+ 
+#### Testing and Debuging
 
-## Contributing
+- Use Laravel Inbuilt-server or web server solution stack packages like [XAMPP](https://www.apachefriends.org/index.html) to run the system in local PCs. 
+    - __*php artisan serve*__ to use the Laravel Inbuilt-Server. System will run on [http://127.0.0.1:8000](http://127.0.0.1:8000) by default.
+    - Make Sure to use XAMPP or similar stack packages supports PHP 7.1+
+     
+### Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Thank you for considering contributing to the COTENCE System. Contributing guidelines will be updated soon. But Issue reporting and Pull Requests are always welcome. 
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within COTENCE, please send an e-mail to N.Gimhana via [ngimhana94@gmail.com](mailto:ngimhana94@gmail.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+COTENCE System is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
