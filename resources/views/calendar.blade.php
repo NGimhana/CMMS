@@ -7,7 +7,7 @@
             <h3 class="box-title">Create a Job</h3>
         </div>
         <div class="box-body">
-            <div id="calendar"></div>
+<!--            <div id="calendar"></div>-->
 
         </div>
 

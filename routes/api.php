@@ -50,9 +50,8 @@ Route::get('job/recentjobs','JobController@recentlyAddedJobs');
 Route::get('job/overduejobs','JobController@overDueJobs');
 
 //List All Events
-Route::get('calendar', function () {
-    return CalendarResource::collection(Calendar::all());
-});
+Route::get('calendar', 'CalendarController@index' );
+
 
 //Add Calendar Event
 Route::post('calendar','CalendarController@store');

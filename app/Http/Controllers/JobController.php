@@ -75,8 +75,11 @@ class JobController extends Controller
         $job->Assigned_Person_id = $request->input('assigned_person');
 
         if($job->save()){
+            \auth()->user()->notify();
             return new JobResource($job);
         }
+
+
 
     }
 

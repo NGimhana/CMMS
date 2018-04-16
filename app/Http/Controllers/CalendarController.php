@@ -20,9 +20,17 @@ class CalendarController extends Controller
 
         //SubHeader is the Subtitle of the Page
         $subheader='@JobCalendar';
-                
+
+        //loggedUser
+        $this->loggedUser = [
+            //User Name
+            'username' => \auth()->user()->name,
+            'userid' => \auth()->user()->id,
+            'useremail' => \auth()->user()->email,
+        ];
+
         //Creating a Array of Data to send
-        $data = (['header'=> $header , 'subheader'=> $subheader]);        
+        $data = ['user'=>$this->loggedUser,'header'=> $header , 'subheader'=> $subheader];
         
         //Return a Page with With values
         return view('Pages.calendar')->with('data',$data);   

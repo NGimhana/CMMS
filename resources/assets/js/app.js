@@ -10,6 +10,9 @@ import VueRouter from 'vue-router';
 import AllJobsComponent from './components/AllJobsComponent';
 import Chart from 'chart.js';
 
+import * as $ from 'jquery';
+import 'fullcalendar';
+
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
@@ -18,9 +21,9 @@ import Vuetify from 'vuetify';
 //import Routes from './routes';
 
 
-//require('./bootstrap');
+require('./bootstrap');
 require('./semantic-ui');
-
+//require('./fullcalendar.min');
 
 window.Vue = require('vue');
 // const router=new VueRouter({
