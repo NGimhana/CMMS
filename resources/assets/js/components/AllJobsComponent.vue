@@ -2,6 +2,28 @@
 
     <div>
 
+        <div class="ui mini modal">
+            <div class="ui icon header">
+                <i class="archive icon"></i>
+                Remove Job Task
+            </div>
+
+            <div class="content">
+                <p>You are going to Remove a Maintenance Job Task. Notifications and other features will be removed permanently and This action will not be revert back !!</p>
+                <h3 style="color: red">Are you Sure to Remove Job <span><strong>{{this.selectedJob.id}}</strong></span> Completely from System ?</h3>
+            </div>
+
+            <div class="actions">
+                <div class="ui green  cancel inverted button">
+                    <i class="remove icon"></i>
+                    No
+                </div>
+                <div class="ui red ok inverted button" v-on:click="deleteJobTask()">
+                    <i class="checkmark icon"></i>
+                    Yes
+                </div>
+            </div>
+        </div>
 
 
         <div class="ui grid">
@@ -51,7 +73,7 @@
                             <div class="ui large buttons">
                                 <a class="ui blue button"><i class="edit icon"></i></a>
                                 <div class="or"></div>
-                                <a class="ui red button"><i class="recycle icon"></i></a>
+                                <a class="ui red button" v-on:click="JobModelShow" ><i class="recycle icon"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -98,9 +120,12 @@
                         </a>
 
                     </div>
+
                     <div class="active content">
                         <form class="ui form">
-
+                            <div style="padding-left: 7px; padding-bottom: 3px">
+                                <div v-show="!this.isCompleted" class="ui  green button "><i class="checkmark icon"></i>COMPLETE</div>
+                            </div>
                             <!--Asset Info-->
                             <div class="inline fields">
                                 <div class="field">
@@ -130,6 +155,27 @@
                                     <p>{{this.selectedSector.description}}</p>
                                 </div>
                             </div>
+
+                            <!--Created Person Info-->
+                            <div class="inline fields">
+                                <div class="field">
+                                    <p>Created By</p>
+                                </div>
+                                <div class="field">
+                                    <p>{{this.createdUser.name + " : "+this.createdUser.email}}</p>
+                                </div>
+                            </div>
+
+                            <!--Assigned Person Info-->
+                            <div class="inline fields">
+                                <div class="field">
+                                    <p>Assigned To</p>
+                                </div>
+                                <div class="field">
+                                    <p>{{this.assignedPerson.name+" : "+this.assignedPerson.email}}</p>
+                                </div>
+                            </div>
+
                         </form>
                     </div>
 
@@ -172,6 +218,8 @@
                 selectedAsset: '',
                 selectedBuilding: '',
                 selectedSector: '',
+                createdUser:'',
+                assignedPerson:'',
 
                 status: '',
                 overDueStatus: '',
@@ -184,7 +232,7 @@
                 //Map Source
                 source:'',
 
-                isCompleted: '',
+                isCompleted: true,
                 isOverdue: '',
 
 
@@ -219,6 +267,10 @@
                 $('.ui.accordion')
                     .accordion()
                 ;
+            },
+            JobModelShow: function () {
+                $('.mini.modal').modal('show');
+                console.log("clicked");
             },
             getToday: function () {
                 this.today = new Date();
@@ -289,6 +341,19 @@
                         this.$http.get('http://localhost:8000/api/sector/' + this.selectedAsset.sector_id).then(response => {
                             this.selectedSector = response.body;
 
+                            this.$http.get('http://localhost:8000/api/user/'+this.selectedJob.created_user_id).then(response => {
+                                this.createdUser = response.body;
+
+                                this.$http.get('http://localhost:8000/api/user/'+this.selectedJob.Assigned_Person_id).then(response => {
+                                    this.assignedPerson = response.body;
+
+                                },response =>{
+
+                                });
+
+                            },response =>{
+
+                            });
 
                         }, response => {
 
@@ -309,12 +374,23 @@
                     // error callback
                 });
             },
+
             //Map of the Selected Place of Job Task
             createmap(jobPlace) {
                 this.source = "https://www.google.com/maps/embed/v1/search?q="+jobPlace+"&key=AIzaSyBOGCtQ84xGgjZaBiZ48ruA9B3g7AiT0Xg";
                 document.getElementById('mapFrame').setAttribute("src", this.source);
             },
 
+            deleteJobTask :function () {
+                this.$http.delete('http://localhost:8000/api/job/'+this.selectedJob.id).then(response => {
+                   this.$router.go("http://localhost:8000/job");
+                   console.log(response.body);
+
+                },response => {
+
+                });
+                console.log("Delete Clicked")
+            },
         }
     };
 </script>

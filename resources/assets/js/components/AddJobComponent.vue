@@ -37,7 +37,10 @@
                     </div>
                     <div class="field">
                         <label>Assigned Person</label>
-                        <input name="assigned_person" v-model="assigned_person" type="text">
+                        <select v-model="assignedPerson">
+                            <option v-for="person in persons" v-bind:value="person.id">{{person.name +" : "+ person.email}}</option>
+                        </select>
+
                     </div>
 
 
@@ -79,7 +82,8 @@
                 priority: "Immediate",
                 starteddate: "",
                 scheduled_end_date: "",
-                assigned_person: "",
+                assignedPerson: "",
+                persons:'',
 
                 assets:'',
                 selectedAsset:'',
@@ -100,6 +104,7 @@
         },
         created() {
             this.getAssets();
+            this.getUsers();
         },
         methods: {
             toggleSidebar: function () {
@@ -122,7 +127,7 @@
                     description:this.description,
                     priority:this.priority,
                     scheduled_end_date:this.scheduled_end_date,
-                    assigned_person:this.assigned_person,
+                    assigned_person:this.assignedPerson,
                     starteddate:this.starteddate,
                     created_user_id:this.user,
                 }
@@ -156,6 +161,14 @@
                 }, response => {
 
                 });
+            },
+
+            getUsers() {
+              this.$http.get('http://localhost:8000/api/users').then(response => {
+                 this.persons = response.body;
+              },response =>{
+
+              });
             },
 
         }

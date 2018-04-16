@@ -111,7 +111,24 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $job = Immediate_Job::findOrFail($id);
+
+        $job->id = $request->input('id');
+        $job->type = $request->input('type');
+        $job->asset_id = $request->input('asset_id');
+        $job->priority = $request->input('priority');
+        $job->description = $request->input('description');
+
+        $job->Started_Date = $request->input('starteddate');
+        $job->Scheduled_End_Date = $request->input('scheduled_end_date');
+        $job->Ended_Date = $request->input('Ended_Date');
+        $job->created_user_id = $request->input('created_user_id');
+        $job->Assigned_Person_id = $request->input('assigned_person');
+
+        if($job->save()){
+            return new JobResource($job);
+        }
+
     }
 
     /**
@@ -122,7 +139,12 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Get Immediate Job
+        $job = Immediate_Job::findOrFail($id);
+
+        if($job->delete()){
+            return new JobResource($job);
+        }
     }
 
     /*Completed Jobs*/

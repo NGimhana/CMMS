@@ -28,6 +28,15 @@ Route::get('job', function () {
     //return JobResource::collection($jobs[0]);
 });
 
+//Create immediate Job task
+Route::post('job','JobController@store');
+
+//Update immediate Job Task
+Route::put('job/{id}','JobController@store');
+
+//Delete Asset
+Route::delete('job/{id}','JobController@destroy');
+
 //List Completed  Immediate Jobs
 Route::get('job/completedjobs','JobController@completedJobs');
 
@@ -48,8 +57,6 @@ Route::get('calendar', function () {
 //Add Calendar Event
 Route::post('calendar','CalendarController@store');
 
-//Create immediate Job task
-Route::post('job','JobController@store');
 
 //Filter Assests Mostly Maintained
 Route::get('assets/maintainedmost','JobController@assetsMaintainedMost');
@@ -101,3 +108,15 @@ Route::delete('sector/{id}','SectorController@destroy');
 
 //Buildings Corresponding Sectors
 Route::get('sector/building/{id}','SectorController@getBuildings');
+
+//Get  Users
+Route::get('users','UserController@index');
+
+//Get Single User
+Route::get('user/{id}','UserController@show');
+
+//Update  User
+Route::put('user/{id}','UserController@store');
+
+//Delete User
+Route::delete('user/{id}','UserController@destroy');

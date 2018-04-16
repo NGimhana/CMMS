@@ -34184,6 +34184,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -34196,6 +34242,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             selectedAsset: '',
             selectedBuilding: '',
             selectedSector: '',
+            createdUser: '',
+            assignedPerson: '',
 
             status: '',
             overDueStatus: '',
@@ -34208,7 +34256,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             //Map Source
             source: '',
 
-            isCompleted: '',
+            isCompleted: true,
             isOverdue: ''
 
         };
@@ -34241,6 +34289,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         drop: function drop() {
             $('.ui.accordion').accordion();
+        },
+        JobModelShow: function JobModelShow() {
+            $('.mini.modal').modal('show');
+            console.log("clicked");
         },
         getToday: function getToday() {
             this.today = new Date();
@@ -34310,6 +34362,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                     _this.$http.get('http://localhost:8000/api/sector/' + _this.selectedAsset.sector_id).then(function (response) {
                         _this.selectedSector = response.body;
+
+                        _this.$http.get('http://localhost:8000/api/user/' + _this.selectedJob.created_user_id).then(function (response) {
+                            _this.createdUser = response.body;
+
+                            _this.$http.get('http://localhost:8000/api/user/' + _this.selectedJob.Assigned_Person_id).then(function (response) {
+                                _this.assignedPerson = response.body;
+                            }, function (response) {});
+                        }, function (response) {});
                     }, function (response) {});
                 }, function (response) {
                     //console.log(response.body);
@@ -34327,10 +34387,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 // error callback
             });
         },
+
         //Map of the Selected Place of Job Task
         createmap: function createmap(jobPlace) {
             this.source = "https://www.google.com/maps/embed/v1/search?q=" + jobPlace + "&key=AIzaSyBOGCtQ84xGgjZaBiZ48ruA9B3g7AiT0Xg";
             document.getElementById('mapFrame').setAttribute("src", this.source);
+        },
+
+
+        deleteJobTask: function deleteJobTask() {
+            var _this3 = this;
+
+            this.$http.delete('http://localhost:8000/api/job/' + this.selectedJob.id).then(function (response) {
+                _this3.$router.go("http://localhost:8000/job");
+                console.log(response.body);
+            }, function (response) {});
+            console.log("Delete Clicked");
         }
     }
 });
@@ -34344,6 +34416,44 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "ui mini modal" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "content" }, [
+        _c("p", [
+          _vm._v(
+            "You are going to Remove a Maintenance Job Task. Notifications and other features will be removed permanently and This action will not be revert back !!"
+          )
+        ]),
+        _vm._v(" "),
+        _c("h3", { staticStyle: { color: "red" } }, [
+          _vm._v("Are you Sure to Remove Job "),
+          _c("span", [_c("strong", [_vm._v(_vm._s(this.selectedJob.id))])]),
+          _vm._v(" Completely from System ?")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "actions" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "ui red ok inverted button",
+            on: {
+              click: function($event) {
+                _vm.deleteJobTask()
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "checkmark icon" }),
+            _vm._v("\n                Yes\n            ")
+          ]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "ui grid" }, [
       _c("div", { staticClass: "ten wide column" }, [
         _c(
@@ -34353,7 +34463,7 @@ var render = function() {
             attrs: { id: "table" }
           },
           [
-            _vm._m(0),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "tbody",
@@ -34392,13 +34502,28 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(job.Scheduled_End_Date))]),
                     _vm._v(" "),
-                    _vm._m(1, true)
+                    _c("td", [
+                      _c("div", { staticClass: "ui large buttons" }, [
+                        _vm._m(3, true),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "or" }),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "ui red button",
+                            on: { click: _vm.JobModelShow }
+                          },
+                          [_c("i", { staticClass: "recycle icon" })]
+                        )
+                      ])
+                    ])
                   ]
                 )
               })
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(4)
           ]
         )
       ]),
@@ -34435,8 +34560,38 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "active content" }, [
             _c("form", { staticClass: "ui form" }, [
+              _c(
+                "div",
+                {
+                  staticStyle: {
+                    "padding-left": "7px",
+                    "padding-bottom": "3px"
+                  }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !this.isCompleted,
+                          expression: "!this.isCompleted"
+                        }
+                      ],
+                      staticClass: "ui  green button "
+                    },
+                    [
+                      _c("i", { staticClass: "checkmark icon" }),
+                      _vm._v("COMPLETE")
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(3),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedAsset.description))])
@@ -34444,7 +34599,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(4),
+                _vm._m(6),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedBuilding.description))])
@@ -34452,10 +34607,40 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(5),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedSector.description))])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "inline fields" }, [
+                _vm._m(8),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("p", [
+                    _vm._v(
+                      _vm._s(
+                        this.createdUser.name + " : " + this.createdUser.email
+                      )
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "inline fields" }, [
+                _vm._m(9),
+                _vm._v(" "),
+                _c("div", { staticClass: "field" }, [
+                  _c("p", [
+                    _vm._v(
+                      _vm._s(
+                        this.assignedPerson.name +
+                          " : " +
+                          this.assignedPerson.email
+                      )
+                    )
+                  ])
                 ])
               ])
             ])
@@ -34492,6 +34677,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "ui icon header" }, [
+      _c("i", { staticClass: "archive icon" }),
+      _vm._v("\n            Remove Job Task\n        ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "ui green  cancel inverted button" }, [
+      _c("i", { staticClass: "remove icon" }),
+      _vm._v("\n                No\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { staticClass: "single line" }, [_vm._v("Priority")]),
@@ -34512,18 +34715,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("div", { staticClass: "ui large buttons" }, [
-        _c("a", { staticClass: "ui blue button" }, [
-          _c("i", { staticClass: "edit icon" })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "or" }),
-        _vm._v(" "),
-        _c("a", { staticClass: "ui red button" }, [
-          _c("i", { staticClass: "recycle icon" })
-        ])
-      ])
+    return _c("a", { staticClass: "ui blue button" }, [
+      _c("i", { staticClass: "edit icon" })
     ])
   },
   function() {
@@ -34571,6 +34764,22 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "field" }, [_c("p", [_vm._v("Sector")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "field" }, [
+      _c("p", [_vm._v("Created By")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "field" }, [
+      _c("p", [_vm._v("Assigned To")])
+    ])
   }
 ]
 render._withStripped = true
@@ -67279,6 +67488,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -67299,7 +67511,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             priority: "Immediate",
             starteddate: "",
             scheduled_end_date: "",
-            assigned_person: "",
+            assignedPerson: "",
+            persons: '',
 
             assets: '',
             selectedAsset: ''
@@ -67320,6 +67533,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.getAssets();
+        this.getUsers();
     },
 
     methods: {
@@ -67343,7 +67557,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 description: this.description,
                 priority: this.priority,
                 scheduled_end_date: this.scheduled_end_date,
-                assigned_person: this.assigned_person,
+                assigned_person: this.assignedPerson,
                 starteddate: this.starteddate,
                 created_user_id: this.user
             }).then(function (response) {
@@ -67374,6 +67588,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$http.get('http://localhost:8000/api/assets').then(function (response) {
                 _this2.assets = response.body;
+            }, function (response) {});
+        },
+        getUsers: function getUsers() {
+            var _this3 = this;
+
+            this.$http.get('http://localhost:8000/api/users').then(function (response) {
+                _this3.persons = response.body;
             }, function (response) {});
         }
     }
@@ -67545,26 +67766,39 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c("label", [_vm._v("Assigned Person")]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.assigned_person,
-                  expression: "assigned_person"
-                }
-              ],
-              attrs: { name: "assigned_person", type: "text" },
-              domProps: { value: _vm.assigned_person },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.assignedPerson,
+                    expression: "assignedPerson"
                   }
-                  _vm.assigned_person = $event.target.value
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.assignedPerson = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
                 }
-              }
-            })
+              },
+              _vm._l(_vm.persons, function(person) {
+                return _c("option", { domProps: { value: person.id } }, [
+                  _vm._v(_vm._s(person.name + " : " + person.email))
+                ])
+              })
+            )
           ])
         ])
       ]),
