@@ -34230,6 +34230,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -34396,13 +34399,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
         deleteJobTask: function deleteJobTask() {
-            var _this3 = this;
-
             this.$http.delete('http://localhost:8000/api/job/' + this.selectedJob.id).then(function (response) {
-                _this3.$router.go("http://localhost:8000/job");
+                //this.$router.go("http://localhost:8000/job");
+                location.reload();
                 console.log(response.body);
             }, function (response) {});
             console.log("Delete Clicked");
+        },
+
+        completeJobTask: function completeJobTask() {
+            this.getToday();
+            this.$http.put('http://localhost:8000/api/job/' + this.selectedJob.id, {
+
+                type: this.selectedJob.type,
+                asset_id: this.selectedJob.asset_id,
+                description: this.selectedJob.description,
+                priority: this.selectedJob.priority,
+                scheduled_end_date: this.selectedJob.Scheduled_End_Date,
+                assigned_person: this.selectedJob.Assigned_Person_id,
+                starteddate: this.selectedJob.Started_Date,
+                created_user_id: this.selectedJob.created_user_id,
+                Ended_Date: this.today
+            }).then(function (response) {
+                console.log(response.body);
+                location.reload();
+                //this.$router.go("http://localhost:8000/job");
+            }, function (response) {});
         }
     }
 });
@@ -34546,15 +34568,29 @@ var render = function() {
               ),
               _c(
                 "div",
-                { class: [this.isCompleted ? "green detail" : "red detail"] },
-                [_vm._v(_vm._s(this.status))]
+                {
+                  class: [this.isCompleted ? "green detail" : "orange detail"]
+                },
+                [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(this.status) +
+                      "\n                        "
+                  )
+                ]
               ),
               _vm._v(" "),
-              _c("div", { class: [this.isOverdue ? "yellow detail" : ""] }, [
-                _vm._v(
-                  _vm._s(this.overDueStatus) + "\n                        "
-                )
-              ])
+              _c(
+                "div",
+                { class: [this.isOverdue ? "red detail" : "red detail"] },
+                [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(this.overDueStatus) +
+                      "\n                        "
+                  )
+                ]
+              )
             ])
           ]),
           _vm._v(" "),
@@ -34580,7 +34616,12 @@ var render = function() {
                           expression: "!this.isCompleted"
                         }
                       ],
-                      staticClass: "ui  green button "
+                      staticClass: "ui  green button ",
+                      on: {
+                        click: function($event) {
+                          _vm.completeJobTask()
+                        }
+                      }
                     },
                     [
                       _c("i", { staticClass: "checkmark icon" }),

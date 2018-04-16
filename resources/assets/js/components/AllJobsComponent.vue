@@ -114,8 +114,11 @@
                         <br><br>
                         <a class="ui green image label">
                             Status
-                            <div v-bind:class="[this.isCompleted ? 'green detail' : 'red detail']">{{this.status}}</div>
-                            <div v-bind:class="[this.isOverdue ? 'yellow detail' : '']">{{this.overDueStatus}}
+                            <div v-bind:class="[this.isCompleted ? 'green detail' : 'orange detail']">
+                                {{this.status}}
+                            </div>
+                            <div v-bind:class="[this.isOverdue ? 'red detail' : 'red detail']">
+                                {{this.overDueStatus}}
                             </div>
                         </a>
 
@@ -124,7 +127,7 @@
                     <div class="active content">
                         <form class="ui form">
                             <div style="padding-left: 7px; padding-bottom: 3px">
-                                <div v-show="!this.isCompleted" class="ui  green button "><i class="checkmark icon"></i>COMPLETE</div>
+                                <div v-show="!this.isCompleted" class="ui  green button " v-on:click="completeJobTask()"><i class="checkmark icon"></i>COMPLETE</div>
                             </div>
                             <!--Asset Info-->
                             <div class="inline fields">
@@ -383,13 +386,39 @@
 
             deleteJobTask :function () {
                 this.$http.delete('http://localhost:8000/api/job/'+this.selectedJob.id).then(response => {
-                   this.$router.go("http://localhost:8000/job");
+                   //this.$router.go("http://localhost:8000/job");
+                    location.reload();
                    console.log(response.body);
 
                 },response => {
 
                 });
                 console.log("Delete Clicked")
+            },
+
+            completeJobTask: function () {
+              this.getToday();
+              this.$http.put('http://localhost:8000/api/job/'+this.selectedJob.id ,
+                  {
+
+                      type:this.selectedJob.type,
+                      asset_id:this.selectedJob.asset_id,
+                      description:this.selectedJob.description,
+                      priority:this.selectedJob.priority,
+                      scheduled_end_date:this.selectedJob.Scheduled_End_Date,
+                      assigned_person:this.selectedJob.Assigned_Person_id,
+                      starteddate:this.selectedJob.Started_Date,
+                      created_user_id:this.selectedJob.created_user_id,
+                      Ended_Date:this.today
+                  }
+
+              ).then(response => {
+                  console.log(response.body);
+                  location.reload();
+                  //this.$router.go("http://localhost:8000/job");
+              },response => {
+
+              });
             },
         }
     };

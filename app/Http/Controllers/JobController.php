@@ -113,7 +113,6 @@ class JobController extends Controller
     {
         $job = Immediate_Job::findOrFail($id);
 
-        $job->id = $request->input('id');
         $job->type = $request->input('type');
         $job->asset_id = $request->input('asset_id');
         $job->priority = $request->input('priority');
@@ -125,7 +124,7 @@ class JobController extends Controller
         $job->created_user_id = $request->input('created_user_id');
         $job->Assigned_Person_id = $request->input('assigned_person');
 
-        if($job->save()){
+        if($job->update()){
             return new JobResource($job);
         }
 

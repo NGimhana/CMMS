@@ -32,7 +32,7 @@ Route::get('job', function () {
 Route::post('job','JobController@store');
 
 //Update immediate Job Task
-Route::put('job/{id}','JobController@store');
+Route::put('job/{id}','JobController@update');
 
 //Delete Asset
 Route::delete('job/{id}','JobController@destroy');
