@@ -2,24 +2,24 @@
 
 namespace App\Notifications;
 
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+
 
 class JobNotificaton extends Notification
 {
     use Queueable;
+
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($job)
     {
-        //
+        $this->job = $job;
     }
 
     /**
@@ -70,7 +70,7 @@ class JobNotificaton extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'description' => Carbon::now(),
+            'description' => $this->job->description,
         ];
     }
 

@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests;
 use App\Http\Resources\JobResource;
 use App\Immediate_Job;
+use App\Notifications\JobNotificaton;
+use App\User;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Queue\Jobs\Job;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -39,7 +40,7 @@ class JobController extends Controller
         $data = ['user'=>$this->loggedUser,'header'=> $header , 'subheader'=> $subheader];
 
         //Return a Page with With values
-        return view('Pages.job')->with('data',$data);                                
+        return view('Pages.job')->with('data',$data);
     }
 
     /**
@@ -49,7 +50,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -75,10 +76,11 @@ class JobController extends Controller
         $job->Assigned_Person_id = $request->input('assigned_person');
 
         if($job->save()){
-            \auth()->user()->notify();
+            $user = User::findOrFail($job->created_user_id);
+            echo $user;
+            $user->notify(new JobNotificaton($job));
             return new JobResource($job);
         }
-
 
 
     }
@@ -181,7 +183,6 @@ class JobController extends Controller
         GROUP BY asset_id) AS T 
         USING(id) ORDER BY Job_Count desc")));
     }
-
 
 
 }
