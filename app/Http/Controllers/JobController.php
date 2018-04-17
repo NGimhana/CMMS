@@ -34,10 +34,13 @@ class JobController extends Controller
             'username' => \auth()->user()->name,
             'userid' => \auth()->user()->id,
             'useremail' => \auth()->user()->email,
+            'unreadNotifications' => \auth()->user()->unreadNotifications
         ];
 
-        //Creating a Array of Data to send
-        $data = ['user'=>$this->loggedUser,'header'=> $header , 'subheader'=> $subheader];
+        $notifications = json_decode($this->loggedUser['unreadNotifications']);
+
+//        Creating a Array of Data to send
+        $data = ['user' => $this->loggedUser, 'header' => $header, 'subheader' => $subheader, 'notifications' => $notifications];
 
         //Return a Page with With values
         return view('Pages.job')->with('data',$data);

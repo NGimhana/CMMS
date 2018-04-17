@@ -5,7 +5,14 @@
 
     <div id="app">
         {{--  Main Componet contains the sidebar and Navigation Bar  --}}
-        <main-component username={{$data['user']['username']}} header={{$data['header']}} subheader={{$data['subheader']}}></main-component>
+        <main-component
+                username={{ $data[
+        'user']['username'] }}
+        header = {{ $data['header'] }}
+        subheader={{ $data['subheader'] }}
+        notifications = "{{ json_encode($data['notifications']) }}"
+        >
+        </main-component>
                 
 
         <!--Map Model to view the place of the Job-->

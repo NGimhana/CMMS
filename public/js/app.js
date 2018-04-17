@@ -118081,59 +118081,105 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  props: {
-    username: {
-      default: '',
-      type: String
-    },
-    header: {
-      default: '',
-      type: String
-    },
-    subheader: {
-      default: '',
-      type: String
-    }
-  },
+            props: {
+                username: {
+                    default: '',
+                    type: String
+                },
+                header: {
+                    default: '',
+                    type: String
+                },
+                subheader: {
+                    default: '',
+                    type: String
+                },
+                notifications: {
+                    default: '',
+                    type: String
+                }
 
-  data: function data() {
-    return {};
-  },
+            },
+
+            data: function data() {
+                return {
+                    unreadNotifications: new Array()
+                };
+            },
 
 
-  components: {},
+            components: {},
 
-  computed: {
-    divHeaderStyle: function divHeaderStyle() {
-      return {
-        padding: "20px"
-      };
-    }
-  },
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
-  created: function created() {},
+            computed: {
+                divHeaderStyle: function divHeaderStyle() {
+                    return {
+                        padding: "20px"
+                    };
+                }
+            },
+            mounted: function mounted() {
+                console.log("Component mounted.");
+                //console.log(this.notifications);
+                this.fetchData();
+            },
+            created: function created() {
+            },
 
-  methods: {
-    toggleSidebar: function toggleSidebar() {
-      $(".ui.sidebar").sidebar("toggle");
-    },
-    userMenu: function userMenu() {
-      $(".ui.dropdown").dropdown();
-    }
+            methods: {
+                toggleSidebar: function toggleSidebar() {
+                    $(".ui.sidebar").sidebar("toggle");
+                },
+                userMenu: function userMenu() {
+                    $(".ui.dropdown").dropdown();
+                },
 
-    // logout(){
-    //     this.$http.get('/logout').then(response => {
-    //         return this.$http.get('login');
-    //     }, response => {
-    //         console.log(response.error);
-    //     });
-    // }
-  }
+                fetchData: function fetchData() {
+
+                    var obj = JSON.parse(this.notifications);
+                    //console.log((obj));
+
+                    var unread = new Array();
+
+                    obj.forEach(function (value) {
+                        unread.push(value['data']['description']);
+                    });
+
+                    //console.log(unread)
+                    this.unreadNotifications = unread;
+                    console.log(this.unreadNotifications);
+                }
+
+                // logout(){
+                //     this.$http.get('/logout').then(response => {
+                //         return this.$http.get('login');
+                //     }, response => {
+                //         console.log(response.error);
+                //     });
+                // }
+            }
 });
 
 /***/ }),
@@ -118148,7 +118194,7 @@ var render = function() {
     _c("div", { staticClass: "ui top attached  inverted blue menu" }, [
       _c("a", { staticClass: "item", on: { click: _vm.toggleSidebar } }, [
         _c("i", { staticClass: "sidebar icon" }),
-        _vm._v("Menu\r\n        ")
+          _vm._v("Menu\n        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "right menu" }, [
@@ -118159,7 +118205,7 @@ var render = function() {
             [
               _c("form", { attrs: { method: "post" } }, [
                 _c("i", { staticClass: "user icon" }),
-                _vm._v(_vm._s(_vm.username) + "\r\n                    ")
+                  _vm._v(_vm._s(_vm.username) + "\n                    ")
               ])
             ]
           ),
@@ -118167,11 +118213,28 @@ var render = function() {
           _vm._m(0)
         ]),
         _vm._v(" "),
-        _vm._m(1)
+          _c("div", {staticClass: "ui dropdown"}, [
+              _c(
+                  "a",
+                  {staticClass: "ui right item", on: {click: _vm.userMenu}},
+                  [
+                      _c("i", {staticClass: "bell outline icon"}),
+                      _vm._v("Notifications\n                ")
+                  ]
+              ),
+              _vm._v(" "),
+              _c(
+                  "div",
+                  {staticClass: "menu"},
+                  _vm._l(_vm.unreadNotifications, function (n) {
+                      return _c("a", {staticClass: "item"}, [_vm._v(_vm._s(n))])
+                  })
+              )
+          ])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2),
+      _vm._m(1),
     _vm._v(" "),
     _c("div", { staticClass: "pusher" }, [
       _c("div", { style: _vm.divHeaderStyle }, [
@@ -118179,7 +118242,7 @@ var render = function() {
           _c("i", { staticClass: "dashboard icon" }),
           _vm._v(" "),
           _c("div", { staticClass: "content" }, [
-            _vm._v(_vm._s(_vm.header) + "\r\n                "),
+              _vm._v(_vm._s(_vm.header) + "\n                    "),
             _c("div", { staticClass: "sub header" }, [
               _vm._v(_vm._s(_vm.subheader))
             ])
@@ -118206,15 +118269,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "ui right item" }, [
-      _c("i", { staticClass: "bell outline icon" }),
-      _vm._v("Notifiacation                           \r\n            ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "div",
       {
@@ -118229,27 +118283,27 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("a", { staticClass: "item", attrs: { href: "/job" } }, [
           _c("i", { staticClass: "wrench icon" }),
-          _vm._v("Jobs                \r\n            ")
+            _vm._v("Jobs\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item" }, [
           _c("i", { staticClass: "building icon" }),
-          _vm._v("Buildings\r\n            ")
+            _vm._v("Buildings\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item" }, [
           _c("i", { staticClass: "sitemap icon" }),
-          _vm._v("Sectors\r\n            ")
+            _vm._v("Sectors\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item", attrs: { href: "/calendar" } }, [
           _c("i", { staticClass: "calendar alternate icon" }),
-          _vm._v("Calendar\r\n            ")
+            _vm._v("Calendar\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item" }, [
           _c("i", { staticClass: "smile icon" }),
-          _vm._v("Resources\r\n            ")
+            _vm._v("Resources\n        ")
         ])
       ]
     )
@@ -119249,7 +119303,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 created_user_id: this.user
             }).then(function (response) {
                 console.log(response.body);
-                _this.$router.go("http://localhost:8000/job");
+                //this.$router.go("http://localhost:8000/job");
+                //Page Reloads
+                location.reload();
             }, function (response) {
                 console.log(_this.user);
                 console.log(response);

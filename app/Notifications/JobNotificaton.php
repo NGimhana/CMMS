@@ -70,6 +70,15 @@ class JobNotificaton extends Notification
     public function toDatabase($notifiable)
     {
         return [
+            //DataBase Columns
+            'id' => $this->job->id,
+            'type' => $this->job->type,
+            'asset_id' => $this->job->asset_id,
+            'priority' => $this->job->priority,
+            'starteddate' => $this->job->Stated_Date,
+            'scheduled_end_date' => $this->job->Scheduled_End_Date,
+            'created_user_id' => $this->job->created_user_id,
+            'assigned_person' => $this->job->Assigned_Person_id,
             'description' => $this->job->description,
         ];
     }

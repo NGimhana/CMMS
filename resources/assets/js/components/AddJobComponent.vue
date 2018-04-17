@@ -133,8 +133,10 @@
                 }
 
                 ).then(response => {
-                  console.log(response.body)
-                  this.$router.go("http://localhost:8000/job");
+                    console.log(response.body);
+                    //this.$router.go("http://localhost:8000/job");
+                    //Page Reloads
+                    location.reload();
                   }, response => {
                    console.log(this.user);
                    console.log(response)

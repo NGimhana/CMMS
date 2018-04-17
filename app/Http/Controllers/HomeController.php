@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Auth;
-
 class HomeController extends Controller
 {
     /**
@@ -34,10 +30,14 @@ class HomeController extends Controller
             'username' => \auth()->user()->name,
             'userid' => \auth()->user()->id,
             'useremail' => \auth()->user()->email,
+            'unreadNotifications' => \auth()->user()->unreadNotifications
         ];
 
-        //Creating a Array of Data to send
-        $data = ['user'=>$this->loggedUser,'header'=> $header , 'subheader'=> $subheader];
+        $notifications = json_decode($this->loggedUser['unreadNotifications']);
+
+
+//        Creating a Array of Data to send
+        $data = ['user' => $this->loggedUser, 'header' => $header, 'subheader' => $subheader, 'notifications' => $notifications];
         return view('Pages.index')->with('data',$data);
     }
 }

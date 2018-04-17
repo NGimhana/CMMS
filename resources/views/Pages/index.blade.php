@@ -4,8 +4,16 @@
 
 
 <div id="app">
-    <main-component username="{{ $data['user']['username'] }}" header={{ $data[
-    'header'] }} subheader={{ $data['subheader']}}></main-component>
+
+    <main-component
+            username={{ $data[
+    'user']['username'] }}
+    header = {{ $data['header'] }}
+    subheader={{ $data['subheader'] }}
+    notifications = "{{ json_encode($data['notifications']) }}"
+    >
+    </main-component>
+
     <div style="padding:20px;">
 
         <div class="ui grid">

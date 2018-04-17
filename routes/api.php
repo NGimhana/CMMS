@@ -1,10 +1,8 @@
 <?php
 
+use App\Http\Resources\JobResource;
 use App\Immediate_Job;
 use Illuminate\Http\Request;
-use App\Calendar;
-use App\Http\Resources\JobResource;
-use App\Http\Resources\CalendarResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +18,7 @@ use App\Http\Resources\CalendarResource;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 //List All Jobs
 Route::get('job', function () {
