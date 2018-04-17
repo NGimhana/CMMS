@@ -18,10 +18,17 @@
                         </form>
                     </a>
 
-                    <div class="menu" style="background-color: #00acc1">
+                    <div class="menu" >
                         <!--<form method="POST" action="{{route}}"></form>-->
-                        <a class="item"  href="/logout"><span style="color: white">Sign Out</span></a>
-                        <a class="item" ><span style="color: white">Edit Profile</span></a>
+                        <form class="ui form">
+                            <div>
+                                <div class="field" style="background-color: #00acc1">
+                                    <a class="item"  href="/logout">Sign Out</a>
+                                    <a class="item" >Edit Profile</a>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
 
                 </div>
