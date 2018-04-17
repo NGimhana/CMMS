@@ -6,6 +6,7 @@
 <div id="app">
 
     <main-component
+        userid="{{$data['user']['userid']}}"
             username={{ $data[
     'user']['username'] }}
     header = {{ $data['header'] }}

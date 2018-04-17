@@ -45,8 +45,8 @@
                     <div class="menu">
                         <form class="ui form">
                             <div v-for="n in unreadNotifications">
-                                <div class="field" style="background-color: #00acc1">
-                                    <a class="item">{{n}}</a>
+                                <div class="field" v-on:click="markAsRead(n['id'],userid)" style="background-color: #00acc1">
+                                    <a class="item">{{n['data']['description']}}</a>
                                 </div>
                             </div>
                         </form>
@@ -143,7 +143,11 @@
             notifications: {
                 default: '',
                 type: String,
-            }
+            },
+            userid :{
+              default:'',
+              type: String,
+            },
 
 
         },
@@ -165,7 +169,6 @@
         },
         mounted() {
             console.log("Component mounted.");
-            //console.log(this.notifications);
             this.fetchData();
         },
         created() {
@@ -182,19 +185,26 @@
             fetchData: function () {
 
                 let obj = JSON.parse(this.notifications);
-                //console.log((obj));
 
                 let unread = [];
 
                 obj.forEach(function (value) {
-                    unread.push(value['data']['description'])
+                    unread.push(value)
                 });
 
-                //console.log(unread)
                 this.unreadNotifications = unread;
                 console.log(this.unreadNotifications);
 
-            }
+            },
+            markAsRead(id,userid){
+              this.$http.get('http://localhost:8000/api/markasread/notification/'+id+'/'+userid).then(response => {
+                 console.log("checked");
+              },response =>{
+                  console.log(response.body);
+              });
+            },
+
+
 
             // logout(){
             //     this.$http.get('/logout').then(response => {

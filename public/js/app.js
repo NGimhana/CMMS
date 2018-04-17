@@ -118136,6 +118136,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         notifications: {
             default: '',
             type: String
+        },
+        userid: {
+            default: '',
+            type: String
         }
 
     },
@@ -118158,7 +118162,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         console.log("Component mounted.");
-        //console.log(this.notifications);
         this.fetchData();
     },
     created: function created() {},
@@ -118174,26 +118177,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchData: function fetchData() {
 
             var obj = JSON.parse(this.notifications);
-            //console.log((obj));
 
             var unread = [];
 
             obj.forEach(function (value) {
-                unread.push(value['data']['description']);
+                unread.push(value);
             });
 
-            //console.log(unread)
             this.unreadNotifications = unread;
             console.log(this.unreadNotifications);
+        },
+        markAsRead: function markAsRead(id, userid) {
+            this.$http.get('http://localhost:8000/api/markasread/notification/' + id + '/' + userid).then(function (response) {
+                console.log("checked");
+            }, function (response) {
+                console.log(response.body);
+            });
         }
-
-        // logout(){
-        //     this.$http.get('/logout').then(response => {
-        //         return this.$http.get('login');
-        //     }, response => {
-        //         console.log(response.error);
-        //     });
-        // }
     }
 });
 
@@ -118251,9 +118251,18 @@ var render = function() {
                     "div",
                     {
                       staticClass: "field",
-                      staticStyle: { "background-color": "#00acc1" }
+                      staticStyle: { "background-color": "#00acc1" },
+                      on: {
+                        click: function($event) {
+                          _vm.markAsRead(n["id"], _vm.userid)
+                        }
+                      }
                     },
-                    [_c("a", { staticClass: "item" }, [_vm._v(_vm._s(n))])]
+                    [
+                      _c("a", { staticClass: "item" }, [
+                        _vm._v(_vm._s(n["data"]["description"]))
+                      ])
+                    ]
                   )
                 ])
               })
