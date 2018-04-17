@@ -60,9 +60,9 @@ class CalendarController extends Controller
         $calendar = new Calendar;
 
         $calendar->id = $request->id;
-        $calendar->starteddate = $request->starteddate;
-        $calendar->enddate = $request->enddate;
-        $calendar->frequency = $request->frequency;        
+        $calendar->job_id = $request->job_id;
+        $calendar->scheduled_job_id = $request->scheduled_job_id;
+
 
         if($calendar->save()){
             return new CalendarResource($calendar);
