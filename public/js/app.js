@@ -119342,7 +119342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         AddJob: function AddJob() {
             var _this = this;
 
-            //Add Job Task
+            //Add Immediate Job Task
             this.$http.post('http://localhost:8000/api/job', {
                 type: this.type,
                 asset_id: this.selectedAsset,
@@ -119355,18 +119355,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (response) {
                 console.log(response.body);
 
-                // //Add Calendar Event
-                // this.$http.post('http://localhost:8000/calendar',
-                //     {
-                //         job_id:this.
-                //         scheduled_job_id:
-                //     }
-                // ).then(response => {
-                //
-                // },response=>{
-                //
-                // });
-
+                //Add Calendar Event Immediate Job
+                _this.$http.post('http://localhost:8000/calendar', {
+                    job_id: response['id'],
+                    scheduled_job_id: null
+                }).then(function (response) {
+                    console.log(response.body);
+                }, function (response) {});
 
                 //this.$router.go("http://localhost:8000/job");
                 //Page Reloads
