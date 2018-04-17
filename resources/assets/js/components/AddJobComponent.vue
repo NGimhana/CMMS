@@ -134,11 +134,12 @@
 
                 ).then(response => {
                     console.log(response.body);
+                    let storedImmediateJob = JSON.parse(JSON.stringify(response.body));
 
                     //Add Calendar Event Immediate Job
-                    this.$http.post('http://localhost:8000/calendar',
+                    this.$http.post('http://localhost:8000/api/calendar',
                         {
-                            job_id:response['id'],
+                            job_id:storedImmediateJob.id,
                             scheduled_job_id:null,
                         }
                     ).then(response => {

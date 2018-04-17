@@ -101,7 +101,11 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        //
+        //Get Job
+        $job = Immediate_Job::findOrFail($id);
+
+        //return single Job as a resource
+        return new JobResource($job);
     }
 
     /**

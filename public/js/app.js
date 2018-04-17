@@ -119354,10 +119354,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 created_user_id: this.user
             }).then(function (response) {
                 console.log(response.body);
+                var storedImmediateJob = JSON.parse(JSON.stringify(response.body));
 
                 //Add Calendar Event Immediate Job
-                _this.$http.post('http://localhost:8000/calendar', {
-                    job_id: response['id'],
+                _this.$http.post('http://localhost:8000/api/calendar', {
+                    job_id: storedImmediateJob.id,
                     scheduled_job_id: null
                 }).then(function (response) {
                     console.log(response.body);
@@ -119698,8 +119699,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            completedJobs: '',
-            jobCount: 0
+
+            calendarEvents: '',
+
+            jobID: [],
+            selectedJob: ''
         };
     },
 
@@ -119776,7 +119780,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     start: '2018-03-28'
                 }]
             });
+        },
+
+        loadAllJob: function loadAllJob() {
+            var _this = this;
+
+            this.$http.get('http://localhost:8000/api/calendar').then(function (response) {
+                var obj = JSON.parse(response.body);
+
+                var immediatejobs = [];
+
+                obj.forEach(function (value) {
+                    immediatejobs.push(value.job_id);
+                });
+
+                _this.jobID = immediatejobs;
+            }, function (response) {});
+        },
+
+        getImmediateJobDetails: function getImmediateJobDetails(id) {
+            var _this2 = this;
+
+            this.$http.get('http://localhost:8000/api/job/' + id).then(function (response) {
+                _this2.selectedJob = JSON.parse(JSON.stringify(response.body));
+            }, function (response) {});
         }
+
     }
 });
 

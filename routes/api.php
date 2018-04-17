@@ -1,5 +1,7 @@
 <?php
 
+use App\Calendar;
+use App\Http\Resources\CalendarResource;
 use App\Http\Resources\JobResource;
 use App\Immediate_Job;
 use Illuminate\Http\Request;
@@ -29,6 +31,14 @@ Route::get('job', function () {
     //return JobResource::collection($jobs[0]);
 });
 
+//List All Calendar Events
+Route::get('calendars', function () {
+    return CalendarResource::collection(Calendar::all());
+});
+
+//Get Immediate Job Details
+Route::get('job/{id}','JobController@show');
+
 //Create immediate Job task
 Route::post('job','JobController@store');
 
@@ -49,10 +59,6 @@ Route::get('job/recentjobs','JobController@recentlyAddedJobs');
 
 //OverDue Jobs
 Route::get('job/overduejobs','JobController@overDueJobs');
-
-//List All Events
-Route::get('calendar', 'CalendarController@index' );
-
 
 //Add Calendar Event
 Route::post('calendar','CalendarController@store');

@@ -12,8 +12,12 @@ export default {
 
     data() {
         return {
-            completedJobs:'',
-            jobCount: 0,
+
+            calendarEvents:'',
+
+
+            jobID:[],
+            selectedJob:'',
         }
     },
     computed:{
@@ -106,8 +110,33 @@ export default {
                 ]
             });
 
+        },
 
-        }
+        loadAllJob: function () {
+            this.$http.get('http://localhost:8000/api/calendar').then(response=>{
+                let obj = JSON.parse(response.body);
+
+                let immediatejobs = [];
+
+                obj.forEach(function(value){
+                    immediatejobs.push(value.job_id);
+                });
+
+                this.jobID = immediatejobs;
+
+            },response=>{
+
+            });
+        },
+
+        getImmediateJobDetails:function (id) {
+            this.$http.get('http://localhost:8000/api/job/'+id).then(response => {
+                this.selectedJob = JSON.parse(JSON.stringify(response.body));
+            },response => {
+
+            });
+        },
+
     }
 };
 
