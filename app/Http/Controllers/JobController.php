@@ -79,8 +79,13 @@ class JobController extends Controller
         $job->Assigned_Person_id = $request->input('assigned_person');
 
         if($job->save()){
-            $user = User::findOrFail($job->created_user_id);
-            echo $user;
+
+            //Send Notification to Created Person
+            //$user = User::findOrFail($job->created_user_id);
+
+            //Send Notification to Assigned Person
+            $user = User::findOrFail($job->Assigned_Person_id);
+
             $user->notify(new JobNotificaton($job));
             return new JobResource($job);
         }

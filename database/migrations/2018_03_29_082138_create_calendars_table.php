@@ -15,9 +15,9 @@ class CreateCalendarsTable extends Migration
     {
         Schema::create('calendars', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->integer('job_id')->unsigned();
+            $table->integer('job_id')->unsigned()->nullable();;
            // $table->foreign('job_id')->references('id')->on('immediate_jobs');
-            $table->integer('scheduled_job_id')->unsigned();
+            $table->integer('scheduled_job_id')->unsigned()->nullable();;
             //$table->foreign('scheduled_job_id')->references('id')->on('scheduled_jobs');
             $table->timestamps();
         });

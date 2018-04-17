@@ -134,6 +134,20 @@
 
                 ).then(response => {
                     console.log(response.body);
+
+                    // //Add Calendar Event
+                    // this.$http.post('http://localhost:8000/calendar',
+                    //     {
+                    //         job_id:this.
+                    //         scheduled_job_id:
+                    //     }
+                    // ).then(response => {
+                    //
+                    // },response=>{
+                    //
+                    // });
+
+
                     //this.$router.go("http://localhost:8000/job");
                     //Page Reloads
                     location.reload();
