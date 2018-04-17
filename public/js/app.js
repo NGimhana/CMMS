@@ -118101,85 +118101,93 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-            props: {
-                username: {
-                    default: '',
-                    type: String
-                },
-                header: {
-                    default: '',
-                    type: String
-                },
-                subheader: {
-                    default: '',
-                    type: String
-                },
-                notifications: {
-                    default: '',
-                    type: String
-                }
+    props: {
+        username: {
+            default: '',
+            type: String
+        },
+        header: {
+            default: '',
+            type: String
+        },
+        subheader: {
+            default: '',
+            type: String
+        },
+        notifications: {
+            default: '',
+            type: String
+        }
 
-            },
+    },
 
-            data: function data() {
-                return {
-                    unreadNotifications: new Array()
-                };
-            },
+    data: function data() {
+        return {
+            unreadNotifications: []
+        };
+    },
 
 
-            components: {},
+    components: {},
 
-            computed: {
-                divHeaderStyle: function divHeaderStyle() {
-                    return {
-                        padding: "20px"
-                    };
-                }
-            },
-            mounted: function mounted() {
-                console.log("Component mounted.");
-                //console.log(this.notifications);
-                this.fetchData();
-            },
-            created: function created() {
-            },
+    computed: {
+        divHeaderStyle: function divHeaderStyle() {
+            return {
+                padding: "20px"
+            };
+        }
+    },
+    mounted: function mounted() {
+        console.log("Component mounted.");
+        //console.log(this.notifications);
+        this.fetchData();
+    },
+    created: function created() {},
 
-            methods: {
-                toggleSidebar: function toggleSidebar() {
-                    $(".ui.sidebar").sidebar("toggle");
-                },
-                userMenu: function userMenu() {
-                    $(".ui.dropdown").dropdown();
-                },
+    methods: {
+        toggleSidebar: function toggleSidebar() {
+            $(".ui.sidebar").sidebar("toggle");
+        },
+        userMenu: function userMenu() {
+            $(".ui.dropdown").dropdown();
+        },
 
-                fetchData: function fetchData() {
+        fetchData: function fetchData() {
 
-                    var obj = JSON.parse(this.notifications);
-                    //console.log((obj));
+            var obj = JSON.parse(this.notifications);
+            //console.log((obj));
 
-                    var unread = new Array();
+            var unread = [];
 
-                    obj.forEach(function (value) {
-                        unread.push(value['data']['description']);
-                    });
+            obj.forEach(function (value) {
+                unread.push(value['data']['description']);
+            });
 
-                    //console.log(unread)
-                    this.unreadNotifications = unread;
-                    console.log(this.unreadNotifications);
-                }
+            //console.log(unread)
+            this.unreadNotifications = unread;
+            console.log(this.unreadNotifications);
+        }
 
-                // logout(){
-                //     this.$http.get('/logout').then(response => {
-                //         return this.$http.get('login');
-                //     }, response => {
-                //         console.log(response.error);
-                //     });
-                // }
-            }
+        // logout(){
+        //     this.$http.get('/logout').then(response => {
+        //         return this.$http.get('login');
+        //     }, response => {
+        //         console.log(response.error);
+        //     });
+        // }
+    }
 });
 
 /***/ }),
@@ -118194,7 +118202,7 @@ var render = function() {
     _c("div", { staticClass: "ui top attached  inverted blue menu" }, [
       _c("a", { staticClass: "item", on: { click: _vm.toggleSidebar } }, [
         _c("i", { staticClass: "sidebar icon" }),
-          _vm._v("Menu\n        ")
+        _vm._v("Menu\n        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "right menu" }, [
@@ -118205,7 +118213,7 @@ var render = function() {
             [
               _c("form", { attrs: { method: "post" } }, [
                 _c("i", { staticClass: "user icon" }),
-                  _vm._v(_vm._s(_vm.username) + "\n                    ")
+                _vm._v(_vm._s(_vm.username) + "\n                    ")
               ])
             ]
           ),
@@ -118213,28 +118221,42 @@ var render = function() {
           _vm._m(0)
         ]),
         _vm._v(" "),
-          _c("div", {staticClass: "ui dropdown"}, [
-              _c(
-                  "a",
-                  {staticClass: "ui right item", on: {click: _vm.userMenu}},
-                  [
-                      _c("i", {staticClass: "bell outline icon"}),
-                      _vm._v("Notifications\n                ")
-                  ]
-              ),
-              _vm._v(" "),
-              _c(
-                  "div",
-                  {staticClass: "menu"},
-                  _vm._l(_vm.unreadNotifications, function (n) {
-                      return _c("a", {staticClass: "item"}, [_vm._v(_vm._s(n))])
-                  })
-              )
+        _c("div", { staticClass: "ui dropdown" }, [
+          _c(
+            "a",
+            { staticClass: "ui right item", on: { click: _vm.userMenu } },
+            [
+              _c("i", { staticClass: "bell outline icon" }),
+              _vm._v("Notifications\n                    "),
+              _c("div", { staticClass: "ui green label" }, [
+                _vm._v(_vm._s(this.unreadNotifications.length))
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "menu" }, [
+            _c(
+              "form",
+              { staticClass: "ui form" },
+              _vm._l(_vm.unreadNotifications, function(n) {
+                return _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "field",
+                      staticStyle: { "background-color": "#00acc1" }
+                    },
+                    [_c("a", { staticClass: "item" }, [_vm._v(_vm._s(n))])]
+                  )
+                ])
+              })
+            )
           ])
+        ])
       ])
     ]),
     _vm._v(" "),
-      _vm._m(1),
+    _vm._m(1),
     _vm._v(" "),
     _c("div", { staticClass: "pusher" }, [
       _c("div", { style: _vm.divHeaderStyle }, [
@@ -118242,7 +118264,7 @@ var render = function() {
           _c("i", { staticClass: "dashboard icon" }),
           _vm._v(" "),
           _c("div", { staticClass: "content" }, [
-              _vm._v(_vm._s(_vm.header) + "\n                    "),
+            _vm._v(_vm._s(_vm.header) + "\n                    "),
             _c("div", { staticClass: "sub header" }, [
               _vm._v(_vm._s(_vm.subheader))
             ])
@@ -118257,13 +118279,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "menu" }, [
-      _c("a", { staticClass: "item", attrs: { href: "/logout" } }, [
-        _vm._v("Sign Out")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "item" }, [_vm._v("Edit Profile")])
-    ])
+    return _c(
+      "div",
+      { staticClass: "menu", staticStyle: { "background-color": "#00acc1" } },
+      [
+        _c("a", { staticClass: "item", attrs: { href: "/logout" } }, [
+          _c("span", { staticStyle: { color: "white" } }, [_vm._v("Sign Out")])
+        ]),
+        _vm._v(" "),
+        _c("a", { staticClass: "item" }, [
+          _c("span", { staticStyle: { color: "white" } }, [
+            _vm._v("Edit Profile")
+          ])
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -118283,27 +118313,27 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("a", { staticClass: "item", attrs: { href: "/job" } }, [
           _c("i", { staticClass: "wrench icon" }),
-            _vm._v("Jobs\n        ")
+          _vm._v("Jobs\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item" }, [
           _c("i", { staticClass: "building icon" }),
-            _vm._v("Buildings\n        ")
+          _vm._v("Buildings\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item" }, [
           _c("i", { staticClass: "sitemap icon" }),
-            _vm._v("Sectors\n        ")
+          _vm._v("Sectors\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item", attrs: { href: "/calendar" } }, [
           _c("i", { staticClass: "calendar alternate icon" }),
-            _vm._v("Calendar\n        ")
+          _vm._v("Calendar\n        ")
         ]),
         _vm._v(" "),
         _c("a", { staticClass: "item" }, [
           _c("i", { staticClass: "smile icon" }),
-            _vm._v("Resources\n        ")
+          _vm._v("Resources\n        ")
         ])
       ]
     )

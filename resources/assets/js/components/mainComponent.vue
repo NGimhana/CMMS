@@ -18,10 +18,10 @@
                         </form>
                     </a>
 
-                    <div class="menu">
+                    <div class="menu" style="background-color: #00acc1">
                         <!--<form method="POST" action="{{route}}"></form>-->
-                        <a class="item" href="/logout">Sign Out</a>
-                        <a class="item">Edit Profile</a>
+                        <a class="item"  href="/logout"><span style="color: white">Sign Out</span></a>
+                        <a class="item" ><span style="color: white">Edit Profile</span></a>
                     </div>
 
                 </div>
@@ -31,11 +31,20 @@
 
                     <a class="ui right item" v-on:click="userMenu">
                         <i class="bell outline icon"></i>Notifications
+                        <div class="ui green label">{{this.unreadNotifications.length}}</div>
                     </a>
 
+
                     <div class="menu">
-                        <a class="item" v-for="n in unreadNotifications">{{n}}</a>
+                        <form class="ui form">
+                            <div v-for="n in unreadNotifications">
+                                <div class="field" style="background-color: #00acc1">
+                                    <a class="item">{{n}}</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
+
 
                     <!--</div>-->
 
