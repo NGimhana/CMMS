@@ -46,7 +46,7 @@ export default {
   },
   methods: {
       fetchData:function(){
-          this.$http.get('http://localhost:8000/api/job/overduejobs').then(response =>{
+          this.$http.get('http://localhost:8000/api/jobs/overduejobs').then(response =>{
               this.overdueJobs = response.body;
               this.jobCount = this.overdueJobs.length;
               console.log(this.jobCount);

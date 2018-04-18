@@ -49,16 +49,16 @@ Route::put('job/{id}','JobController@update');
 Route::delete('job/{id}','JobController@destroy');
 
 //List Completed  Immediate Jobs
-Route::get('job/completedjobs','JobController@completedJobs');
+Route::get('jobs/completedjobs','JobController@completedJobs');
 
 //List On Going Immediate Jobs
-Route::get('job/ongoingjobs','JobController@onGoingJobs');
+Route::get('jobs/ongoingjobs','JobController@onGoingJobs');
 
 //Recently Added Jobs
-Route::get('job/recentjobs','JobController@recentlyAddedJobs');
+Route::get('jobs/recentjobs','JobController@recentlyAddedJobs');
 
 //OverDue Jobs
-Route::get('job/overduejobs','JobController@overDueJobs');
+Route::get('jobs/overduejobs','JobController@overDueJobs');
 
 //Add Calendar Event
 Route::post('calendar','CalendarController@store');

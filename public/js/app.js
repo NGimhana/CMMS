@@ -118592,7 +118592,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchData: function fetchData() {
       var _this = this;
 
-      this.$http.get('http://localhost:8000/api/job/ongoingjobs').then(function (response) {
+      this.$http.get('http://localhost:8000/api/jobs/ongoingjobs').then(function (response) {
         _this.onGoingJobs = response.body;
         _this.jobCount = _this.onGoingJobs.length;
         console.log(_this.jobCount);
@@ -118762,7 +118762,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchData: function fetchData() {
       var _this = this;
 
-      this.$http.get('http://localhost:8000/api/job/completedjobs').then(function (response) {
+      this.$http.get('http://localhost:8000/api/jobs/completedjobs').then(function (response) {
         _this.completedJobs = response.body;
         _this.jobCount = _this.completedJobs.length;
         console.log(_this.jobCount);
@@ -118931,7 +118931,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchData: function fetchData() {
             var _this = this;
 
-            this.$http.get('http://localhost:8000/api/job/overduejobs').then(function (response) {
+            this.$http.get('http://localhost:8000/api/jobs/overduejobs').then(function (response) {
                 _this.overdueJobs = response.body;
                 _this.jobCount = _this.overdueJobs.length;
                 console.log(_this.jobCount);
@@ -119100,7 +119100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchData: function fetchData() {
             var _this = this;
 
-            this.$http.get('http://localhost:8000/api/job/recentjobs').then(function (response) {
+            this.$http.get('http://localhost:8000/api/jobs/recentjobs').then(function (response) {
                 _this.recentJobs = response.body;
                 _this.jobCount = _this.recentJobs.length;
                 console.log(_this.jobCount);
