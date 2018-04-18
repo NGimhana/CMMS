@@ -118161,10 +118161,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
-        console.log("Component mounted.");
+        console.log("Main Component mounted.");
         this.fetchData();
+        console.log(this.userid);
+        // Echo.private('App.User.' + this.userid)
+        //     .notification((notification) => {
+        //         console.log(notification.type);
+        //     });
     },
     created: function created() {},
+
 
     methods: {
         toggleSidebar: function toggleSidebar() {
@@ -118185,7 +118191,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
 
             this.unreadNotifications = unread;
-            console.log(this.unreadNotifications);
+            //console.log(this.unreadNotifications);
+
         },
         markAsRead: function markAsRead(id, userid) {
             this.$http.get('http://localhost:8000/api/markasread/notification/' + id + '/' + userid).then(function (response) {
@@ -119700,9 +119707,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
 
-            calendarEvents: '',
-
-            jobID: [],
+            calendarEvents: [],
+            jobs: [],
             selectedJob: ''
         };
     },
@@ -119711,6 +119717,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         //this.fetchData();
         this.showCalendar();
+        this.fetchData();
     },
 
 
@@ -119783,19 +119790,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         loadAllJob: function loadAllJob() {
+            // this.$http.get('http://localhost:8000/api/calendars').then(response=>{
+            //     let obj = JSON.parse(JSON.stringify(response.body));
+            //     let immediatejobs = [];
+            //
+            //     obj.forEach(function(value){
+            //         immediatejobs.push(value.job_id);
+            //     });
+            //
+            //     this.jobID = immediatejobs;
+            //     console.log(this.jobID);
+            // },response=>{
+            //
+            // });
+
+
+        },
+
+        fetchData: function fetchData() {
             var _this = this;
 
-            this.$http.get('http://localhost:8000/api/calendar').then(function (response) {
-                var obj = JSON.parse(response.body);
+            this.$http.get('http://localhost:8000/api/job').then(function (response) {
+                _this.jobs = response.body;
 
-                var immediatejobs = [];
+                var calenadarEvent = [];
 
-                obj.forEach(function (value) {
-                    immediatejobs.push(value.job_id);
+                _this.jobs.forEach(function (value) {
+                    var jobTask = JSON.parse(JSON.stringify(value));
+                    calenadarEvent.push(JSON.parse("{" + " title: " + jobTask.id + jobTask.description + "," + " start: " + jobTask.Started_Date + "}"));
                 });
 
-                _this.jobID = immediatejobs;
-            }, function (response) {});
+                console.log(calenadarEvent);
+            }, function (response) {
+
+                // error callback
+            });
         },
 
         getImmediateJobDetails: function getImmediateJobDetails(id) {

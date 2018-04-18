@@ -81,9 +81,9 @@ class JobController extends Controller
         if($job->save()){
 
             //Send Notification to Created Person
-            //$user = User::findOrFail($job->created_user_id);
+//            $user = User::findOrFail($job->created_user_id);
 
-            //Send Notification to Assigned Person
+//            //Send Notification to Assigned Person
             $user = User::findOrFail($job->Assigned_Person_id);
 
             $user->notify(new JobNotificaton($job));

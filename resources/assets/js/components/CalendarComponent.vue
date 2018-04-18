@@ -13,10 +13,8 @@ export default {
     data() {
         return {
 
-            calendarEvents:'',
-
-
-            jobID:[],
+            calendarEvents: [],
+            jobs: [],
             selectedJob:'',
         }
     },
@@ -26,6 +24,7 @@ export default {
     mounted() {
         //this.fetchData();
         this.showCalendar();
+        this.fetchData();
     },
 
 
@@ -113,19 +112,45 @@ export default {
         },
 
         loadAllJob: function () {
-            this.$http.get('http://localhost:8000/api/calendar').then(response=>{
-                let obj = JSON.parse(response.body);
+            // this.$http.get('http://localhost:8000/api/calendars').then(response=>{
+            //     let obj = JSON.parse(JSON.stringify(response.body));
+            //     let immediatejobs = [];
+            //
+            //     obj.forEach(function(value){
+            //         immediatejobs.push(value.job_id);
+            //     });
+            //
+            //     this.jobID = immediatejobs;
+            //     console.log(this.jobID);
+            // },response=>{
+            //
+            // });
 
-                let immediatejobs = [];
 
-                obj.forEach(function(value){
-                    immediatejobs.push(value.job_id);
+        },
+
+        fetchData: function () {
+            this.$http.get('http://localhost:8000/api/job').then(response => {
+                this.jobs = (response.body);
+
+                let calenadarEvent = [];
+
+                this.jobs.forEach(function (value) {
+                    let jobTask = JSON.parse(JSON.stringify(value));
+                    calenadarEvent.push(
+                        JSON.parse(
+                            "{"
+                            + " title: " + jobTask.id + jobTask.description + ","
+                            + " start: " + jobTask.Started_Date
+                            +
+                            "}"
+                        ));
                 });
 
-                this.jobID = immediatejobs;
+                console.log(calenadarEvent);
+            }, response => {
 
-            },response=>{
-
+                // error callback
             });
         },
 
@@ -136,6 +161,7 @@ export default {
 
             });
         },
+
 
     }
 };

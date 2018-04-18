@@ -168,12 +168,19 @@
             }
         },
         mounted() {
-            console.log("Component mounted.");
+            console.log("Main Component mounted.");
             this.fetchData();
+            console.log(this.userid);
+            // Echo.private('App.User.' + this.userid)
+            //     .notification((notification) => {
+            //         console.log(notification.type);
+            //     });
         },
+
         created() {
 
         },
+
         methods: {
             toggleSidebar: function () {
                 $(".ui.sidebar").sidebar("toggle");
@@ -193,7 +200,10 @@
                 });
 
                 this.unreadNotifications = unread;
-                console.log(this.unreadNotifications);
+                //console.log(this.unreadNotifications);
+
+
+
 
             },
             markAsRead(id,userid){
