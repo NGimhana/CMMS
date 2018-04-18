@@ -126,3 +126,4 @@ Route::put('user/{id}','UserController@store');
 
 //Delete User
 Route::delete('user/{id}','UserController@destroy');
+

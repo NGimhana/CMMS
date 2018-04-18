@@ -118096,27 +118096,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -119290,6 +119269,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -119345,6 +119389,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         createJobModel: function createJobModel() {
             $('.ui.large.modal').modal('show');
             console.log("clicked");
+        },
+        createScheduledJobModel: function createScheduledJobModel() {
+            $('.ui.small.modal').modal('show');
+            console.log("clicked Sheduled");
         },
         AddJob: function AddJob() {
             var _this = this;
@@ -119426,6 +119474,18 @@ var render = function() {
       [
         _c("i", { staticClass: "plus icon" }),
         _vm._v(" Create Immediate Job\n    ")
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "ui positive button",
+        on: { click: _vm.createScheduledJobModel }
+      },
+      [
+        _c("i", { staticClass: "plus icon" }),
+        _vm._v(" Create\n        Scheduled Job\n    ")
       ]
     ),
     _vm._v(" "),
@@ -119606,7 +119666,238 @@ var render = function() {
               },
               _vm._l(_vm.persons, function(person) {
                 return _c("option", { domProps: { value: person.id } }, [
-                  _vm._v(_vm._s(person.name + " : " + person.email))
+                  _vm._v(
+                    _vm._s(person.name + " : " + person.email) +
+                      "\n                        "
+                  )
+                ])
+              })
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "actions" }, [
+        _c(
+          "button",
+          {
+            staticClass: "ui button",
+            attrs: { type: "submit" },
+            on: { click: _vm.AddJob }
+          },
+          [_vm._v("Submit")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "ui cancel button" }, [_vm._v("Cancel")])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "ui small modal" }, [
+      _c("div", { staticClass: "header" }, [
+        _vm._v("Create Scheduled Job Task")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "content" }, [
+        _c("form", { staticClass: "ui form" }, [
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Type")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.type,
+                  expression: "type"
+                }
+              ],
+              attrs: { name: "type", placeholder: "Type", type: "text" },
+              domProps: { value: _vm.type },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.type = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Asset")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedAsset,
+                    expression: "selectedAsset"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedAsset = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.assets, function(asset) {
+                return _c("option", { domProps: { value: asset.id } }, [
+                  _vm._v(_vm._s(asset.description))
+                ])
+              })
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Description")]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
+              attrs: { value: "Describe The Issue" },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Job Scheduled Date")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.scheduled_date,
+                  expression: "scheduled_date"
+                }
+              ],
+              attrs: { name: "scheduled_date", type: "date" },
+              domProps: { value: _vm.scheduled_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.scheduled_date = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("END Year")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.scheduled_date,
+                  expression: "scheduled_date"
+                }
+              ],
+              attrs: { name: "scheduled_date", type: "date" },
+              domProps: { value: _vm.scheduled_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.scheduled_date = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Frequency")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.frequency,
+                  expression: "frequency"
+                }
+              ],
+              attrs: { name: "scheduled_date", type: "text" },
+              domProps: { value: _vm.frequency },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.frequency = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", [_vm._v("Assigned Person")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.assignedPerson,
+                    expression: "assignedPerson"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.assignedPerson = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.persons, function(person) {
+                return _c("option", { domProps: { value: person.id } }, [
+                  _vm._v(
+                    _vm._s(person.name + " : " + person.email) +
+                      "\n                        "
+                  )
                 ])
               })
             )
@@ -119745,8 +120036,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     // customize the button names,
                     // otherwise they'd all just say "list"
                     views: {
-                        listDay: {buttonText: 'list day'},
-                        listWeek: {buttonText: 'list week'}
+                        listDay: { buttonText: 'list day' },
+                        listWeek: { buttonText: 'list week' }
                     },
 
                     defaultView: 'listWeek',
@@ -119780,7 +120071,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticStyle: { width: "700px", height: "400px" } }, [
+    return _c("div", { staticStyle: { width: "700px", height: "300px" } }, [
       _c("div", { attrs: { id: "calendar" } })
     ])
   }

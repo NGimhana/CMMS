@@ -4,6 +4,10 @@
         <button class="ui positive button" v-on:click="createJobModel"><i class="plus icon"></i> Create Immediate Job
         </button>
 
+        <button class="ui positive button" v-on:click="createScheduledJobModel"><i class="plus icon"></i> Create
+            Scheduled Job
+        </button>
+
 
         <!--Add Job To Database-->
         <div class="ui large modal">
@@ -21,7 +25,7 @@
                         <select v-model="selectedAsset">
                             <option v-for="asset in assets" v-bind:value="asset.id">{{asset.description}}</option>
                         </select>
-                        
+
                     </div>
                     <div class="field">
                         <label>Description</label>
@@ -38,7 +42,9 @@
                     <div class="field">
                         <label>Assigned Person</label>
                         <select v-model="assignedPerson">
-                            <option v-for="person in persons" v-bind:value="person.id">{{person.name +" : "+ person.email}}</option>
+                            <option v-for="person in persons" v-bind:value="person.id">{{person.name +" : "+
+                                person.email}}
+                            </option>
                         </select>
 
                     </div>
@@ -55,6 +61,71 @@
 
         </div>
 
+        <div class="ui small modal">
+            <div class="header">Create Scheduled Job Task</div>
+            <div class="content">
+
+                <form class="ui form">
+                    <div class="field">
+                        <label>Type</label>
+                        <input name="type" v-model="type" placeholder="Type" type="text">
+                    </div>
+
+                    <div class="field">
+                        <label>Asset</label>
+                        <select v-model="selectedAsset">
+                            <option v-for="asset in assets" v-bind:value="asset.id">{{asset.description}}</option>
+                        </select>
+
+                    </div>
+                    <div class="field">
+                        <label>Description</label>
+                        <textarea v-model="description" value="Describe The Issue"></textarea>
+                    </div>
+
+                    <div class="field">
+                        <label>Job Scheduled Date</label>
+                        <input name="scheduled_date" v-model="scheduled_date" type="date">
+                    </div>
+
+                    <div class="field">
+                        <label>END Year</label>
+                        <select v-model="end_year"></select>
+                        <input name="scheduled_date" v-model="end_year" type="date">
+                    </div>
+
+                    <div class="field">
+                        <label>Frequency(Months)</label>
+                        <select v-model="frequency">
+                            <option>1</option>
+                            <option>3</option>
+                            <option>6</option>
+                            <option>12</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Assigned Person</label>
+                        <select v-model="assignedPerson">
+                            <option v-for="person in persons" v-bind:value="person.id">{{person.name +" : "+
+                                person.email}}
+                            </option>
+                        </select>
+                    </div>
+
+
+
+
+                </form>
+
+
+            </div>
+            <div class="actions">
+                <button class="ui button" v-on:click="AddJob" type="submit">Submit</button>
+                <div class="ui cancel button">Cancel</div>
+            </div>
+        </div>
+
 
     </div>
 
@@ -68,7 +139,7 @@
         props: {
             user: {
                 default: '',
-                type:String,
+                type: String,
             }
         },
 
@@ -83,10 +154,14 @@
                 starteddate: "",
                 scheduled_end_date: "",
                 assignedPerson: "",
-                persons:'',
+                persons: '',
 
-                assets:'',
-                selectedAsset:'',
+                frequency:'',
+                end_year:'',
+                scheduled_date:'',
+
+                assets: '',
+                selectedAsset: '',
             };
         },
 
@@ -117,21 +192,24 @@
                 $('.ui.large.modal').modal('show');
                 console.log("clicked");
             },
+            createScheduledJobModel: function () {
+                 $('.ui.small.modal').modal('show');
+                console.log("clicked Sheduled");
+            },
             AddJob: function () {
 
                 //Add Immediate Job Task
                 this.$http.post('http://localhost:8000/api/job',
-                {
-                    type:this.type,
-                    asset_id:this.selectedAsset,
-                    description:this.description,
-                    priority:this.priority,
-                    scheduled_end_date:this.scheduled_end_date,
-                    assigned_person:this.assignedPerson,
-                    starteddate:this.starteddate,
-                    created_user_id:this.user,
-                }
-
+                    {
+                        type: this.type,
+                        asset_id: this.selectedAsset,
+                        description: this.description,
+                        priority: this.priority,
+                        scheduled_end_date: this.scheduled_end_date,
+                        assigned_person: this.assignedPerson,
+                        starteddate: this.starteddate,
+                        created_user_id: this.user,
+                    }
                 ).then(response => {
                     console.log(response.body);
                     let storedImmediateJob = JSON.parse(JSON.stringify(response.body));
@@ -139,12 +217,12 @@
                     //Add Calendar Event Immediate Job
                     this.$http.post('http://localhost:8000/api/calendar',
                         {
-                            job_id:storedImmediateJob.id,
-                            scheduled_job_id:null,
+                            job_id: storedImmediateJob.id,
+                            scheduled_job_id: null,
                         }
                     ).then(response => {
                         console.log(response.body);
-                    },response=>{
+                    }, response => {
 
                     });
 
@@ -152,9 +230,9 @@
                     //this.$router.go("http://localhost:8000/job");
                     //Page Reloads
                     location.reload();
-                  }, response => {
-                   console.log(this.user);
-                   console.log(response)
+                }, response => {
+                    console.log(this.user);
+                    console.log(response)
                 });
 
                 // //Add Calendar Event
@@ -172,7 +250,7 @@
                 //     console.log(response)
                 // });
             },
-            getAssets(){
+            getAssets() {
                 this.$http.get('http://localhost:8000/api/assets').then(response => {
                     this.assets = response.body;
                 }, response => {
@@ -181,11 +259,11 @@
             },
 
             getUsers() {
-              this.$http.get('http://localhost:8000/api/users').then(response => {
-                 this.persons = response.body;
-              },response =>{
+                this.$http.get('http://localhost:8000/api/users').then(response => {
+                    this.persons = response.body;
+                }, response => {
 
-              });
+                });
             },
 
         }

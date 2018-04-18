@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 700px; height: 400px;">
+    <div style="width: 700px; height: 300px;">
         <div id="calendar"></div>
     </div>
 </template>

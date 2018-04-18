@@ -24,7 +24,7 @@ class CreateScheduledJobsTable extends Migration
             $table->integer('End_Year');
             $table->integer('frequency');//[3,6,4,12] months
             $table->date('Ended_Date');
-            $table->date('Last_Updated_Date');
+            $table->date('Last_Updated_Date')->nullable();//Last Updated as Completed Job
             $table->integer('created_user_id')->unsigned();
             $table->foreign('created_user_id')->references('id')->on('users');
             $table->integer('Assigned_Person_id')->unsigned();

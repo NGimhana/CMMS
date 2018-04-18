@@ -58,13 +58,6 @@
                 </div>
 
 
-                <!--<a class="ui right item">            -->
-                <!--<i class="bell outline icon"></i>Notifiacation <span class="ui green label"></span>-->
-
-                <!--<div class="menu" v-for="notification in notifications">-->
-                <!--<a class="item">{{notification}}</a>-->
-                <!--</div>-->
-                <!--</a> -->
             </div>
 
         </div>
@@ -104,20 +97,6 @@
 
             </div>
 
-            <!-- <div v-bind:style="divHeaderStyle"> -->
-
-            <!-- <div class="ui raised compact segment">
-                <p>Pellentesque hs mi vitae est. Mauris placerat eleifend leo.</p>
-            </div> -->
-
-            <!-- <div class="ui four doubling special cards">
-                <ongoingjobs-component></ongoingjobs-component>
-                <completedjobs-component></completedjobs-component>
-                <incompletejobs-component></incompletejobs-component>
-                <recentjobs-component></recentjobs-component>
-            </div> -->
-
-            <!-- </div>             -->
 
         </div>
     </div>
