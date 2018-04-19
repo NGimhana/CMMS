@@ -8,6 +8,7 @@
 import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 import AllJobsComponent from './components/AllJobsComponent';
+import Chart from 'chart.js';
 import 'fullcalendar';
 
 

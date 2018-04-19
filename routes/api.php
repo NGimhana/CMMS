@@ -21,8 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Read Notifications as Read
-Route::get('markasread/notification/{id}/{userid}','NotificationController@MarkAsRead');
+
 
 //List All Jobs
 Route::get('job', function () {
@@ -141,3 +140,6 @@ Route::put('scheduledjob/{id}','ScheduledJobController@update');
 
 //Delete Scheduled Job
 Route::delete('scheduledjob/{id}','ScheduledJobController@destroy');
+
+//Read Notifications as Read
+Route::get('markasread/notification/{id}/{userid}','NotificationController@MarkAsRead');

@@ -2,7 +2,7 @@
 
     <div>
 
-        <div class="ui mini modal">
+        <div class="ui tiny sch modal">
             <div class="ui icon header">
                 <i class="archive icon"></i>
                 Remove Job Task
@@ -41,8 +41,8 @@
                         <th>Job Type</th>
                         <!--<th>Asset ID</th>-->
                         <th>Description</th>
-                        <th>Started Date</th>
                         <th>Scheduled End Date</th>
+                        <th>Frequency</th>
                         <!--<th>Ended Date</th>-->
                         <!--<th>Created By</th>-->
                         <!--<th>Assigned Person</th>-->
@@ -65,8 +65,8 @@
                         <!--<button class="ui button " v-on:click="createmap( job.id,job.place)">{{job.place}}</button>-->
                         <!--</td>-->
                         <td>{{job.description}}</td>
-                        <td>{{job.Started_Date}}</td>
-                        <td>{{job.Scheduled_End_Date}}</td>
+                        <td>{{job.Ended_Date}}</td>
+                        <td>{{job.frequency}}</td>
                         <!--<td>{{job.Ended_Date}}</td>-->
                         <!--<td>{{job.created_user_id}}</td>-->
                         <!--<td>{{job.Assigned_Person_id}}</td>-->
@@ -228,7 +228,7 @@
                 selectedSector: '',
                 createdUser: '',
                 assignedPerson: '',
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        frequency:'',
                 status: '',
                 overDueStatus: '',
 
@@ -275,7 +275,7 @@
                 ;
             },
             JobModelShow: function () {
-                $('.mini.modal').modal('show');
+                $('.tiny.sch.modal').modal('show');
                 console.log("clicked");
             },
             getToday: function () {
@@ -295,9 +295,9 @@
                 this.today = this.yyyy + "-" + this.mm + '-' + this.dd;
             },
             checkStatus: function () {
-                if (this.selectedJob.Ended_Date !== null) {
+                if (this.selectedJob.Last_Updated_Date !== null) {
 
-                    if (this.selectedJob.Scheduled_End_Date >= this.selectedJob.Ended_Date) {
+                    if (this.selectedJob.Ended_Date >= this.selectedJob.Last_Updated_Date) {
 
                         this.status = "COMPLETED";
                         this.overDueStatus = "";
@@ -314,7 +314,7 @@
 
                     this.getToday();
 
-                    if (this.selectedJob.Scheduled_End_Date > this.today) {
+                    if (this.selectedJob.Ended_Date > this.today) {
 
                         this.status = "ON GOING";
                         this.overDueStatus = "";
@@ -373,7 +373,7 @@
             },
 
             fetchData: function () {
-                this.$http.get('http://localhost:8000/api/job').then(response => {
+                this.$http.get('http://localhost:8000/api/scheduledjobs').then(response => {
                     this.jobs = response.body;
                     console.log(this.jobs);
                 }, response => {
@@ -388,7 +388,7 @@
             },
 
             deleteJobTask: function () {
-                this.$http.delete('http://localhost:8000/api/job/' + this.selectedJob.id).then(response => {
+                this.$http.delete('http://localhost:8000/api/scheduledjob/' + this.selectedJob.id).then(response => {
                     //this.$router.go("http://localhost:8000/job");
                     location.reload();
                     console.log(response.body);
@@ -401,18 +401,20 @@
 
             completeJobTask: function () {
                 this.getToday();
-                this.$http.put('http://localhost:8000/api/job/' + this.selectedJob.id,
+                this.$http.put('http://localhost:8000/api/scheduledjob/' + this.selectedJob.id,
                     {
 
                         type: this.selectedJob.type,
                         asset_id: this.selectedJob.asset_id,
                         description: this.selectedJob.description,
                         priority: this.selectedJob.priority,
-                        scheduled_end_date: this.selectedJob.Scheduled_End_Date,
+                        Scheduled_Date: this.selectedJob.Scheduled_Date,
                         assigned_person: this.selectedJob.Assigned_Person_id,
-                        starteddate: this.selectedJob.Started_Date,
+                        End_Year: this.selectedJob.End_Year,
+                        frequency:this.selectedJob.frequency,
+                        Ended_Date:this.selectedJob.Ended_Date,
                         created_user_id: this.selectedJob.created_user_id,
-                        Ended_Date: this.today
+                        Last_Updated_Date: this.today
                     }
                 ).then(response => {
                     console.log(response.body);

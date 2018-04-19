@@ -14,17 +14,6 @@
             <allschedulejobs-component></allschedulejobs-component>
         </div>
 
-
-        <!--<div class="ui shape">-->
-        <!--<div class="sides">-->
-        <!--<div class="active side">-->
-        <!--<allschedulejobs-component></allschedulejobs-component>-->
-        <!--</div>-->
-        <!--<div class="side">-->
-        <!--<alljobs-component></alljobs-component>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
     </div>
 </template>
 
@@ -35,15 +24,15 @@
             return {};
         },
         mounted() {
-            $(document).ready(function () {
-                $('.demo.menu .item').tab({history: false});
-            });
+            this.showTab();
         },
         methods: {
 
 
             showTab: function () {
-
+                $(document).ready(function () {
+                    $('.demo.menu .item').tab({history: false});
+                });
             },
 
         },

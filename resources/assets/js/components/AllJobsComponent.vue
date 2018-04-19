@@ -2,7 +2,7 @@
 
     <div>
 
-        <div class="ui mini modal">
+        <div class="ui tiny job modal">
             <div class="ui icon header">
                 <i class="archive icon"></i>
                 Remove Job Task
@@ -271,7 +271,7 @@
                 ;
             },
             JobModelShow: function () {
-                $('.mini.modal').modal('show');
+                $('.tiny.job.modal').modal('show');
                 console.log("clicked");
             },
             getToday: function () {

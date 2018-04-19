@@ -64,7 +64,7 @@ class ScheduledJobController extends Controller
 
 //            //Send Notification to Assigned Person
             $user = User::findOrFail($job->Assigned_Person_id);
-
+//
             $user->notify(new ScheduledJobNotification($job));
             return new ScheduledJobResource($job);
         }
