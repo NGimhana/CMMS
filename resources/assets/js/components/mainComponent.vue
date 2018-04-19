@@ -73,7 +73,7 @@
             <a class="item">
                 <i class="building icon"></i>Buildings
             </a>
-            <a class="item">
+            <a class="item" href="/sector">
                 <i class="sitemap icon"></i>Sectors
             </a>
             <a class="item" href="/calendar">

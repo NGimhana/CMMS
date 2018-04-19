@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ScheduledJobResource;
-use App\Notifications\JobNotificaton;
 use App\Http\Requests;
+use App\Http\Resources\ScheduledJobResource;
+use App\Notifications\ScheduledJobNotification;
 use App\Scheduled_Job;
 use App\User;
 use Illuminate\Http\Request;
@@ -65,7 +65,7 @@ class ScheduledJobController extends Controller
 //            //Send Notification to Assigned Person
             $user = User::findOrFail($job->Assigned_Person_id);
 
-            $user->notify(new JobNotificaton($job));
+            $user->notify(new ScheduledJobNotification($job));
             return new ScheduledJobResource($job);
         }
 

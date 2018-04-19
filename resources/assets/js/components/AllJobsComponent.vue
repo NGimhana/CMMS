@@ -25,7 +25,6 @@
             </div>
         </div>
 
-
         <div class="ui grid">
 
             <div class="ten wide column">

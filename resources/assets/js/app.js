@@ -5,18 +5,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import VueResource from 'vue-resource'; 
+import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
 import AllJobsComponent from './components/AllJobsComponent';
-import Chart from 'chart.js';
-
-import * as $ from 'jquery';
 import 'fullcalendar';
 
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
- 
+
 
 //import Routes from './routes';
 
@@ -48,6 +45,8 @@ Vue.component('alljobs-component', require('./components/AllJobsComponent.vue'))
 Vue.component('addjob-component', require('./components/AddJobComponent.vue'));
 Vue.component('calendar-component', require('./components/CalendarComponent.vue'));
 Vue.component('assetcharts-component', require('./components/AssetChartsComponent.vue'));
+Vue.component('allschedulejobs-component', require('./components/AllScheduleJobComponent.vue'));
+Vue.component('temp-component', require('./components/TempComponent'));
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
@@ -58,8 +57,8 @@ const router = new VueRouter({
     mode:'history',    
     routes:[
         {path:'/jobs',component:AllJobsComponent},
-    ]    
-})
+    ]
+});
 
 //Vue.use(VueRouter);
 //Creating the root Instance

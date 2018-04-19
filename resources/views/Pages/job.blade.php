@@ -4,6 +4,7 @@
 
 
     <div id="app">
+
         {{--  Main Componet contains the sidebar and Navigation Bar  --}}
         <main-component
                 username={{ $data[

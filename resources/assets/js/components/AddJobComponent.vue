@@ -275,9 +275,9 @@
             },
             calculateScheduleJobEndDate:function(scheduledate,frequency){
                 var date = new Date(scheduledate);
-                this.originalEnd_Date = new Date(date.setMonth(date.getMonth()+parseInt(frequency))).toLocaleDateString();
+                this.originalEnd_Date = new Date(date.setMonth(date.getMonth() + parseInt(frequency)));
                 this.dd = this.originalEnd_Date.getDate();
-                this.mm = this.originalEnd_Date.getMonth() ;
+                this.mm = this.originalEnd_Date.getMonth() + 1;
                 this.yyyy = this.originalEnd_Date.getFullYear();
                 this.Ended_Date = this.yyyy + "-" + this.mm +"-" +this.dd ;
                 console.log(this.Ended_Date);

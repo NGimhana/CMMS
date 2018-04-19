@@ -25,6 +25,8 @@ Auth::routes();
 //Routing to Calendar Pages
 Route::resource('calendar','CalendarController');
 
+//Routing to Sector Pages
+Route::resource('sector', 'SectorController');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

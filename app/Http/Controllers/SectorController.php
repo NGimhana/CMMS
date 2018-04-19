@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\building;
 use App\Http\Resources\BuildingResource;
 use App\Http\Resources\SectorResource;
 use App\sector;
@@ -18,9 +17,33 @@ class SectorController extends Controller
      */
     public function index()
     {
-        $title = "Sectors";
-        $data = ['title' => $title];
-        return view('sector.index')->with('data', $data);
+
+        //Header is the title of the Page
+        $header = "Sectors";
+
+        //SubHeader is the Subtitle of the Page
+        $subheader = '@BuildingSector';
+
+        //loggedUser
+        $this->loggedUser = [
+            //User Name
+            'username' => \auth()->user()->name,
+            'userid' => \auth()->user()->id,
+            'useremail' => \auth()->user()->email,
+            'unreadNotifications' => \auth()->user()->unreadNotifications
+        ];
+
+        $notifications = json_decode($this->loggedUser['unreadNotifications']);
+
+//        Creating a Array of Data to send
+        $data = ['user' => $this->loggedUser, 'header' => $header, 'subheader' => $subheader, 'notifications' => $notifications];
+
+        //Return a Page with With values
+        return view('Pages.sector')->with('data', $data);
+
+//        $title = "Sectors";
+//        $data = ['title' => $title];
+//        return view('sector.index')->with('data', $data);
     }
 
     /**
