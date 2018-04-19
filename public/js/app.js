@@ -119334,6 +119334,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -119356,6 +119366,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             scheduled_end_date: "",
             assignedPerson: "",
             persons: '',
+
+            frequency: '',
+            End_Year: '',
+            scheduled_date: '',
+            schpriority: "Scheduled",
+            Ended_Date: '',
+
+            originalEnd_Date: '',
+            dd: '',
+            mm: '',
+            yyyy: '',
 
             assets: '',
             selectedAsset: ''
@@ -119426,22 +119447,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(_this.user);
                 console.log(response);
             });
-
-            // //Add Calendar Event
-            // this.$http.post('http://cmms.com/api/calendar',
-            //     {
-            //         starteddate: this.scheduledate,
-            //         enddate: this.enddate,
-            //         frequency: this.frequency
-            //
-            //     }
-            // ).then(response => {
-            //     console.log(response.body)
-            //     this.$router.go("http://cmms.com/job");
-            // }, response => {
-            //     console.log(response)
-            // });
         },
+
+        AddScheduledJob: function AddScheduledJob() {
+            this.calculateScheduleJobEndDate(this.scheduled_date, this.frequency);
+            this.$http.post('http://localhost:8000/api/scheduledjob', {
+                type: this.type,
+                asset_id: this.selectedAsset,
+                description: this.description,
+                priority: this.schpriority,
+                Scheduled_Date: this.scheduled_date,
+                End_Year: this.End_Year,
+                frequency: this.frequency,
+                Ended_Date: this.Ended_Date,
+                created_user_id: this.user,
+                assigned_person: this.assignedPerson
+            }).then(function (response) {
+                console.log(response.body);
+                location.reload();
+            }, function (response) {
+                console.log(response.body);
+            });
+        },
+        calculateScheduleJobEndDate: function calculateScheduleJobEndDate(scheduledate, frequency) {
+            var date = new Date(scheduledate);
+            this.originalEnd_Date = new Date(date.setMonth(date.getMonth() + parseInt(frequency))).toLocaleDateString();
+            this.dd = this.originalEnd_Date.getDate();
+            this.mm = this.originalEnd_Date.getMonth();
+            this.yyyy = this.originalEnd_Date.getFullYear();
+            this.Ended_Date = this.yyyy + "-" + this.mm + "-" + this.dd;
+            console.log(this.Ended_Date);
+        },
+
         getAssets: function getAssets() {
             var _this2 = this;
 
@@ -119815,51 +119852,85 @@ var render = function() {
           _c("div", { staticClass: "field" }, [
             _c("label", [_vm._v("END Year")]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.scheduled_date,
-                  expression: "scheduled_date"
-                }
-              ],
-              attrs: { name: "scheduled_date", type: "date" },
-              domProps: { value: _vm.scheduled_date },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.End_Year,
+                    expression: "End_Year"
                   }
-                  _vm.scheduled_date = $event.target.value
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.End_Year = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
                 }
-              }
-            })
+              },
+              [
+                _c("option", [_vm._v("2018")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("2019")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("2020")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("2021")])
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
-            _c("label", [_vm._v("Frequency")]),
+            _c("label", [_vm._v("Frequency(Months)")]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.frequency,
-                  expression: "frequency"
-                }
-              ],
-              attrs: { name: "scheduled_date", type: "text" },
-              domProps: { value: _vm.frequency },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.frequency,
+                    expression: "frequency"
                   }
-                  _vm.frequency = $event.target.value
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.frequency = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
                 }
-              }
-            })
+              },
+              [
+                _c("option", [_vm._v("1")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("3")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("6")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("12")])
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "field" }, [
@@ -119911,7 +119982,7 @@ var render = function() {
           {
             staticClass: "ui button",
             attrs: { type: "submit" },
-            on: { click: _vm.AddJob }
+            on: { click: _vm.AddScheduledJob }
           },
           [_vm._v("Submit")]
         ),

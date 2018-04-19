@@ -90,8 +90,12 @@
 
                     <div class="field">
                         <label>END Year</label>
-                        <select v-model="end_year"></select>
-                        <input name="scheduled_date" v-model="end_year" type="date">
+                        <select v-model="End_Year">
+                            <option>2018</option>
+                            <option>2019</option>
+                            <option>2020</option>
+                            <option>2021</option>
+                        </select>
                     </div>
 
                     <div class="field">
@@ -121,7 +125,7 @@
 
             </div>
             <div class="actions">
-                <button class="ui button" v-on:click="AddJob" type="submit">Submit</button>
+                <button class="ui button" v-on:click="AddScheduledJob" type="submit">Submit</button>
                 <div class="ui cancel button">Cancel</div>
             </div>
         </div>
@@ -157,8 +161,16 @@
                 persons: '',
 
                 frequency:'',
-                end_year:'',
+                End_Year:'',
                 scheduled_date:'',
+                schpriority:"Scheduled",
+                Ended_Date:'',
+
+                originalEnd_Date:'',
+                dd: '',
+                mm: '',
+                yyyy: '',
+
 
                 assets: '',
                 selectedAsset: '',
@@ -235,21 +247,42 @@
                     console.log(response)
                 });
 
-                // //Add Calendar Event
-                // this.$http.post('http://cmms.com/api/calendar',
-                //     {
-                //         starteddate: this.scheduledate,
-                //         enddate: this.enddate,
-                //         frequency: this.frequency
-                //
-                //     }
-                // ).then(response => {
-                //     console.log(response.body)
-                //     this.$router.go("http://cmms.com/job");
-                // }, response => {
-                //     console.log(response)
-                // });
+
             },
+
+            AddScheduledJob:function () {
+                this.calculateScheduleJobEndDate(this.scheduled_date,this.frequency);
+                this.$http.post('http://localhost:8000/api/scheduledjob',
+                    {
+                        type: this.type,
+                        asset_id: this.selectedAsset,
+                        description: this.description,
+                        priority: this.schpriority,
+                        Scheduled_Date: this.scheduled_date,
+                        End_Year:this.End_Year,
+                        frequency:this.frequency,
+                        Ended_Date:this.Ended_Date,
+                        created_user_id: this.user,
+                        assigned_person: this.assignedPerson,
+                    }
+                ).then(response=>{
+                    console.log(response.body);
+                    location.reload();
+                },response =>{
+                    console.log(response.body);
+                });
+
+            },
+            calculateScheduleJobEndDate:function(scheduledate,frequency){
+                var date = new Date(scheduledate);
+                this.originalEnd_Date = new Date(date.setMonth(date.getMonth()+parseInt(frequency))).toLocaleDateString();
+                this.dd = this.originalEnd_Date.getDate();
+                this.mm = this.originalEnd_Date.getMonth() ;
+                this.yyyy = this.originalEnd_Date.getFullYear();
+                this.Ended_Date = this.yyyy + "-" + this.mm +"-" +this.dd ;
+                console.log(this.Ended_Date);
+            },
+
             getAssets() {
                 this.$http.get('http://localhost:8000/api/assets').then(response => {
                     this.assets = response.body;

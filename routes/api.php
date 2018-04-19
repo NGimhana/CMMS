@@ -127,3 +127,17 @@ Route::put('user/{id}','UserController@store');
 //Delete User
 Route::delete('user/{id}','UserController@destroy');
 
+//Get  Scheduled Jobs
+Route::get('scheduledjobs','ScheduledJobController@index');
+
+//Get Single Scheduled Job
+Route::get('scheduledjob/{id}','ScheduledJobController@show');
+
+//Create  Scheduled Job
+Route::post('scheduledjob','ScheduledJobController@store');
+
+//Update  Scheduled Job
+Route::put('scheduledjob/{id}','ScheduledJobController@update');
+
+//Delete Scheduled Job
+Route::delete('scheduledjob/{id}','ScheduledJobController@destroy');

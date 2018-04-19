@@ -18,7 +18,8 @@ class ScheduledJobController extends Controller
      */
     public function index()
     {
-        //
+        $scheduledJobs = Scheduled_Job::all();
+        return ScheduledJobResource::collection($scheduledJobs);
     }
 
     /**
