@@ -45300,6 +45300,24 @@ if (inBrowser && window.Vue) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -45563,7 +45581,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.fetchData();
     },
 
-    methods: {
+    methods: (_methods = {
         toggleSidebar: function toggleSidebar() {
             $(".ui.sidebar").sidebar("toggle");
         },
@@ -45572,158 +45590,198 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         drop: function drop() {
             $('.ui.accordion').accordion();
-        },
-        JobModelShow: function JobModelShow() {
-            $('.tiny.job.modal').modal('show');
-            console.log("clicked");
-        },
-        getToday: function getToday() {
-            this.today = new Date();
-            this.dd = this.today.getDate();
-            this.mm = this.today.getMonth() + 1;
-            this.yyyy = this.today.getFullYear();
+        }
+    }, _defineProperty(_methods, 'userMenu', function userMenu() {
+        $(".ui.dropdown").dropdown();
+    }), _defineProperty(_methods, 'JobModelShow', function JobModelShow() {
+        $('.tiny.job.modal').modal('show');
+        console.log("clicked");
+    }), _defineProperty(_methods, 'getToday', function getToday() {
+        this.today = new Date();
+        this.dd = this.today.getDate();
+        this.mm = this.today.getMonth() + 1;
+        this.yyyy = this.today.getFullYear();
 
-            if (this.dd < 10) {
-                this.dd = '0' + this.dd;
+        if (this.dd < 10) {
+            this.dd = '0' + this.dd;
+        }
+
+        if (this.mm < 10) {
+            this.mm = '0' + this.mm;
+        }
+
+        this.today = this.yyyy + "-" + this.mm + '-' + this.dd;
+    }), _defineProperty(_methods, 'checkStatus', function checkStatus() {
+        if (this.selectedJob.Ended_Date !== null) {
+
+            if (this.selectedJob.Scheduled_End_Date >= this.selectedJob.Ended_Date) {
+
+                this.status = "COMPLETED";
+                this.overDueStatus = "";
+                this.isCompleted = true;
+                this.isOverdue = false;
+            } else {
+                this.status = "COMPLETED";
+                this.overDueStatus = "OVERDUE";
+                this.isCompleted = true;
+                this.isOverdue = false;
             }
+        } else {
 
-            if (this.mm < 10) {
-                this.mm = '0' + this.mm;
-            }
+            this.getToday();
 
-            this.today = this.yyyy + "-" + this.mm + '-' + this.dd;
-        },
-        checkStatus: function checkStatus() {
-            if (this.selectedJob.Ended_Date !== null) {
+            if (this.selectedJob.Scheduled_End_Date > this.today) {
 
-                if (this.selectedJob.Scheduled_End_Date >= this.selectedJob.Ended_Date) {
-
-                    this.status = "COMPLETED";
-                    this.overDueStatus = "";
-                    this.isCompleted = true;
-                    this.isOverdue = false;
-                } else {
-                    this.status = "COMPLETED";
-                    this.overDueStatus = "OVERDUE";
-                    this.isCompleted = true;
-                    this.isOverdue = false;
-                }
+                this.status = "ON GOING";
+                this.overDueStatus = "";
+                this.isCompleted = false;
+                this.isOverdue = false;
             } else {
 
-                this.getToday();
-
-                if (this.selectedJob.Scheduled_End_Date > this.today) {
-
-                    this.status = "ON GOING";
-                    this.overDueStatus = "";
-                    this.isCompleted = false;
-                    this.isOverdue = false;
-                } else {
-
-                    this.status = "ON GOING";
-                    this.overDueStatus = "OVERDUE";
-                    this.isCompleted = false;
-                    this.isOverdue = true;
-                }
+                this.status = "ON GOING";
+                this.overDueStatus = "OVERDUE";
+                this.isCompleted = false;
+                this.isOverdue = true;
             }
-        },
+        }
+    }), _defineProperty(_methods, 'getSeleselectedJob', function getSeleselectedJob(job) {
+        var _this = this;
 
-        getSeleselectedJob: function getSeleselectedJob(job) {
-            var _this = this;
+        this.selectedJob = job;
+        this.checkStatus();
 
-            this.selectedJob = job;
-            this.checkStatus();
+        this.$http.get('http://localhost:8000/api/asset/' + this.selectedJob.asset_id).then(function (response) {
+            _this.selectedAsset = response.body;
 
-            this.$http.get('http://localhost:8000/api/asset/' + this.selectedJob.asset_id).then(function (response) {
-                _this.selectedAsset = response.body;
+            _this.$http.get('http://localhost:8000/api/sector/building/' + _this.selectedAsset.sector_id).then(function (response) {
+                _this.selectedBuilding = response.body;
 
-                _this.$http.get('http://localhost:8000/api/sector/building/' + _this.selectedAsset.sector_id).then(function (response) {
-                    _this.selectedBuilding = response.body;
+                //Create Map
+                _this.createmap(_this.selectedBuilding.description);
 
-                    //Create Map
-                    _this.createmap(_this.selectedBuilding.description);
+                _this.$http.get('http://localhost:8000/api/sector/' + _this.selectedAsset.sector_id).then(function (response) {
+                    _this.selectedSector = response.body;
 
-                    _this.$http.get('http://localhost:8000/api/sector/' + _this.selectedAsset.sector_id).then(function (response) {
-                        _this.selectedSector = response.body;
+                    _this.$http.get('http://localhost:8000/api/user/' + _this.selectedJob.created_user_id).then(function (response) {
+                        _this.createdUser = response.body;
 
-                        _this.$http.get('http://localhost:8000/api/user/' + _this.selectedJob.created_user_id).then(function (response) {
-                            _this.createdUser = response.body;
-
-                            _this.$http.get('http://localhost:8000/api/user/' + _this.selectedJob.Assigned_Person_id).then(function (response) {
-                                _this.assignedPerson = response.body;
-                            }, function (response) {});
+                        _this.$http.get('http://localhost:8000/api/user/' + _this.selectedJob.Assigned_Person_id).then(function (response) {
+                            _this.assignedPerson = response.body;
                         }, function (response) {});
                     }, function (response) {});
-                }, function (response) {
-                    //console.log(response.body);
-                });
-            }, function (response) {});
-        },
-
-        fetchData: function fetchData() {
-            var _this2 = this;
-
-            this.$http.get(this.url).then(function (response) {
-                _this2.jobs = response.data.data;
-                console.log(_this2.jobs);
-                _this2.makePagination(response.data);
+                }, function (response) {});
             }, function (response) {
-                // error callback
+                //console.log(response.body);
             });
-        },
+        }, function (response) {});
+    }), _defineProperty(_methods, 'fetchData', function fetchData() {
+        var _this2 = this;
 
-        //Map of the Selected Place of Job Task
-        createmap: function createmap(jobPlace) {
-            this.source = "https://www.google.com/maps/embed/v1/search?q=" + jobPlace + "&key=AIzaSyBOGCtQ84xGgjZaBiZ48ruA9B3g7AiT0Xg";
-            document.getElementById('mapFrame').setAttribute("src", this.source);
-        },
+        this.$http.get(this.url).then(function (response) {
+            _this2.jobs = response.data.data;
+            console.log(_this2.jobs);
+            _this2.makePagination(response.data);
+        }, function (response) {
+            // error callback
+        });
+    }), _defineProperty(_methods, 'createmap', function createmap(jobPlace) {
+        this.source = "https://www.google.com/maps/embed/v1/search?q=" + jobPlace + "&key=AIzaSyBOGCtQ84xGgjZaBiZ48ruA9B3g7AiT0Xg";
+        document.getElementById('mapFrame').setAttribute("src", this.source);
+    }), _defineProperty(_methods, 'deleteJobTask', function deleteJobTask() {
+        this.$http.delete('http://localhost:8000/api/job/' + this.selectedJob.id).then(function (response) {
+            //this.$router.go("http://localhost:8000/job");
+            location.reload();
+            console.log(response.body);
+        }, function (response) {});
+        console.log("Delete Clicked");
+    }), _defineProperty(_methods, 'completeJobTask', function completeJobTask() {
+        this.getToday();
+        this.$http.put('http://localhost:8000/api/job/' + this.selectedJob.id, {
 
+            type: this.selectedJob.type,
+            asset_id: this.selectedJob.asset_id,
+            description: this.selectedJob.description,
+            priority: this.selectedJob.priority,
+            scheduled_end_date: this.selectedJob.Scheduled_End_Date,
+            assigned_person: this.selectedJob.Assigned_Person_id,
+            starteddate: this.selectedJob.Started_Date,
+            created_user_id: this.selectedJob.created_user_id,
+            Ended_Date: this.today
+        }).then(function (response) {
+            console.log(response.body);
+            location.reload();
+            //this.$router.go("http://localhost:8000/job");
+        }, function (response) {});
+    }), _defineProperty(_methods, 'makePagination', function makePagination(response) {
+        var paginateVar = {
+            current_page: response.meta.current_page,
+            last_page: response.meta.last_page,
+            next_page_url: response.links.next,
+            prev_page_url: response.links.prev
+        };
 
-        deleteJobTask: function deleteJobTask() {
-            this.$http.delete('http://localhost:8000/api/job/' + this.selectedJob.id).then(function (response) {
-                //this.$router.go("http://localhost:8000/job");
-                location.reload();
-                console.log(response.body);
-            }, function (response) {});
-            console.log("Delete Clicked");
-        },
+        var a = JSON.parse(JSON.stringify(paginateVar));
 
-        completeJobTask: function completeJobTask() {
-            this.getToday();
-            this.$http.put('http://localhost:8000/api/job/' + this.selectedJob.id, {
+        this.pagination = a;
+    }), _defineProperty(_methods, 'fetchPaginateUsers', function fetchPaginateUsers(url) {
+        this.url = url;
+        this.fetchData();
+    }), _defineProperty(_methods, 'completedJobsFetch', function completedJobsFetch() {
+        var _this3 = this;
 
-                type: this.selectedJob.type,
-                asset_id: this.selectedJob.asset_id,
-                description: this.selectedJob.description,
-                priority: this.selectedJob.priority,
-                scheduled_end_date: this.selectedJob.Scheduled_End_Date,
-                assigned_person: this.selectedJob.Assigned_Person_id,
-                starteddate: this.selectedJob.Started_Date,
-                created_user_id: this.selectedJob.created_user_id,
-                Ended_Date: this.today
-            }).then(function (response) {
-                console.log(response.body);
-                location.reload();
-                //this.$router.go("http://localhost:8000/job");
-            }, function (response) {});
-        },
-        makePagination: function makePagination(response) {
-            var paginateVar = {
-                current_page: response.meta.current_page,
-                last_page: response.meta.last_page,
-                next_page_url: response.links.next,
-                prev_page_url: response.links.prev
-            };
+        this.url = 'http://localhost:8000/api/jobs/completedjobs';
+        this.$http.get(this.url).then(function (response) {
+            _this3.jobs = response.body;
+            console.log(_this3.jobs);
+            // this.makePagination(response.data);
+        }, function (response) {
+            // error callback
+        });
+    }), _defineProperty(_methods, 'onGoingJobsFetch', function onGoingJobsFetch() {
+        var _this4 = this;
 
-            var a = JSON.parse(JSON.stringify(paginateVar));
+        this.url = 'http://localhost:8000/api/jobs/ongoingjobs';
+        this.$http.get(this.url).then(function (response) {
+            _this4.jobs = response.body;
+            console.log(_this4.jobs);
+            // this.makePagination(response.data);
+        }, function (response) {
+            // error callback
+        });
+    }), _defineProperty(_methods, 'recentJobsFetch', function recentJobsFetch() {
+        var _this5 = this;
 
-            this.pagination = a;
-        },
-        fetchPaginateUsers: function fetchPaginateUsers(url) {
-            this.url = url;
-            this.fetchData();
-        }
-    }
+        this.url = 'http://localhost:8000/api/jobs/recentjobs';
+        this.$http.get(this.url).then(function (response) {
+            _this5.jobs = response.body;
+            console.log(_this5.jobs);
+            // this.makePagination(response.data);
+        }, function (response) {
+            // error callback
+        });
+    }), _defineProperty(_methods, 'overdueJobsFetch', function overdueJobsFetch() {
+        var _this6 = this;
+
+        this.url = 'http://localhost:8000/api/jobs/overduejobs';
+        this.$http.get(this.url).then(function (response) {
+            _this6.jobs = response.body;
+            console.log(_this6.jobs);
+            // this.makePagination(response.data);
+        }, function (response) {
+            // error callback
+        });
+    }), _defineProperty(_methods, 'fetchAllJobs', function fetchAllJobs() {
+        var _this7 = this;
+
+        this.url = 'http://localhost:8000/api/job';
+        this.$http.get(this.url).then(function (response) {
+            _this7.jobs = response.data.data;
+            console.log(_this7.jobs);
+            _this7.makePagination(response.data);
+        }, function (response) {
+            // error callback
+        });
+    }), _methods)
 });
 
 /***/ }),
@@ -45735,6 +45793,32 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("label", [_vm._v("Filter")]),
+    _vm._v(" "),
+    _c("select", { staticClass: "ui selectable dropdown" }, [
+      _c("option", { on: { click: _vm.fetchAllJobs } }, [_vm._v("All Jobs")]),
+      _vm._v(" "),
+      _c("option", { on: { click: _vm.completedJobsFetch } }, [
+        _vm._v("Completed Jobs")
+      ]),
+      _vm._v(" "),
+      _c("option", { on: { click: _vm.onGoingJobsFetch } }, [
+        _vm._v("OnGoing Jobs")
+      ]),
+      _vm._v(" "),
+      _c("option", { on: { click: _vm.recentJobsFetch } }, [
+        _vm._v("Recent Jobs")
+      ]),
+      _vm._v(" "),
+      _c("option", { on: { click: _vm.overdueJobsFetch } }, [
+        _vm._v("Over-Due Jobs")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
     _c("div", { staticClass: "ui tiny job modal" }, [
       _vm._m(0),
       _vm._v(" "),
@@ -119387,6 +119471,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -120123,14 +120209,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
 
         fetchData: function fetchData() {
-            var _this = this;
-
-            this.$http.get('http://localhost:8000/api/job').then(function (response) {
-                _this.jobs = response.body;
+            this.$http.get('http://localhost:8000/api/alljob').then(function (response) {
+                var jobs = response.body;
 
                 var calenadarEvents = [];
 
-                _this.jobs.forEach(function (value) {
+                jobs.forEach(function (value) {
                     var jobTask = JSON.parse(JSON.stringify(value));
                     var caledarEvent = {
                         "title": jobTask.id + " : " + jobTask.description,
@@ -121362,7 +121446,7 @@ exports = module.exports = __webpack_require__(261)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -121716,7 +121800,6 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //

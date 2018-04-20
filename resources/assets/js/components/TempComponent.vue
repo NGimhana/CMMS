@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="ui pointing secondary demo menu">
             <a class="active item" data-tab="first">Immediate Jobs</a>
             <a class=" item" data-tab="second">Scheduled Jobs</a>

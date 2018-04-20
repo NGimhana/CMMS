@@ -23,9 +23,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-//List All Jobs
+//List All Jobs With Paginate
 Route::get('job', function () {
     $jobs = Immediate_Job::orderBy("id","DESC")->paginate(3);
+    return JobResource::collection($jobs);
+});
+
+//List All Jobs
+Route::get('alljob', function () {
+    $jobs = Immediate_Job::all();
     return JobResource::collection($jobs);
     //return JobResource::collection($jobs[0]);
 });

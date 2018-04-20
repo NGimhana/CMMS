@@ -26,12 +26,12 @@ export default {
     methods: {
 
         fetchData: function () {
-            this.$http.get('http://localhost:8000/api/job').then(response => {
-                this.jobs = (response.body);
+            this.$http.get('http://localhost:8000/api/alljob').then(response => {
+                let jobs = (response.body);
 
                 let calenadarEvents = [];
 
-                this.jobs.forEach(function (value) {
+                jobs.forEach(function (value) {
                     let jobTask = JSON.parse(JSON.stringify(value));
                     let caledarEvent =
                         {

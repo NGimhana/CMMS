@@ -2,6 +2,20 @@
 
     <div>
 
+        <label>Filter</label>
+        <select class="ui selectable dropdown">
+            <option v-on:click="fetchAllJobs">All Jobs</option>
+            <option v-on:click="completedJobsFetch">Completed Jobs</option>
+            <option v-on:click="onGoingJobsFetch">OnGoing Jobs</option>
+            <option v-on:click="recentJobsFetch">Recent Jobs</option>
+            <option v-on:click="overdueJobsFetch">Over-Due Jobs</option>
+
+        </select>
+        <br>
+        <br>
+
+
+
         <div class="ui tiny job modal">
             <div class="ui icon header">
                 <i class="archive icon"></i>
@@ -277,6 +291,9 @@
                     .accordion()
                 ;
             },
+            userMenu: function () {
+                $(".ui.dropdown").dropdown();
+            },
             JobModelShow: function () {
                 $('.tiny.job.modal').modal('show');
                 console.log("clicked");
@@ -376,7 +393,6 @@
             },
 
             fetchData: function () {
-
                 this.$http.get(this.url).then(response => {
                     this.jobs = response.data.data;
                     console.log(this.jobs);
@@ -444,6 +460,57 @@
             fetchPaginateUsers:function (url) {
                 this.url= url;
                 this.fetchData( );
+            },
+
+            completedJobsFetch:function () {
+                this.url = 'http://localhost:8000/api/jobs/completedjobs';
+                this.$http.get(this.url).then(response => {
+                    this.jobs = response.body;
+                    console.log(this.jobs);
+                    // this.makePagination(response.data);
+                }, response => {
+                    // error callback
+                });
+            },
+            onGoingJobsFetch:function () {
+                this.url = 'http://localhost:8000/api/jobs/ongoingjobs';
+                this.$http.get(this.url).then(response => {
+                    this.jobs = response.body;
+                    console.log(this.jobs);
+                    // this.makePagination(response.data);
+                }, response => {
+                    // error callback
+                });
+            },
+            recentJobsFetch:function () {
+                this.url = 'http://localhost:8000/api/jobs/recentjobs';
+                this.$http.get(this.url).then(response => {
+                    this.jobs = response.body;
+                    console.log(this.jobs);
+                    // this.makePagination(response.data);
+                }, response => {
+                    // error callback
+                });
+            },
+            overdueJobsFetch:function () {
+                this.url = 'http://localhost:8000/api/jobs/overduejobs';
+                this.$http.get(this.url).then(response => {
+                    this.jobs = response.body;
+                    console.log(this.jobs);
+                    // this.makePagination(response.data);
+                }, response => {
+                    // error callback
+                });
+            },
+            fetchAllJobs:function () {
+              this.url = 'http://localhost:8000/api/job';
+                this.$http.get(this.url).then(response => {
+                    this.jobs = response.data.data;
+                    console.log(this.jobs);
+                    this.makePagination(response.data);
+                }, response => {
+                    // error callback
+                });
             },
         }
     };
