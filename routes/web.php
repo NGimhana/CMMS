@@ -28,6 +28,9 @@ Route::resource('calendar','CalendarController');
 //Routing to Sector Pages
 Route::resource('sector', 'SectorController');
 
+//Routing to Sector Pages
+Route::resource('asset', 'AssetController');
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

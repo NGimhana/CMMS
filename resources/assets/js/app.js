@@ -48,6 +48,7 @@ Vue.component('calendar-component', require('./components/CalendarComponent.vue'
 Vue.component('assetcharts-component', require('./components/AssetChartsComponent.vue'));
 Vue.component('allschedulejobs-component', require('./components/AllScheduleJobComponent.vue'));
 Vue.component('temp-component', require('./components/TempComponent'));
+Vue.component('asset-component', require('./components/AssetComponent.vue'));
 
 Vue.use(VueResource);
 Vue.use(VueRouter);

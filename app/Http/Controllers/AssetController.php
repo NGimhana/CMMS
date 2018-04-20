@@ -17,7 +17,36 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::all();
+        //Header is the title of the Page
+        $header = "Assets";
+
+        //SubHeader is the Subtitle of the Page
+        $subheader = '@SystemAssets';
+
+        //loggedUser
+        $this->loggedUser = [
+            //User Name
+            'username' => \auth()->user()->name,
+            'userid' => \auth()->user()->id,
+            'useremail' => \auth()->user()->email,
+            'unreadNotifications' => \auth()->user()->unreadNotifications
+        ];
+
+        $notifications = json_decode($this->loggedUser['unreadNotifications']);
+
+//        Creating a Array of Data to send
+        $data = ['user' => $this->loggedUser, 'header' => $header, 'subheader' => $subheader, 'notifications' => $notifications];
+
+        //Return a Page with With values
+        return view('Pages.asset')->with('data', $data);
+
+//        $title = "Sectors";
+//        $data = ['title' => $title];
+//        return view('sector.index')->with('data', $data);
+    }
+
+    public function getAllAssets(){
+        $assets = Asset::orderBy("id","DESC")->paginate(10);
         return AssetResource::collection($assets);
     }
 
@@ -103,5 +132,16 @@ class AssetController extends Controller
         if($asset->delete()){
             return new AssetResource($asset);
         }
+    }
+
+    public function fullAssetDetails(){
+        return  json_decode(json_encode(
+            DB::select("select * from assets left outer 
+            join (sectors join immediate__jobs join buildings join scheduled__jobs)
+            ON buildings.id=sectors.id 
+            and assets.id=sectors.id 
+            and immediate__jobs.asset_id=assets.id 
+            and scheduled__jobs.id = assets.id;"
+        )));
     }
 }

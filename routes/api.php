@@ -29,11 +29,10 @@ Route::get('job', function () {
     return JobResource::collection($jobs);
 });
 
-//List All Jobs
+//List All Jobs With
 Route::get('alljob', function () {
     $jobs = Immediate_Job::all();
     return JobResource::collection($jobs);
-    //return JobResource::collection($jobs[0]);
 });
 
 //List All Calendar Events
@@ -73,7 +72,7 @@ Route::post('calendar','CalendarController@store');
 Route::get('assets/maintainedmost','JobController@assetsMaintainedMost');
 
 //Get  Assets
-Route::get('assets','AssetController@index');
+Route::get('assets','AssetController@getAllAssets');
 
 //Get Single Asset
 Route::get('asset/{id}','AssetController@show');
@@ -149,3 +148,6 @@ Route::delete('scheduledjob/{id}','ScheduledJobController@destroy');
 
 //Read Notifications as Read
 Route::get('markasread/notification/{id}/{userid}','NotificationController@MarkAsRead');
+
+//Full Asset Details
+Route::get('assets/fullassetdetails','AssetController@fullAssetDetails');

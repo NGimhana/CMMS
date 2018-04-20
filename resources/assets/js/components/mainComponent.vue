@@ -79,8 +79,8 @@
             <a class="item" href="/calendar">
                 <i class="calendar alternate icon"></i>Calendar
             </a>
-            <a class="item">
-                <i class="smile icon"></i>Resources
+            <a class="item"  href="/asset">
+                <i class="smile icon"></i>Assets
             </a>
 
         </div>

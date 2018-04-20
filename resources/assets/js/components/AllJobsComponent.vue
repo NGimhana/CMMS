@@ -9,7 +9,6 @@
             <option v-on:click="onGoingJobsFetch">OnGoing Jobs</option>
             <option v-on:click="recentJobsFetch">Recent Jobs</option>
             <option v-on:click="overdueJobsFetch">Over-Due Jobs</option>
-
         </select>
         <br>
         <br>
