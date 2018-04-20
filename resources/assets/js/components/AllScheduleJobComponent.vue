@@ -84,21 +84,21 @@
                     </tbody>
 
                     <tfoot>
-                    <tr>
-                        <th colspan="6">
-                            <div class="ui right floated pagination menu">
-                                <a class="icon item">
-                                    <i class="left chevron icon"></i>
-                                </a>
-                                <a class="item">1</a>
-                                <a class="item">2</a>
-                                <a class="item">3</a>
-                                <a class="item">4</a>
-                                <a class="icon item">
-                                    <i class="right chevron icon"></i>
-                                </a>
-                            </div>
-                        </th>
+                    <tr><th colspan="6">
+                        <div class="ui right floated pagination menu">
+                            <a class="icon item"  v-on:click="fetchPaginateUsers(pagination.prev_page_url)">
+                                <i class="left chevron icon"></i>
+                            </a>
+                            <!--<a class="item">1</a>-->
+                            <!--<a class="item">2</a>-->
+                            <!--<a class="item">3</a>-->
+                            <!--<a class="item">4</a>-->
+                            <span>Page {{pagination.current_page}} of {{pagination.last_page}}</span>
+                            <a class="icon item"  v-on:click="fetchPaginateUsers(pagination.next_page_url)">
+                                <i class="right chevron icon"></i>
+                            </a>
+                        </div>
+                    </th>
                     </tr>
                     </tfoot>
 
@@ -243,6 +243,13 @@
                 isCompleted: true,
                 isOverdue: '',
 
+                url:'http://localhost:8000/api/scheduledjobs',
+                current_page :'',
+                last_page: '',
+                next_page_url:'',
+                prev_page_url:'',
+                pagination:[],
+
             }
         },
 
@@ -373,9 +380,10 @@
             },
 
             fetchData: function () {
-                this.$http.get('http://localhost:8000/api/scheduledjobs').then(response => {
-                    this.jobs = response.body;
+                this.$http.get(this.url).then(response => {
+                    this.jobs = response.data.data;
                     console.log(this.jobs);
+                    this.makePagination(response.data);
                 }, response => {
                     // error callback
                 });
@@ -423,6 +431,24 @@
                 }, response => {
 
                 });
+            },
+
+            makePagination:function (response) {
+                let paginateVar = {
+                    current_page :response.meta.current_page,
+                    last_page: response.meta.last_page,
+                    next_page_url:response.links.next,
+                    prev_page_url:response.links.prev,
+                }
+
+                let a =JSON.parse(JSON.stringify(paginateVar));
+
+                this.pagination = a;
+
+            },
+            fetchPaginateUsers:function (url) {
+                this.url= url;
+                this.fetchData( );
             },
         }
     };

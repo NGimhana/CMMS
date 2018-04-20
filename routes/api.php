@@ -25,8 +25,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //List All Jobs
 Route::get('job', function () {
-   // $jobs = Immediate_Job::paginate(15);
-    return JobResource::collection(Immediate_Job::all());
+    $jobs = Immediate_Job::orderBy("id","DESC")->paginate(3);
+    return JobResource::collection($jobs);
     //return JobResource::collection($jobs[0]);
 });
 

@@ -45505,6 +45505,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -45532,7 +45533,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             source: '',
 
             isCompleted: true,
-            isOverdue: ''
+            isOverdue: '',
+
+            url: 'http://localhost:8000/api/job',
+            current_page: '',
+            last_page: '',
+            next_page_url: '',
+            prev_page_url: '',
+            pagination: []
 
         };
     },
@@ -45655,9 +45663,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchData: function fetchData() {
             var _this2 = this;
 
-            this.$http.get('http://localhost:8000/api/job').then(function (response) {
-                _this2.jobs = response.body;
+            this.$http.get(this.url).then(function (response) {
+                _this2.jobs = response.data.data;
                 console.log(_this2.jobs);
+                _this2.makePagination(response.data);
             }, function (response) {
                 // error callback
             });
@@ -45697,6 +45706,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 location.reload();
                 //this.$router.go("http://localhost:8000/job");
             }, function (response) {});
+        },
+        makePagination: function makePagination(response) {
+            var paginateVar = {
+                current_page: response.meta.current_page,
+                last_page: response.meta.last_page,
+                next_page_url: response.links.next,
+                prev_page_url: response.links.prev
+            };
+
+            var a = JSON.parse(JSON.stringify(paginateVar));
+
+            this.pagination = a;
+        },
+        fetchPaginateUsers: function fetchPaginateUsers(url) {
+            this.url = url;
+            this.fetchData();
         }
     }
 });
@@ -45817,7 +45842,56 @@ var render = function() {
               })
             ),
             _vm._v(" "),
-            _vm._m(4)
+            _c("tfoot", [
+              _c("tr", [
+                _c("th", { attrs: { colspan: "6" } }, [
+                  _c(
+                    "div",
+                    { staticClass: "ui right floated pagination menu" },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icon item",
+                          on: {
+                            click: function($event) {
+                              _vm.fetchPaginateUsers(
+                                _vm.pagination.prev_page_url
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "left chevron icon" })]
+                      ),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v(
+                          "Page " +
+                            _vm._s(_vm.pagination.current_page) +
+                            " of " +
+                            _vm._s(_vm.pagination.last_page)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icon item",
+                          on: {
+                            click: function($event) {
+                              _vm.fetchPaginateUsers(
+                                _vm.pagination.next_page_url
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "right chevron icon" })]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
           ]
         )
       ]),
@@ -45904,7 +45978,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(5),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedAsset.description))])
@@ -45912,7 +45986,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(6),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedBuilding.description))])
@@ -45920,7 +45994,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(7),
+                _vm._m(6),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedSector.description))])
@@ -45928,7 +46002,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(8),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [
@@ -45942,7 +46016,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(9),
+                _vm._m(8),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [
@@ -46030,34 +46104,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "ui blue button" }, [
       _c("i", { staticClass: "edit icon" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tfoot", [
-      _c("tr", [
-        _c("th", { attrs: { colspan: "6" } }, [
-          _c("div", { staticClass: "ui right floated pagination menu" }, [
-            _c("a", { staticClass: "icon item" }, [
-              _c("i", { staticClass: "left chevron icon" })
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("1")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("2")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("3")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("4")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "icon item" }, [
-              _c("i", { staticClass: "right chevron icon" })
-            ])
-          ])
-        ])
-      ])
     ])
   },
   function() {
@@ -120610,7 +120656,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             source: '',
 
             isCompleted: true,
-            isOverdue: ''
+            isOverdue: '',
+
+            url: 'http://localhost:8000/api/scheduledjobs',
+            current_page: '',
+            last_page: '',
+            next_page_url: '',
+            prev_page_url: '',
+            pagination: []
 
         };
     },
@@ -120733,9 +120786,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchData: function fetchData() {
             var _this2 = this;
 
-            this.$http.get('http://localhost:8000/api/scheduledjobs').then(function (response) {
-                _this2.jobs = response.body;
+            this.$http.get(this.url).then(function (response) {
+                _this2.jobs = response.data.data;
                 console.log(_this2.jobs);
+                _this2.makePagination(response.data);
             }, function (response) {
                 // error callback
             });
@@ -120777,6 +120831,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 location.reload();
                 //this.$router.go("http://localhost:8000/job");
             }, function (response) {});
+        },
+
+        makePagination: function makePagination(response) {
+            var paginateVar = {
+                current_page: response.meta.current_page,
+                last_page: response.meta.last_page,
+                next_page_url: response.links.next,
+                prev_page_url: response.links.prev
+            };
+
+            var a = JSON.parse(JSON.stringify(paginateVar));
+
+            this.pagination = a;
+        },
+        fetchPaginateUsers: function fetchPaginateUsers(url) {
+            this.url = url;
+            this.fetchData();
         }
     }
 });
@@ -120897,7 +120968,56 @@ var render = function() {
               })
             ),
             _vm._v(" "),
-            _vm._m(4)
+            _c("tfoot", [
+              _c("tr", [
+                _c("th", { attrs: { colspan: "6" } }, [
+                  _c(
+                    "div",
+                    { staticClass: "ui right floated pagination menu" },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icon item",
+                          on: {
+                            click: function($event) {
+                              _vm.fetchPaginateUsers(
+                                _vm.pagination.prev_page_url
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "left chevron icon" })]
+                      ),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v(
+                          "Page " +
+                            _vm._s(_vm.pagination.current_page) +
+                            " of " +
+                            _vm._s(_vm.pagination.last_page)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "icon item",
+                          on: {
+                            click: function($event) {
+                              _vm.fetchPaginateUsers(
+                                _vm.pagination.next_page_url
+                              )
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "right chevron icon" })]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
           ]
         )
       ]),
@@ -120984,7 +121104,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(5),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedAsset.description))])
@@ -120992,7 +121112,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(6),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedBuilding.description))])
@@ -121000,7 +121120,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(7),
+                _vm._m(6),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [_vm._v(_vm._s(this.selectedSector.description))])
@@ -121008,7 +121128,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(8),
+                _vm._m(7),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [
@@ -121022,7 +121142,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inline fields" }, [
-                _vm._m(9),
+                _vm._m(8),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("p", [
@@ -121110,34 +121230,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "ui blue button" }, [
       _c("i", { staticClass: "edit icon" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tfoot", [
-      _c("tr", [
-        _c("th", { attrs: { colspan: "6" } }, [
-          _c("div", { staticClass: "ui right floated pagination menu" }, [
-            _c("a", { staticClass: "icon item" }, [
-              _c("i", { staticClass: "left chevron icon" })
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("1")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("2")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("3")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "item" }, [_vm._v("4")]),
-            _vm._v(" "),
-            _c("a", { staticClass: "icon item" }, [
-              _c("i", { staticClass: "right chevron icon" })
-            ])
-          ])
-        ])
-      ])
     ])
   },
   function() {

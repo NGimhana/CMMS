@@ -18,7 +18,7 @@ class ScheduledJobController extends Controller
      */
     public function index()
     {
-        $scheduledJobs = Scheduled_Job::all();
+        $scheduledJobs = Scheduled_Job::orderBy("id","DESC")->paginate(3);
         return ScheduledJobResource::collection($scheduledJobs);
     }
 
