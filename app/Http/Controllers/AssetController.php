@@ -136,12 +136,27 @@ class AssetController extends Controller
 
     public function fullAssetDetails(){
         return  json_decode(json_encode(
-            DB::select("select * from assets left outer 
-            join (sectors join immediate__jobs join buildings join scheduled__jobs)
-            ON buildings.id=sectors.id 
-            and assets.id=sectors.id 
-            and immediate__jobs.asset_id=assets.id 
-            and scheduled__jobs.id = assets.id;"
+            DB::select("
+            select * from assets inner join 
+            ( SELECT sectors.id as sectorId , sectors.description as SecDesc , buildings.id as builId , 
+            buildings.description as BuildDesc from sectors
+             inner  join buildings ON sectors.building_id = buildings.id)             
+             as T 
+             ON assets.sector_id = T.sectorId;"
         )));
+    }
+
+    public function searchByAssetName($assetDesc){
+
+
+        return  json_decode(json_encode(
+            DB::select(DB::raw("
+            select * from assets inner join 
+            ( SELECT sectors.id as sectorId , sectors.description as SecDesc , buildings.id as builId , 
+            buildings.description as BuildDesc from sectors
+             inner  join buildings ON sectors.building_id = buildings.id)             
+             as T 
+             ON assets.sector_id = T.sectorId where assets.description like '$assetDesc' "
+            ))));
     }
 }

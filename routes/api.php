@@ -151,3 +151,6 @@ Route::get('markasread/notification/{id}/{userid}','NotificationController@MarkA
 
 //Full Asset Details
 Route::get('assets/fullassetdetails','AssetController@fullAssetDetails');
+
+//Search Asset By Desc
+Route::get('assets/fullassetdetails/{name}','AssetController@searchByAssetName');
