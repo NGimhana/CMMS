@@ -31,6 +31,10 @@ class BuildingController extends Controller
         //
     }
 
+    public function getAllBuildings(){
+        $buildings = building::all();
+        return BuildingResource::collection($buildings);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -92,9 +96,19 @@ class BuildingController extends Controller
     }
 
     //Get All Buildings
-    public function getAllBuildings()
-    {
-        $buildings = DB::table('buildings')->pluck('building_name', 'id');
-        return ($buildings);
+//    public function getAllBuildings()
+//    {
+//        $buildings = DB::table('buildings')->pluck('building_name', 'id');
+//        return ($buildings);
+//    }
+
+    //Search Sectors by Building Id
+    public function sectorsByBuildingId($buildingId){
+        return  json_decode(json_encode(DB::select("SELECT sectors.id as sectorId,buildings.id as BuildingId,buildings.description  FROM sectors 
+        inner join buildings 
+        ON sectors. building_id = buildings.id 
+        where buildings.id = '$buildingId' "
+        )));
     }
+
 }

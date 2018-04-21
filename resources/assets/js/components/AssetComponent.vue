@@ -1,12 +1,49 @@
 <template>
     <div>
+        <!--Add Asset To Database-->
+        <div class="ui mini modal">
+            <div class="header">Add Asset</div>
+            <div class="content">
+
+                <form class="ui form">
+
+                    <div class="field">
+                        <label>Building</label>
+                        <select v-model="selectedBuilding">
+                            <option v-on:click="searchSector(building.id)" v-for="building in buildings" v-bind:value="building.id">{{building.description}}</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Sector</label>
+                        <select v-model="selectedSector">
+                            <option v-for="sector in sectors" v-bind:value="sector.id">{{sector.sectorId}}</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Description</label>
+                        <textarea v-model="description" value="Describe The Asset"></textarea>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+            <div class="actions">
+                <button class="ui button" v-on:click="AddAsset" type="submit">Submit</button>
+                <div class="ui cancel button">Cancel</div>
+            </div>
+
+        </div>
 
 
 
         <div class="ui grid">
 
             <div class="two wide column ">
-                <button class="ui positive button"><i class="plus icon"></i> Add Asset
+                <button class="ui positive button" v-on:click="createModel"><i class="plus icon"></i> Add Asset
                 </button>
             </div>
 
@@ -78,6 +115,11 @@
                 selectedSector:'',
                 searchText:'',
 
+                selectedBuilding:'',
+                buildings:'',
+                sectors:'',
+                description:''
+
             }
         },
 
@@ -94,11 +136,17 @@
         mounted() {
             console.log("Component mounted.");
             this.fetchData();
+            this.fetchBuildings();
+
         },
         created() {
 
         },
         methods: {
+            createModel: function () {
+                $('.ui.mini.modal').modal('show');
+                console.log("clicked Sheduled");
+            },
             fetchData: function () {
                 this.$http.get('http://localhost:8000/api/assets/fullassetdetails').then(response => {
                     let p = response.body;
@@ -111,40 +159,6 @@
 
             searchAsset: function () {
 
-                // let assArray =new Array();
-                //
-                // this.assets.forEach(function (value) {
-                //     let assetDescription = JSON.parse(JSON.stringify(value));
-                //     let assetObject =
-                //         {
-                //             "category": assetDescription.BuildDesc ,
-                //             "title": assetDescription.description
-                //         };
-                //
-                //     assArray.push(assetObject);
-                // });
-                //
-                // //console.log(assArray);
-                //
-                //
-                // let categoryContent = assArray ;
-                //
-                // let results ;
-                //
-                // $('.ui.search')
-                //     .search(
-                //         {
-                //         type: 'category',
-                //         source: categoryContent,
-                //         fullTextSearch: false,
-                //
-                //         },
-                //         'get result','set value',results
-                //     )
-                // ;
-                //
-                // console.log(results)
-
                 this.$http.get('http://localhost:8000/api/assets/fullassetdetails/'+this.searchText).then(response=>{
                     this.assets = response.body;
                 },response =>{
@@ -152,18 +166,30 @@
                 })
 
             },
+            fetchBuildings:function () {
+                this.$http.get('http://localhost:8000/api/buildings').then(response=>{
+                   this.buildings = response.body;
+                   this.selectedBuilding = this.buildings[0];
+                   this.searchSector(this.selectedBuilding.id);
+                },response =>{
 
+                });
+            },
             searchBuilding:function (buildingid) {
 
             },
-            searchSector:function (sectorid) {
-                this.$http.get('http://localhost:8000/api/sector/'+sectorid).then(response=>{
-                    this.selectedSector = response.body;
+            searchSector:function (buildingid) {
+                this.$http.get('http://localhost:8000/api/building/sector/'+buildingid).then(response=>{
+                    this.sectors = response.body;
                 },response=>{
 
                 });
             },
             searchJobs:function (assetid) {
+
+            },
+
+            AddAsset:function () {
 
             },
         }

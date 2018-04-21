@@ -46,7 +46,8 @@ class AssetController extends Controller
     }
 
     public function getAllAssets(){
-        $assets = Asset::orderBy("id","DESC")->paginate(10);
+//        $assets = Asset::orderBy("id","DESC")->paginate(10);
+        $assets = Asset::all();
         return AssetResource::collection($assets);
     }
 

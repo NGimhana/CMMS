@@ -87,7 +87,8 @@ Route::put('asset/{id}','AssetController@store');
 Route::delete('asset/{id}','AssetController@destroy');
 
 //Get  Buildings
-Route::get('buildings','BuildingController@index');
+Route::get('buildings','BuildingController@getAllBuildings');
+
 
 //Get Single Building
 Route::get('building/{id}','BuildingController@show');
@@ -154,3 +155,6 @@ Route::get('assets/fullassetdetails','AssetController@fullAssetDetails');
 
 //Search Asset By Desc
 Route::get('assets/fullassetdetails/{name}','AssetController@searchByAssetName');
+
+//Serach Sectors by Building Id
+Route::get('building/sector/{buildingid}','BuildingController@sectorsByBuildingId');

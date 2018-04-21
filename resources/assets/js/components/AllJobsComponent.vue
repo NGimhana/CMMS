@@ -60,7 +60,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="job in jobs" :key="job.id"
+                    <tr class="p" v-for="job in jobs" :key="job.id"
                         v-on:click="getSeleselectedJob(job) ">
                         <td>
                             <h2 class="ui center aligned header">{{job.priority}}</h2>
@@ -274,6 +274,12 @@
 
         mounted() {
             console.log("Component mounted.");
+
+            $(".p").on("click", function() {
+                var tr = $(this).parent();
+                console.log(tr.rowIndex);
+
+            });
         },
         created() {
             this.fetchData();
@@ -514,3 +520,23 @@
         }
     };
 </script>
+
+<style scoped>
+    tr.selected td {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .text_data {
+        font-family: Verdana;
+        font-size: 12px;
+
+    }
+    .text_data:hover{
+        cursor: pointer;
+        background-color: #E0E0E0;
+    }
+    .selected_grey {
+        background-color: #E0E0E0;
+    }
+</style>
