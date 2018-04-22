@@ -243,7 +243,7 @@
                 isCompleted: true,
                 isOverdue: '',
 
-                url:'http://localhost:8000/api/scheduledjobs',
+                url:'http://cotence.000webhostapp.com/api/scheduledjobs',
                 current_page :'',
                 last_page: '',
                 next_page_url:'',
@@ -342,22 +342,22 @@
                 this.selectedJob = job;
                 this.checkStatus();
 
-                this.$http.get('http://localhost:8000/api/asset/' + this.selectedJob.asset_id).then(response => {
+                this.$http.get('http://cotence.000webhostapp.com/api/asset/' + this.selectedJob.asset_id).then(response => {
                     this.selectedAsset = response.body;
 
-                    this.$http.get('http://localhost:8000/api/sector/building/' + this.selectedAsset.sector_id).then(response => {
+                    this.$http.get('http://cotence.000webhostapp.com/api/sector/building/' + this.selectedAsset.sector_id).then(response => {
                         this.selectedBuilding = response.body;
 
                         //Create Map
                         this.createmap(this.selectedBuilding.description);
 
-                        this.$http.get('http://localhost:8000/api/sector/' + this.selectedAsset.sector_id).then(response => {
+                        this.$http.get('http://cotence.000webhostapp.com/api/sector/' + this.selectedAsset.sector_id).then(response => {
                             this.selectedSector = response.body;
 
-                            this.$http.get('http://localhost:8000/api/user/' + this.selectedJob.created_user_id).then(response => {
+                            this.$http.get('http://cotence.000webhostapp.com/api/user/' + this.selectedJob.created_user_id).then(response => {
                                 this.createdUser = response.body;
 
-                                this.$http.get('http://localhost:8000/api/user/' + this.selectedJob.Assigned_Person_id).then(response => {
+                                this.$http.get('http://cotence.000webhostapp.com/api/user/' + this.selectedJob.Assigned_Person_id).then(response => {
                                     this.assignedPerson = response.body;
 
                                 }, response => {
@@ -396,8 +396,8 @@
             },
 
             deleteJobTask: function () {
-                this.$http.delete('http://localhost:8000/api/scheduledjob/' + this.selectedJob.id).then(response => {
-                    //this.$router.go("http://localhost:8000/job");
+                this.$http.delete('http://cotence.000webhostapp.com/api/scheduledjob/' + this.selectedJob.id).then(response => {
+                    //this.$router.go("http://cotence.000webhostapp.com/job");
                     location.reload();
                     console.log(response.body);
 
@@ -409,7 +409,7 @@
 
             completeJobTask: function () {
                 this.getToday();
-                this.$http.put('http://localhost:8000/api/scheduledjob/' + this.selectedJob.id,
+                this.$http.put('http://cotence.000webhostapp.com/api/scheduledjob/' + this.selectedJob.id,
                     {
 
                         type: this.selectedJob.type,
@@ -427,7 +427,7 @@
                 ).then(response => {
                     console.log(response.body);
                     location.reload();
-                    //this.$router.go("http://localhost:8000/job");
+                    //this.$router.go("http://cotence.000webhostapp.com/job");
                 }, response => {
 
                 });
