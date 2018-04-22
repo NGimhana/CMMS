@@ -10,14 +10,14 @@
                     <div class="field">
                         <label>Building</label>
                         <select v-model="selectedBuilding">
-                            <option v-on:click="searchSector(building.id)" v-for="building in buildings" v-bind:value="building.id">{{building.description}}</option>
+                            <option v-on:click="searchSector(building.id)" v-for="building in buildings" v-bind:value="building.id">{{building.id}} : {{building.description}}</option>
                         </select>
                     </div>
 
                     <div class="field">
                         <label>Sector</label>
-                        <select v-model="selectedSector">
-                            <option v-for="sector in sectors" v-bind:value="sector.id">{{sector.sectorId}}</option>
+                        <select>
+                            <option v-on:click="setSelectedSector(sector)" v-for="sector in sectors" v-bind:value="sector.id">{{sector.sectorId}} : {{sector.description}}</option>
                         </select>
                     </div>
 
@@ -26,6 +26,10 @@
                         <textarea v-model="description" value="Describe The Asset"></textarea>
                     </div>
 
+                    <div class="field">
+                        <label>Asset Image</label>
+                        <input type="file" v-on:change="onFileChange" class="form-control">
+                    </div>
 
                 </form>
 
@@ -99,6 +103,9 @@
         </div>
 
 
+
+
+
     </div>
 </template>
 
@@ -118,7 +125,9 @@
                 selectedBuilding:'',
                 buildings:'',
                 sectors:'',
-                description:''
+                description:'',
+
+                image:'',
 
             }
         },
@@ -137,6 +146,7 @@
             console.log("Component mounted.");
             this.fetchData();
             this.fetchBuildings();
+
 
         },
         created() {
@@ -157,6 +167,23 @@
                 });
             },
 
+            onFileChange(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createImage(files[0]);
+            },
+            createImage(file) {
+                let reader = new FileReader();
+                let vm = this;
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(file)
+
+                console.log(vm.image);
+            },
+
             searchAsset: function () {
 
                 this.$http.get('http://localhost:8000/api/assets/fullassetdetails/'+this.searchText).then(response=>{
@@ -166,21 +193,26 @@
                 })
 
             },
+            setSelectedSector :function(sector){
+              this.selectedSector = JSON.parse(JSON.stringify(sector)) ;
+              console.log(this.selectedSector);
+            },
+
             fetchBuildings:function () {
                 this.$http.get('http://localhost:8000/api/buildings').then(response=>{
                    this.buildings = response.body;
-                   this.selectedBuilding = this.buildings[0];
-                   this.searchSector(this.selectedBuilding.id);
                 },response =>{
 
                 });
             },
+
             searchBuilding:function (buildingid) {
 
             },
             searchSector:function (buildingid) {
                 this.$http.get('http://localhost:8000/api/building/sector/'+buildingid).then(response=>{
                     this.sectors = response.body;
+                    console.log(this.sectors);
                 },response=>{
 
                 });
@@ -190,7 +222,20 @@
             },
 
             AddAsset:function () {
-
+                console.log(this.selectedSector);
+                console.log(this.selectedBuilding);
+                this.$http.post('http://localhost:8000/api/asset',
+                    {
+                        description: this.description,
+                        sector_id: this.selectedSector.sectorId,
+                        image:this.image,
+                    }
+                ).then(response=>{
+                    console.log(response.body);
+                    location.reload();
+                },response=>{
+                    console.log(response.body);
+                });
             },
         }
 

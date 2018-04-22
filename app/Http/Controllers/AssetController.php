@@ -75,6 +75,7 @@ class AssetController extends Controller
         $asset->id = $request->input('id');
         $asset->description = $request->input('description');
         $asset->sector_id = $request->input('sector_id');
+        $asset->image = $request->file('image');
 
         if($asset->save()){
             return new AssetResource($asset);
