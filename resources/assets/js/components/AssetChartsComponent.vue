@@ -33,7 +33,7 @@
             },
 
             fetchData:function() {
-                this.$http.get('http://localhost:8000/api/assets/maintainedmost').then(response => {
+                this.$http.get('http://cmms.com/api/assets/maintainedmost').then(response => {
                     this.chartData = response.body;
 
                     //Converts JS Object into JSON String => and then converts it(JSON String) into JS Object

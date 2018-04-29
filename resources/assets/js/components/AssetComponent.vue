@@ -158,7 +158,7 @@
                 console.log("clicked Sheduled");
             },
             fetchData: function () {
-                this.$http.get('http://localhost:8000/api/assets/fullassetdetails').then(response => {
+                this.$http.get('http://cmms.com/api/assets/fullassetdetails').then(response => {
                     let p = response.body;
                     this.assets = p;
                     console.log(this.assets);
@@ -186,7 +186,7 @@
 
             searchAsset: function () {
 
-                this.$http.get('http://localhost:8000/api/assets/fullassetdetails/'+this.searchText).then(response=>{
+                this.$http.get('http://cmms.com/api/assets/fullassetdetails/'+this.searchText).then(response=>{
                     this.assets = response.body;
                 },response =>{
                     console.log(response.body);
@@ -199,7 +199,7 @@
             },
 
             fetchBuildings:function () {
-                this.$http.get('http://localhost:8000/api/buildings').then(response=>{
+                this.$http.get('http://cmms.com/api/buildings').then(response=>{
                    this.buildings = response.body;
                 },response =>{
 
@@ -210,7 +210,7 @@
 
             },
             searchSector:function (buildingid) {
-                this.$http.get('http://localhost:8000/api/building/sector/'+buildingid).then(response=>{
+                this.$http.get('http://cmms.com/api/building/sector/'+buildingid).then(response=>{
                     this.sectors = response.body;
                     console.log(this.sectors);
                 },response=>{
@@ -224,7 +224,7 @@
             AddAsset:function () {
                 console.log(this.selectedSector);
                 console.log(this.selectedBuilding);
-                this.$http.post('http://localhost:8000/api/asset',
+                this.$http.post('http://cmms.com/api/asset',
                     {
                         description: this.description,
                         sector_id: this.selectedSector.sectorId,

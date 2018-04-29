@@ -34,7 +34,7 @@ class JobNotificaton extends Notification
     public function via($notifiable)
     {
 //        return ['mail'];
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
@@ -86,26 +86,26 @@ class JobNotificaton extends Notification
         ];
     }
 
-//    /**
-//     * Get the array representation of the notification.
-//     *
-//     * @param  mixed $notifiable
-//     */
-//    public function toBroadcast($notifiable)
-//    {
-//        return new BroadcastMessage([
-//            //DataBase Columns
-//            'id' => $this->job->id,
-//            'type' => $this->job->type,
-//            'asset_id' => $this->job->asset_id,
-//            'priority' => $this->job->priority,
-//            'starteddate' => $this->job->Stated_Date,
-//            'scheduled_end_date' => $this->job->Scheduled_End_Date,
-//            'created_user_id' => $this->job->created_user_id,
-//            'assigned_person' => $this->job->Assigned_Person_id,
-//            'description' => $this->job->description,
-//        ]);
-//    }
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed $notifiable
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            //DataBase Columns
+            'id' => $this->job->id,
+            'type' => $this->job->type,
+            'asset_id' => $this->job->asset_id,
+            'priority' => $this->job->priority,
+            'starteddate' => $this->job->Stated_Date,
+            'scheduled_end_date' => $this->job->Scheduled_End_Date,
+            'created_user_id' => $this->job->created_user_id,
+            'assigned_person' => $this->job->Assigned_Person_id,
+            'description' => $this->job->description,
+        ]);
+    }
 
 
 }
