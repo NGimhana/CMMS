@@ -155,6 +155,14 @@
                     console.log(notification.type);
                 });
         },
+        watch :{
+            a:function(){
+                Echo.private('App.User.' + this.userid)
+                    .notification((notification) => {
+                        console.log(notification.type);
+                    });
+            }
+        },
 
         created() {
 

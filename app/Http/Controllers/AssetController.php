@@ -158,7 +158,7 @@ class AssetController extends Controller
             buildings.description as BuildDesc from sectors
              inner  join buildings ON sectors.building_id = buildings.id)             
              as T 
-             ON assets.sector_id = T.sectorId where assets.description like '$assetDesc' "
+             ON assets.sector_id = T.sectorId where assets.description like '%$assetDesc%' "
             ))));
     }
 }
