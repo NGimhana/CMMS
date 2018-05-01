@@ -164,15 +164,7 @@
                    this.getAllNotifications()
                 }.bind(this), 3000);
             },
-            // listen:function () {
-            //
-            //     setInterval(function () {
-            //         Echo.channel('update')
-            //             .listen('UpdateEvent', (e) => {
-            //                 console.log("Listen Event");
-            //             });
-            //     }.bind((this,5000)));
-            // },
+
             toggleSidebar: function () {
                 $(".ui.sidebar").sidebar("toggle");
             },
@@ -218,13 +210,7 @@
               })
             },
 
-            // logout(){
-            //     this.$http.get('/logout').then(response => {
-            //         return this.$http.get('login');
-            //     }, response => {
-            //         console.log(response.error);
-            //     });
-            // }
+
         }
     };
 </script>
