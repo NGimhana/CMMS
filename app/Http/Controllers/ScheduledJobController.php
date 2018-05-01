@@ -8,6 +8,7 @@ use App\Notifications\ScheduledJobNotification;
 use App\Scheduled_Job;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScheduledJobController extends Controller
 {
@@ -142,4 +143,21 @@ class ScheduledJobController extends Controller
             return new ScheduledJobResource($job);
         }
     }
+
+    public function updateEndedDate(){
+
+        $jobs = Scheduled_Job::all()->whereIn('Ended_Date',date("Y-m-d"));
+
+        foreach ($jobs as $job){
+            $end_date = date("Y-m-d",strtotime("+".$job->frequency . "months"));
+            DB::statement("
+            UPDATE scheduled__jobs
+            SET Ended_Date = '$end_date' 
+            WHERE id = '$job->id' 
+            ");
+        }
+    }
+
+
+
 }

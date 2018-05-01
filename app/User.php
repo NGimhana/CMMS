@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -25,4 +28,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+//    /**
+//     * Get the channels the event should broadcast on.
+//     *
+//     * @return PrivateChannel
+//     */
+//    public function broadcastOn()
+//    {
+//        // TODO: Implement broadcastOn() method.
+//        return new PrivateChannel('App.User.'."1");
+//    }
 }

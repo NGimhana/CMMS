@@ -48,7 +48,7 @@ export default {
 
   methods: {
       fetchData:function(){
-          this.$http.get('http://cotence.000webhostapp.com/api/jobs/completedjobs').then(response =>{
+          this.$http.get('http://localhost:8000/api/jobs/completedjobs').then(response =>{
               this.completedJobs = response.body;
               this.jobCount = this.completedJobs.length;
               console.log(this.jobCount);

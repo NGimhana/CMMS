@@ -150,10 +150,10 @@
             console.log("Main Component mounted.");
             this.fetchData();
             console.log(this.userid);
-            // Echo.private('App.User.' + this.userid)
-            //     .notification((notification) => {
-            //         console.log(notification.type);
-            //     });
+            Echo.private('App.User.' + this.userid)
+                .notification((notification) => {
+                    console.log(notification.type);
+                });
         },
 
         created() {
@@ -186,7 +186,7 @@
 
             },
             markAsRead(id,userid){
-              this.$http.get('http://cotence.000webhostapp.com/api/markasread/notification/'+id+'/'+userid).then(response => {
+              this.$http.get('http://localhost:8000/api/markasread/notification/'+id+'/'+userid).then(response => {
                  console.log("checked");
               },response =>{
                   console.log(response.body);

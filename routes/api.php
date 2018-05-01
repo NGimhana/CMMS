@@ -158,3 +158,6 @@ Route::get('assets/fullassetdetails/{name}','AssetController@searchByAssetName')
 
 //Serach Sectors by Building Id
 Route::get('building/sector/{buildingid}','BuildingController@sectorsByBuildingId');
+
+//Update Scheduled Jobs Ended Date
+Route::get("updateEndedDate",'ScheduledJobController@updateEndedDate');

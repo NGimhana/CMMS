@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -84,5 +85,29 @@ class ScheduledJobNotification extends Notification
             'description' => $this->job->description,
         ];
     }
+
+//    /**
+//     * Get the array representation of the notification.
+//     *
+//     * @param  mixed $notifiable
+//     * @return BroadcastMessage
+//     */
+//    public function toBroadcast($notifiable)
+//    {
+//        return new BroadcastMessage([
+//            //DataBase Columns
+//            'id' => $this->job->id,
+//            'type' => $this->job->type,
+//            'asset_id' => $this->job->asset_id,
+//            'priority' => $this->job->priority,
+//            'Scheduled_Date' => $this->job->Scheduled_Date,
+//            'End_Year' => $this->job->End_Year,
+//            'frequency' => $this->job->frequency,
+//            'Ended_Date' => $this->job->Ended_Date,
+//            'created_user_id' => $this->job->created_user_id,
+//            'assigned_person' => $this->job->Assigned_Person_id,
+//            'description' => $this->job->description,
+//        ]);
+//    }
 
 }
