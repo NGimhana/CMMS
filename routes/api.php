@@ -161,3 +161,6 @@ Route::get('building/sector/{buildingid}','BuildingController@sectorsByBuildingI
 
 //Update Scheduled Jobs Ended Date
 Route::get("updateEndedDate",'ScheduledJobController@updateEndedDate');
+
+//Get All Notifications
+Route::get('getallnotifications/{id}','NotificationController@getAllUnreadNotifications');

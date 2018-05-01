@@ -29,14 +29,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-//    /**
-//     * Get the channels the event should broadcast on.
-//     *
-//     * @return PrivateChannel
-//     */
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return PrivateChannel
+     */
 //    public function broadcastOn()
 //    {
 //        // TODO: Implement broadcastOn() method.
-//        return new PrivateChannel('App.User.'."1");
+//        return new PrivateChannel('App.User');
 //    }
 }

@@ -71,5 +71,10 @@ const app = new Vue({
     data:{
        
     },
+    created(){
+        console.log("Fuck")
+
+    },
+
     //router:router
 });

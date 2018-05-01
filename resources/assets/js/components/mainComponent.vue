@@ -134,6 +134,7 @@
         data() {
             return {
                 unreadNotifications: [],
+                timer:'',
             };
         },
 
@@ -150,25 +151,28 @@
             console.log("Main Component mounted.");
             this.fetchData();
             console.log(this.userid);
-            Echo.private('App.User.' + this.userid)
-                .notification((notification) => {
-                    console.log(notification.type);
-                });
-        },
-        watch :{
-            a:function(){
-                Echo.private('App.User.' + this.userid)
-                    .notification((notification) => {
-                        console.log(notification.type);
-                    });
-            }
+            this.getAllNotifications();
         },
 
-        created() {
 
-        },
+
 
         methods: {
+
+            updateNotification: function(){
+                this.intervalid1 = setInterval(function(){
+                   this.getAllNotifications();
+                }.bind(this), 3000);
+            },
+            // listen:function () {
+            //
+            //     setInterval(function () {
+            //         Echo.channel('update')
+            //             .listen('UpdateEvent', (e) => {
+            //                 console.log("Listen Event");
+            //             });
+            //     }.bind((this,5000)));
+            // },
             toggleSidebar: function () {
                 $(".ui.sidebar").sidebar("toggle");
             },
@@ -189,9 +193,6 @@
                 this.unreadNotifications = unread;
                 //console.log(this.unreadNotifications);
 
-
-
-
             },
             markAsRead(id,userid){
               this.$http.get('http://cmms.com/api/markasread/notification/'+id+'/'+userid).then(response => {
@@ -201,7 +202,23 @@
               });
             },
 
+            getAllNotifications(){
+              this.$http.get('http://cmms.com/api/getallnotifications/' + this.userid).then(response=>{
 
+                  let obj = JSON.parse(JSON.stringify(response.body));
+                  console.log(obj[1]);
+                  let unread = [];
+
+
+
+                  //
+                  // this.unreadNotifications = unread;
+                  // console.log(this.unreadNotifications);
+
+              },response =>{
+
+              })
+            },
 
             // logout(){
             //     this.$http.get('/logout').then(response => {

@@ -21,4 +21,10 @@ class NotificationController extends Controller
             }
         }
     }
+    /*Get All Unread Notifications*/
+    public function getAllUnreadNotifications($userid){
+        $user = app('\App\Http\Controllers\UserController')->show($userid);
+        $notifications = json_decode(json_encode($user->unreadNotifications)) ;
+        var_dump($notifications);
+    }
 }
