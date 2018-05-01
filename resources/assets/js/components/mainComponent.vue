@@ -151,7 +151,7 @@
             console.log("Main Component mounted.");
             this.fetchData();
             console.log(this.userid);
-            this.getAllNotifications();
+            this.updateNotification();
         },
 
 
@@ -161,7 +161,7 @@
 
             updateNotification: function(){
                 this.intervalid1 = setInterval(function(){
-                   this.getAllNotifications();
+                   this.getAllNotifications()
                 }.bind(this), 3000);
             },
             // listen:function () {
@@ -206,14 +206,12 @@
               this.$http.get('http://cmms.com/api/getallnotifications/' + this.userid).then(response=>{
 
                   let obj = JSON.parse(JSON.stringify(response.body));
-                  console.log(obj[1]);
                   let unread = [];
-
-
-
-                  //
-                  // this.unreadNotifications = unread;
-                  // console.log(this.unreadNotifications);
+                  obj.forEach(function(value){
+                     unread.push(JSON.parse(JSON.stringify(value)));
+                  });
+                  this.unreadNotifications = unread;
+                  console.log(this.unreadNotifications);
 
               },response =>{
 
