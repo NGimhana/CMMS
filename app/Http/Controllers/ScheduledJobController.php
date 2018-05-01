@@ -155,6 +155,10 @@ class ScheduledJobController extends Controller
             SET Ended_Date = '$end_date' 
             WHERE id = '$job->id' 
             ");
+
+            $user = User::findOrFail($job->Assigned_Person_id);
+            $user->notify(new ScheduledJobNotification($job));
+
         }
     }
 
