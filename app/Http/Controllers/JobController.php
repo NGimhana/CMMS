@@ -197,4 +197,36 @@ class JobController extends Controller
     }
 
 
+    //Redirects to Specific Job Detail page
+    public function specificJob($id){
+
+        //Header is the title of the Page
+        $header="JobTaskDescription";
+
+        //SubHeader is the Subtitle of the Page
+        $subheader='@JobBoard';
+
+        //loggedUser
+        $this->loggedUser = [
+            //User Name
+            'username' => \auth()->user()->name,
+            'userid' => \auth()->user()->id,
+            'useremail' => \auth()->user()->email,
+            'unreadNotifications' => \auth()->user()->unreadNotifications
+        ];
+
+        $notifications = json_decode($this->loggedUser['unreadNotifications']);
+
+        //Get Job
+        $job = Immediate_Job::findOrFail($id);
+
+        //return single Job as a resource
+        $jobResource = new JobResource($job);
+
+        //Creating a Array of Data to send
+        $data = ['user' => $this->loggedUser, 'header' => $header, 'subheader' => $subheader, 'notifications' => $notifications];
+
+        return view('Pages.specificjob')->with('data',$data);
+    }
+
 }

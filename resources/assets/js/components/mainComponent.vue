@@ -187,7 +187,7 @@
 
             },
             markAsRead(id,userid){
-              this.$http.get('http://cmms.com/api/markasread/notification/'+id+'/'+userid).then(response => {
+              this.$http.get('http://localhost:8000/api/markasread/notification/'+id+'/'+userid).then(response => {
                  console.log("checked");
               },response =>{
                   console.log(response.body);
@@ -195,7 +195,7 @@
             },
 
             getAllNotifications(){
-              this.$http.get('http://cmms.com/api/getallnotifications/' + this.userid).then(response=>{
+              this.$http.get('http://localhost:8000/api/getallnotifications/' + this.userid).then(response=>{
 
                   let obj = JSON.parse(JSON.stringify(response.body));
                   let unread = [];

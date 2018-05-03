@@ -214,7 +214,7 @@
             AddJob: function () {
 
                 //Add Immediate Job Task
-                this.$http.post('http://cmms.com/api/job',
+                this.$http.post('http://localhost:8000/api/job',
                     {
                         type: this.type,
                         asset_id: this.selectedAsset,
@@ -230,7 +230,7 @@
                     let storedImmediateJob = JSON.parse(JSON.stringify(response.body));
 
                     //Add Calendar Event Immediate Job
-                    this.$http.post('http://cmms.com/api/calendar',
+                    this.$http.post('http://localhost:8000/api/calendar',
                         {
                             job_id: storedImmediateJob.id,
                             scheduled_job_id: null,
@@ -242,7 +242,7 @@
                     });
 
 
-                    //this.$router.go("http://cmms.com/job");
+                    //this.$router.go("http://localhost:8000/job");
                     //Page Reloads
                     location.reload();
                 }, response => {
@@ -255,7 +255,7 @@
 
             AddScheduledJob:function () {
                 this.calculateScheduleJobEndDate(this.scheduled_date,this.frequency);
-                this.$http.post('http://cmms.com/api/scheduledjob',
+                this.$http.post('http://localhost:8000/api/scheduledjob',
                     {
                         type: this.type,
                         asset_id: this.selectedAsset,
@@ -287,7 +287,7 @@
             },
 
             getAssets() {
-                this.$http.get('http://cmms.com/api/assets').then(response => {
+                this.$http.get('http://localhost:8000/api/assets').then(response => {
                     this.assets = response.body;
                 }, response => {
 
@@ -295,7 +295,7 @@
             },
 
             getUsers() {
-                this.$http.get('http://cmms.com/api/users').then(response => {
+                this.$http.get('http://localhost:8000/api/users').then(response => {
                     this.persons = response.body;
                 }, response => {
 

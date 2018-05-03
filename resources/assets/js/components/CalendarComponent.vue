@@ -26,7 +26,7 @@ export default {
     methods: {
 
         fetchData: function () {
-            this.$http.get('http://cmms.com/api/alljob').then(response => {
+            this.$http.get('http://localhost:8000/api/alljob').then(response => {
                 let jobs = (response.body);
                 let calenadarEvents = [];
 
