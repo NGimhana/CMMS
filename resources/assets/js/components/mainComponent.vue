@@ -189,6 +189,8 @@
             markAsRead(id,userid){
               this.$http.get('http://localhost:8000/api/markasread/notification/'+id+'/'+userid).then(response => {
                  console.log("checked");
+                 window.location.replace("http://localhost:8000/specificjob/"+response.data['data']['id']);
+
               },response =>{
                   console.log(response.body);
               });

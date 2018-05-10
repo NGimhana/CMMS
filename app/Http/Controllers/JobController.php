@@ -224,7 +224,7 @@ class JobController extends Controller
         $jobResource = new JobResource($job);
 
         //Creating a Array of Data to send
-        $data = ['user' => $this->loggedUser, 'header' => $header, 'subheader' => $subheader, 'notifications' => $notifications];
+        $data = ['job'=>$job ,'user' => $this->loggedUser, 'header' => $header, 'subheader' => $subheader, 'notifications' => $notifications];
 
         return view('Pages.specificjob')->with('data',$data);
     }

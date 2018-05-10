@@ -15,12 +15,9 @@ class NotificationController extends Controller
 
         foreach ($user->unreadNotifications as $notification) {
             if($notification->id == $id){
-                $job = json_decode(json_encode($notification->data));
                 $notification->markAsRead();
-                app('\App\Http\Controllers\JobController')->specificJob($job->id);
+                return $notification;
                 break;
-
-
             }else{
                 echo "Error";
             }
