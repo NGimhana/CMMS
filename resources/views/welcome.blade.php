@@ -269,9 +269,9 @@
             </div>
             @endif
         </nav>
-                    <span class="border">
-                        Image Two Text
-                    </span>
+        <span class="border">
+            WHO NEED THIS
+        </span>
     </div>
 </div>
 
@@ -299,17 +299,17 @@
             @endif
         </nav>
 
-                    <span class="border">
+        <span class="border">
                         Image Three Text
                     </span>
     </div>
 </div>
 
 <section class="section section-dark">
-    <h2>Section Two</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto deserunt, dolorem ducimus esse et eum
-        expedita fuga libero natus necessitatibus nobis officiis saepe sapiente suscipit veritatis voluptate. Dolorum,
-        quaerat!</p>
+    <h2>COTENCE</h2>
+    <h3>Computerised Maintenance Management System</h3>
+    <p>Contact Us <span><a href="ngimhana94@gmail.com">ngimhana94@gmail.com</a></span></p>
+    <p>Copyright @2018 </p>
 </section>
 
 </body>
