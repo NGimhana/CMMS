@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
     <title>Computerised Maintenance Management System</title>
 
     <!-- Fonts -->
@@ -228,10 +229,29 @@
 
 
 <section class="section section-light">
-    <h2>Section One</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto deserunt, dolorem ducimus esse et eum
-        expedita fuga libero natus necessitatibus nobis officiis saepe sapiente suscipit veritatis voluptate. Dolorum,
-        quaerat!</p>
+    <div class="ui grid">
+        <div class="four wide column">
+            <h2>Analyze</h2>
+            <img src="/storage/Home_Page_Cover/computer.png">
+            <p>Get anOverview of Maintenance Tasks of Your Organization at a Moment.</p>
+        </div>
+        <div class="four wide column">
+            <h2>Schedule</h2>
+            <img src="/storage/Home_Page_Cover/clock.png">
+            <p>Need to Maintain Asset Automatically ? Yes Schedule here , and We will take care it for You</p>
+        </div>
+        <div class="four wide column">
+            <h2>Job Profile</h2>
+            <img src="/storage/Home_Page_Cover/tools.png">
+            <p>Find All the details of Job Tasks.Location,Asset,Assignee,Status and More on...</p>
+        </div>
+        <div class="four wide column">
+            <h2>Notifications</h2>
+            <img src="/storage/Home_Page_Cover/mail-box.png">
+            <p>Notify Responsible Persons Real Time.</p>
+        </div>
+    </div>
+
 </section>
 
 <div class="pimg2">
@@ -257,6 +277,7 @@
 
 <section class="section section-light">
     <h2>Section Thtre</h2>
+
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto deserunt, dolorem ducimus esse et eum
         expedita fuga libero natus necessitatibus nobis officiis saepe sapiente suscipit veritatis voluptate. Dolorum,
         quaerat!</p>
