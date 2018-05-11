@@ -36,7 +36,7 @@
                 <table id="table" class="ui celled selectable padded table">
                     <thead>
                     <tr>
-                        <th class="single line">Priority</th>
+                        <!--<th class="single line">Priority</th>-->
                         <!--<th>Job ID</th>-->
                         <th>Job Type</th>
                         <!--<th>Asset ID</th>-->
@@ -52,9 +52,9 @@
                     <tbody>
                     <tr v-for="job in jobs" :key="job.id"
                         v-on:click="getSeleselectedJob(job) ">
-                        <td>
-                            <h2 class="ui center aligned header">{{job.priority}}</h2>
-                        </td>
+                        <!--<td>-->
+                            <!--<h2 class="ui center aligned header">{{job.priority}}</h2>-->
+                        <!--</td>-->
                         <!--<td class="single line">-->
                         <!--{{job.id}}-->
                         <!--</td>-->

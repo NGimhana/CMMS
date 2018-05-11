@@ -14,7 +14,12 @@
     </main-component>
 
 
-    <p>{{$data['job']['priority']}}</p>
+    <div style="padding:20px;">
+        <immediatejobdetail-component jobDetails = "{{$data['job']}}"></immediatejobdetail-component>
+
+    </div>
+
+
 
 </div>
 
