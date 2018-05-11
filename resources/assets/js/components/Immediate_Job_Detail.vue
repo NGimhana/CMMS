@@ -39,7 +39,36 @@
 
 <script>
     export default {
-        name: "immediate_-job_-detail"
+        name: "immediate_-job_-detail",
+        props: {
+            jobDetails: {
+                default: '',
+                type: String,
+            },
+        },
+
+        data() {
+            return {
+                unreadNotifications: [],
+            };
+        },
+
+        components: {},
+
+        computed: {
+            divHeaderStyle: function () {
+                return {
+                    padding: "20px"
+                };
+            }
+        },
+        mounted() {
+            console.log("Immediate Job mounted.");
+            console.log(this.jobDetails);
+        },
+
+
+        methods: {}
     }
 </script>
 
