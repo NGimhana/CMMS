@@ -15,7 +15,7 @@
 
 
     <div style="padding:20px;">
-        <immediatejobdetail-component jobDetails = "{{$data['job']}}"></immediatejobdetail-component>
+        <immediatejobdetail-component jobdetails = "{{ json_encode($data['job']) }}"></immediatejobdetail-component>
 
     </div>
 
