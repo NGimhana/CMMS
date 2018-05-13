@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 700px; height: 300px;">
+    <div style="width: 100%; height: 50%;">
         <div id="calendar"></div>
     </div>
 </template>
@@ -63,6 +63,17 @@ export default {
                     eventLimit: true, // allow "more" link when too many events
                     events: calenadarEvents,
 
+                    eventClick: function(calEvent, jsEvent, view) {
+
+                        if (confirm("Event: "  + calEvent.title + "Confirm Go to Event")) {
+                            window.location.replace("http://localhost:8000/specificjob/"+calEvent.title.split(":")[0]);
+                        } else {
+
+                        }
+                        // change the border color just for fun
+                        $(this).css('background-color', 'red');
+
+                    }
                 });
 
                 console.log(calenadarEvents);
