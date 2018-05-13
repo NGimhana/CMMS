@@ -17,6 +17,22 @@
             <div class="content">
 
                 <form class="ui form">
+
+
+                    <div class="field" v-if="errors.length">
+                        <div class="ui visible error message" >
+                            <i class="close icon"></i>
+                            <div class="header">
+                                There were some errors with your submission
+                            </div>
+                            <ul class="list">
+                                <li v-for="error in errors">{{ error }}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
                     <div class="field">
                         <label>Type</label>
                         <input name="type" v-model="type" placeholder="Type" type="text">
@@ -31,7 +47,7 @@
                     </div>
                     <div class="field">
                         <label>Description</label>
-                        <textarea v-model="description" value="Describe The Issue"></textarea>
+                        <textarea name="des" v-model="description" value="Describe The Issue"></textarea>
                     </div>
                     <div class="field">
                         <label>Job Started Date</label>
@@ -173,6 +189,7 @@
                 mm: '',
                 yyyy: '',
 
+                errors:[],
 
                 assets: '',
                 selectedAsset: '',
@@ -213,6 +230,7 @@
             },
             AddJob: function () {
 
+                this.checkForm()
                 //Add Immediate Job Task
                 this.$http.post('http://localhost:8000/api/job',
                     {
@@ -300,6 +318,17 @@
                 }, response => {
 
                 });
+            },
+
+            checkForm:function() {
+                this.errors = [];
+                if(!this.description) this.errors.push("Description required.");
+                if(!this.type) this.errors.push("Type required.");
+                if(!this.selectedAsset) this.errors.push("Asset required.");
+                if(!this.scheduled_end_date) this.errors.push("Scheduled End Date Required");
+                if(!this.assignedPerson) this.errors.push("Assigned Required");
+                if(!this.starteddate) this.errors.push("Started Date Required");
+                if(!this.errors.length) return true;
             },
 
         }
