@@ -38,7 +38,7 @@ _Note_ : Use [Composer Fresh Install](https://getcomposer.org/) if composer pack
 
 - Then go to cloned project folder and open terminal there and execute __*php artisan migrate*__ to migrate DB relations in the created database.
  
-- Execute this command to add Laravel encrption key__*php artisan key:generate*__
+- Execute this command to add Laravel encrption key __*php artisan key:generate*__
 
  Now the System is Well Configured in the Computer. Have Problems ? Free to Contact Developers.
  
