@@ -116,17 +116,17 @@
         }
 
         .pimg1 {
-            background-image: url("/storage/cover_Images/arrangement-coffee-cup-407233.jpg");
+            background-image: url("images/cover_Images/main.jpg");
             min-height: 100%;
         }
 
         .pimg2 {
-            background-image: url("/storage/cover_Images/architecture-buildings-business-941053.jpg");
+            background-image: url("images/cover_Images/abc.jpg");
             min-height: 400px;
         }
 
         .pimg3 {
-            background-image: url("/storage/cover_Images/architecture-buildings-business-941053.jpg ");
+            background-image: url("images/cover_Images/cde.jpg ");
             min-height: 400px;
         }
 
@@ -300,7 +300,7 @@
         </nav>
 
         <span class="border">
-                        Image Three Text
+                        CONTACT ME
                     </span>
     </div>
 </div>
