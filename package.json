@@ -30,5 +30,8 @@
     "vue-resource": "^1.4.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.8"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
